@@ -4,8 +4,8 @@
   display: flex;
   flex-direction: column;
   background-color: #240046;
-  max-height: 500px;
-  max-width: 350px;
+  height: 500px;
+  width: 350px;
   overflow: hidden;
   border-radius: 12px;
   box-shadow: 7px 7px 10px 3px #24004628;
