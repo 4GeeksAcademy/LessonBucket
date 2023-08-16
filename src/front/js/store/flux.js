@@ -1,7 +1,12 @@
+import axios from "axios"
+
+
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			message: null,
+			user: {},
+
 			demo: [
 				{
 					title: "FIRST",
@@ -16,6 +21,71 @@ const getState = ({ getStore, getActions, setStore }) => {
 			]
 		},
 		actions: {
+
+			// FUNCION PARA CREAR USUARIO
+
+			signup: async (dataName, dataEmail, dataPassword, dataBirthDate, dataAddress) => {
+				try {
+						// const checkEmail = await axios.get(process.env.BACKEND_URL + "api/user",{
+						// 	console.log(checkEmail)
+						// }
+						
+					 	await axios.post(process.env.BACKEND_URL + "/api/user", {
+						name: dataName,
+						email: dataEmail,
+						password: dataPassword,
+						birthDate: dataBirthDate,
+						address: dataAddress
+					});
+			
+					setStore({
+						user: {
+							name: dataName,
+							email: dataEmail,
+							password: dataPassword,
+							birthDate: dataBirthDate,
+							address: dataAddress
+						},
+					});
+			
+					return true;
+				} catch (error) {
+					console.error("An error occurred during user creation", error);
+					return false; 
+				}
+			},
+
+
+			// FUNCION PARA LOGIN
+
+			login: async (dataEmail, dataPassword) => {
+				try {
+					
+					const response = await axios.post(process.env.BACKEND_URL + "/api/login", {
+						email: dataEmail,
+						password: dataPassword
+					});
+
+					const data = response.data;
+
+					
+					localStorage.setItem("token", data.access_token);
+					setStore({
+
+						user: {
+							token: data.access_token
+						},
+					});
+
+
+					return true; 
+				} catch (error) {
+					console.error("An error occurred during user creation", error);
+					return false; 
+				}
+			},
+
+
 			// Use getActions to call a function within a fuction
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
