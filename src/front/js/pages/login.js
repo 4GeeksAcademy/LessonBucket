@@ -1,7 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
 import "../../styles/login.css";
 
 
@@ -13,69 +12,11 @@ export const Login = () => {
     const [password, setPassword] = useState("")
     const [birthDate, setBirthDate] = useState("")
     const [address, setAddress] = useState("")
+    const [showRegisterForm, setShowRegisterForm] = useState(true);
+    
+
     let navigate = useNavigate();
 
-
-
-    // ALERTAS PARA EL USUARIO
-
-    // Aletar para campos vacios
-    const invalidEntry = () => {
-        toast.warn('Please, fields are required', {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-        });
-    }
-    // Alerta genérica creación de usuario
-
-    const errorSignup = () => {
-        toast.error('An error has occurred, please try again.', {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-        });
-    }
-
-    // Aletar creación de usuario exitosa
-
-    const successSignup = () => {
-        toast.success('successfully created user', {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-        });
-    }
-
-    // Aletar para login incorrecto
-
-    const invalidLogin = () => {
-        toast.warn('Incorrect email or password, please try again.', {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-        });
-    }
 
     //   FUNCION RESETEO INPUT
 
@@ -87,8 +28,7 @@ export const Login = () => {
     // FUNCIÓN BOTON REGISTRO
 
     const handleRegister = async (e) => {
-        e.preventDefault();
-    
+        
         if (!name || !email || !password || !birthDate || !address) {
             invalidEntry();
             alert("Please, fields are required");
@@ -104,14 +44,18 @@ export const Login = () => {
         let response = await actions.signup(name, email, password, birthDate, address);
     
         if (response) { 
-            successSignup();
+            alert("successfully created user.");
+            const chk = document.getElementById("chk");
+            if (chk) {
+            chk.checked = false; 
+        }
             setName("");
             setEmail("");
             setPassword("");
             setBirthDate("");
             setAddress("");
         } else {
-            errorSignup();
+            alert("An error has occurred, please try again.")
         }
     };
     
@@ -121,7 +65,6 @@ export const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault()
         if (!email || !password) {
-            invalidEntry();
             alert("Please, fields are required")
             return;
         }
@@ -132,26 +75,13 @@ export const Login = () => {
                 setPassword("");
 
             } else {
-                invalidLogin()
+                alert("'Incorrect email or password, please try again.'")
             }
         }
     
 
-
     return (
         <div className="main">
-            <ToastContainer
-                position="top-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="colored"
-            />
             <input type="checkbox" id="chk" aria-hidden="true" />
             <div className="login">
                 <form className="form">
