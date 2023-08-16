@@ -1,0 +1,23 @@
+
+
+.navtop{
+
+    font-family:"Poppins", sans-serif;
+    background-color: #17171F;
+    height: 3rem;   
+}
+
+.navbar-brand{
+    color:#A3A3FF
+}
+
+
+a{
+    text-decoration: none;
+    color:white;
+
+    &:hover{
+        color: #A3A3FF;
+        
+    }
+}
