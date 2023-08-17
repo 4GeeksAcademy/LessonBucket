@@ -19,8 +19,11 @@ export const Login = () => {
     //   FUNCION RESETEO INPUT
 
     const handleRegisterFormClick = () => {
+        setName("");
         setEmail("");
         setPassword("");
+        setBirthDate("");
+        setAddress("");
     };
 
     // FUNCIÓN BOTON REGISTRO
