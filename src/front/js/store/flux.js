@@ -5,6 +5,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			message: null,
+			
+			// ALMACEN DE USUARIOS Y TOKEN
 			user: {},
 
 			demo: [
@@ -48,14 +50,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					console.log(response.data)
 					return true;
+
 				} catch (error) {
 					console.error("An error occurred during user creation", error);
 					return false; 
 				}
 			},
 
-
-			
 
 			// FUNCION PARA LOGIN
 
@@ -66,10 +67,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 						email: dataEmail,
 						password: dataPassword
 					});
-
 					const data = response.data;
-
-
+					
 					localStorage.setItem("token", data.access_token);
 					setStore({
 
@@ -79,6 +78,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 
 					return true;
+
 				} catch (error) {
 					console.error("An error occurred during user creation", error);
 					return false;

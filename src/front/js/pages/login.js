@@ -1,7 +1,8 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState,} from "react";
 import { Context } from "../store/appContext";
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom'; pendiente de crear vista privada para redirigir.
 import "../../styles/login.css";
+import swal from 'sweetalert'
 
 
 export const Login = () => {
@@ -12,10 +13,7 @@ export const Login = () => {
     const [password, setPassword] = useState("")
     const [birthDate, setBirthDate] = useState("")
     const [address, setAddress] = useState("")
-    const [showRegisterForm, setShowRegisterForm] = useState(true);
-    
-
-    let navigate = useNavigate();
+    // const navigate = useNavigate(); pendiente de crear vista privada para redirigir.
 
 
     //   FUNCION RESETEO INPUT
@@ -28,23 +26,35 @@ export const Login = () => {
     // FUNCIÓN BOTON REGISTRO
 
     const handleRegister = async (e) => {
-        
+        e.preventDefault()
         if (!name || !email || !password || !birthDate || !address) {
             invalidEntry();
-            alert("Please, fields are required");
+            swal("Please", "Fields cannot be empty", "warning", {
+                button: "Try Again",
+                timer: 4000,});
             return;
         } else if (!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(email)) {
-            alert("Please enter a valid email address, mail can only contain letters numbers periods hyphens and the underscore");
+            swal("Please", "enter a valid email address, mail can only contain letters numbers periods hyphens and the underscore", "error", {
+                button: "Try Again",
+                timer: 4000,});
             return;
         } else if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.{4,8})/.test(password)) {
-            alert("Password must be 4 to 8 characters long and contain at least one digit, one lowercase letter, and one uppercase letter.");
+            swal("Please", "Password must be 4 to 8 characters long and contain at least one digit, one lowercase letter, and one uppercase letter.", "error", {
+                button: "Try Again",
+                timer: 4000,});
             return;
         }
     
         let response = await actions.signup(name, email, password, birthDate, address);
     
+        // Condicional para ocultar menú register una vez realizado.
+
         if (response) { 
-            alert("successfully created user.");
+            swal("Good job!", "successfully created user.", "success", {
+                button: "OK",
+                timer: 4000,
+              });
+            
             const chk = document.getElementById("chk");
             if (chk) {
             chk.checked = false; 
@@ -55,7 +65,10 @@ export const Login = () => {
             setBirthDate("");
             setAddress("");
         } else {
-            alert("An error has occurred, please try again.")
+            swal("Sorry", "An unexpected error has occurred", "error", {
+                button: "Try Again",
+                timer: 4000,
+              });
         }
     };
     
@@ -65,17 +78,21 @@ export const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault()
         if (!email || !password) {
-            alert("Please, fields are required")
+            swal("Please", "Fields cannot be empty", "warning", {
+            button: "Try Again",
+            timer: 4000,});
             return;
         }
         let response = await actions.login(email, password);
             if (response) {
-                //     navigate("/");
+                //     navigate("/"); pendiente de crear vista privada para redirigir.
                 setEmail("");
                 setPassword("");
 
             } else {
-                alert("'Incorrect email or password, please try again.'")
+                swal("Please", "Incorrect email or password", "warning", {
+                    button: "Try Again",
+                    timer: 4000,});
             }
         }
     
