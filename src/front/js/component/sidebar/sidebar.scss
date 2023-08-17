@@ -2,11 +2,23 @@
     width: fit-content; 
     height: fit-content;
     z-index: 999;
-    background-color: #A3A3FF;
+    background-color: #2c2c31;
     border-top-right-radius:20px;
     border-bottom-right-radius:20px;
     
     color: #fff;
-    transition: all 0.3s;
+    transition: all 0.6s;
 }
+
+.dashboard, .students, .subjects, .profile, .settings, .documents, .arrow-left, .arrow-right {
+
+    font-size:large;
+    cursor:pointer;
+    &:hover{
+        color:#A3A3FF;
+        
+    }
+}
+
+
 

@@ -1,59 +1,117 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 
 
 export const Sidebar = () => {
-    return (
+
+    const [showSidebar, setShowSidebar] = useState("spread")
+    console.log(showSidebar)
+
+   const  handleToggleSideBar = () => {
+
+        if (showSidebar === "spread") {setShowSidebar("shrink")}
+        else {setShowSidebar("spread")}
+    }
 
 
-        <nav className="sidebar mt-5 align-items-center p-3 ">
-        <div className="sidebar-header">
-            <h3>Bootstrap</h3>
-        </div>
 
-        <ul className="list-unstyled components">
-            <p>Dummy Heading</p>
-            <li className="active">
-                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">Home</a>
-                <ul className="collapse list-unstyled" id="homeSubmenu">
-                    <li>
-                        <a href="#">Home 1</a>
-                    </li>
-                    <li>
-                        <a href="#">Home 2</a>
-                    </li>
-                    <li>
-                        <a href="#">Home 3</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="#">About</a>
-            </li>
-            <li>
-                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">Pages</a>
-                <ul className="collapse list-unstyled" id="pageSubmenu">
-                    <li>
-                        <a href="#">Page 1</a>
-                    </li>
-                    <li>
-                        <a href="#">Page 2</a>
-                    </li>
-                    <li>
-                        <a href="#">Page 3</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="#">Portfolio</a>
-            </li>
-            <li>
-                <a href="#">Contact</a>
-            </li>
-        </ul>
 
-    </nav>
+    if (showSidebar === "spread") {
+        
+        return (
+        <>
+            
+                < nav className="sidebar mt-5 align-items-center my-auto py-4 pe-5 ps-3 ">
+
+            <ul className="list-unstyled components mb-0 pb-0">
+                <li>
+                    <i className=" arrow-left fa-solid fa-arrow-left ms-3 me-3  mb-3 d-flex justify-content-end" onClick={handleToggleSideBar}></i>
+                    
+                </li>
+                <li className="pt-0 dashboard">
+                <i className="fa-solid fa-table-cells-large m-3 "></i>
+                <a className="">Dashboard</a>
+
+                </li>
+                <li className="students">
+                    <i className="fa-solid fa-graduation-cap m-3"></i>
+                    <a className="">Students</a>
+                </li>
+                <li className="subjects">
+                    <i className="fa-solid fa-book m-3"></i>
+                    <a className="">Subjects</a>
+
+                </li>
+                <li className="profile">
+                    <i className="fa-solid fa-user m-3"></i>
+                    <a className="">Profile</a>
+                </li>
+                <li className="settings">
+                   <i className="fa-solid fa-gear m-3 "></i>
+                   <a className="">Settings</a>
+                </li>
+                <li className="documents">
+                    <i class="fa-regular fa-folder-open m-3"></i>
+                    <a className="">Documents</a>
+                </li>
+            </ul>
+
+        </nav >
+
+        
+    </>
+
+    );}
+
+    else {
+        return (
+        <>
+            
+                < nav className="sidebar mt-5 align-items-center my-auto py-4 pe-2 ps-3 ">
+
+            <ul className="list-unstyled components mb-0 pb-0">
+                <li>
+                <i className="arrow-right fa-solid fa-arrow-right ms-3 me-3  mb-3" onClick={handleToggleSideBar}></i>
+                    
+                </li>
+                <li className="pt-0 dashboard">
+                <i className="fa-solid fa-table-cells-large m-3 "></i>
+                
+
+                </li>
+                <li className="students">
+                    <i className="fa-solid fa-graduation-cap m-3"></i>
+                    
+                </li>
+                <li className="subjects">
+                    <i className="fa-solid fa-book m-3"></i>
+                    
+
+                </li>
+                <li className="profile">
+                    <i className="fa-solid fa-user m-3"></i>
+                    
+                </li>
+                <li className="settings">
+                   <i className="fa-solid fa-gear m-3 "></i>
+                   
+                </li>
+                <li className="documents">
+                    <i class="fa-regular fa-folder-open m-3"></i>
+                  
+                </li>
+            </ul>
+
+        </nav >
+
+        
+    </>
 
     );
+    }
+
+    
+
+    
 };
