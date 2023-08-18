@@ -1,0 +1,18 @@
+.separator {
+    top: 78px;
+    left: 244px;
+    width: 1676px;
+    height: 60px;
+    background: transparent linear-gradient(270deg, #D19BFF 0%, #801380 100%) 0% 0% no-repeat padding-box;
+    border: 1px;
+    opacity: 1;
+    /* UI Properties */
+    text-align: left;
+    font: normal normal 100 18px/22px Helvetica Neue;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    opacity: 1;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+}
