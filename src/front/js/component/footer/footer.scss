@@ -1,0 +1,29 @@
+.footer-p{
+    color: #5b6065;
+    font-size:small;
+    &:hover{ 
+        color:#A3A3FF;
+        cursor: pointer;
+
+    }
+}
+
+.underline{
+    width: 40px;
+    height:2px;
+    background-color:#A3A3FF ;
+    border-radius: 20px;
+    /* position: relative; */
+   /*left: -11px; */
+}
+
+.fa-brands{
+    color: #5b6065;
+    font-size:medium;
+    &:hover{ 
+        color:#A3A3FF;
+        cursor: pointer;
+
+    }
+
+}
