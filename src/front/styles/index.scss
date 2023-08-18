@@ -1,0 +1,15 @@
+@import "/src/front/js/component/navbar/navbar.scss";
+@import "/src/front/js/component/footer/footer.scss";
+@import "/src/front/js/component/sidebar/sidebar.scss";
+
+
+
+body{
+    background-color: #17171f ;
+}
+
+.wrapper{
+    display: flex;
+    width: 100%;
+}
+
