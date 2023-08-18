@@ -30,7 +30,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				
 				try {
 
-					 	const response = await axios.post(process.env.BACKEND_URL + "/api/user", {
+					 	const response = await axios.post(process.env.BACKEND_URL + "/api/signup", {
 						name: dataName,
 						email: dataEmail,
 						password: dataPassword,
