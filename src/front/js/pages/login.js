@@ -31,7 +31,6 @@ export const Login = () => {
     const handleRegister = async (e) => {
         e.preventDefault()
         if (!name || !email || !password || !birthDate || !address) {
-            invalidEntry();
             swal("Please", "Fields cannot be empty", "warning", {
                 button: "Try Again",
                 timer: 4000,});
