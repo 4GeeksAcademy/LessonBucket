@@ -24,6 +24,7 @@ api = Blueprint('api', __name__)
 # ENDPOINT GET A USER
 
 @api.route('/user/<int:user_id>', methods=['GET'])
+@jwt_required
 def get_one_user_info(user_id):
 
     try:
@@ -170,7 +171,13 @@ def login():
         return jsonify("Credenciales incorrectas"), 401
 
     access_token = create_access_token(identity=email)
-    return jsonify(access_token=access_token), 200
+
+    response_body = {
+        "msg": "logged",
+        "user": user.serialize(),
+        "token": access_token
+    }
+    return jsonify(response_body), 200
 
 
 # ENDPOINT GET ALL SUBJECTS 

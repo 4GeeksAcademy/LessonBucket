@@ -38,13 +38,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 						address: dataAddress
 					});
 
+					const data = response.data;
+
 					setStore({
 						user: {
 							"name": dataName,
 							"email": dataEmail,
 							"password": dataPassword,
 							"birth_date": dataBirthDate,
-							"address": dataAddress
+							"address": dataAddress,
+							"id": data.user.id
 						},
 					});
 
@@ -67,15 +70,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 						email: dataEmail,
 						password: dataPassword
 					});
+
 					const data = response.data;
 					
-					localStorage.setItem("token", data.access_token);
+					localStorage.setItem("token", data.token);
 					setStore({
 
 						user: {
-							"token": data.access_token
+							"user": data.user,
+							"token": data.token
 						},
 					});
+					console.log(data)
 
 					return true;
 
