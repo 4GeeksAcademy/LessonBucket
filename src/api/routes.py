@@ -83,7 +83,7 @@ def modify_user(user_id):
     user = User.query.get(user_id)
 
     if not user:
-        raise APIException('Usuario no encontrado', 404)
+        raise APIException('User no found', 404)
 
     required_fields = ["name", "email", "password", "birth_date", "address"]
     for field in required_fields:
@@ -577,9 +577,12 @@ def protected():
     current_user = get_jwt_identity()
     user = User.query.filter_by(email=current_user).first()
 
+    if not user:
+        return jsonify(success=False, message='User not found'), 404
+
     response_body = {
         "logged_in_as": current_user,
         "user": user.serialize()
     }
 
-    return jsonify(logged_in_as=response_body), 200
+    return jsonify(success=True, response=response_body), 200
