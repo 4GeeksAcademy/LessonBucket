@@ -20,9 +20,17 @@ export const Login = () => {
     const navigate = useNavigate();
 
 
-    // useEffect(()=>{
-    //     console.log(store.user)
-    // },[store.user])
+    // SI EL USUARIO TIENE TOKEN SE REDIRIGE AUTOMATICAMENTE A DASHBOARD
+
+    useEffect(()=>{
+        if (store.logged == true) {
+            setLoader(true)
+            setTimeout(() => {
+                setLoader(false);
+                navigate("/dashboard")
+            }, 2000);
+        }
+    },[store.logged])
 
 
 
@@ -118,7 +126,6 @@ export const Login = () => {
         }
     }
 
-    console.log(loader)
 
     return (
         <div className="login-main">
