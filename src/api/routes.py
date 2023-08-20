@@ -113,6 +113,7 @@ def modify_user(user_id):
 
 
 @api.route('/users', methods=['GET'])
+@jwt_required()
 def get_all_users():
 
     users_query = User.query.all()
