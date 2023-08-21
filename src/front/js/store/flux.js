@@ -5,9 +5,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			message: null,
-			
+
 			// ALMACEN DE USUARIOS Y TOKEN
 			user: {},
+			// ESTADO DE DE LOGADO PARA GESTIÓN TOKEN
+			logged: false,
 
 			demo: [
 				{
@@ -27,10 +29,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// FUNCION PARA CREAR USUARIO
 
 			signup: async (dataName, dataEmail, dataPassword, dataBirthDate, dataAddress) => {
-				
+
 				try {
 
-					 	const response = await axios.post(process.env.BACKEND_URL + "/api/user", {
+					const response = await axios.post(process.env.BACKEND_URL + "/api/signup", {
 						name: dataName,
 						email: dataEmail,
 						password: dataPassword,
@@ -38,13 +40,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 						address: dataAddress
 					});
 
+					const data = response.data;
+
 					setStore({
 						user: {
 							"name": dataName,
 							"email": dataEmail,
 							"password": dataPassword,
 							"birth_date": dataBirthDate,
-							"address": dataAddress
+							"address": dataAddress,
+							"id": data.user.id
 						},
 					});
 
@@ -53,7 +58,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				} catch (error) {
 					console.error("An error occurred during user creation", error);
-					return false; 
+					return false;
 				}
 			},
 
@@ -67,16 +72,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 						email: dataEmail,
 						password: dataPassword
 					});
+
 					const data = response.data;
-					
-					localStorage.setItem("token", data.access_token);
+
+					sessionStorage.setItem("token", data.token);
 					setStore({
 
 						user: {
-							"token": data.access_token
+							"user": data.user,
+							"token": data.token
 						},
 					});
-
+			
 					return true;
 
 				} catch (error) {
@@ -84,6 +91,35 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			},
+
+			// FUNCIÓN PARA VALIDAR TOKEN CUANDO SE CARGA LA PÁGINA Y VERIFICAR SI ESTA LOGADO O NO
+
+			verifyAuthToken: async () => {
+				const token = sessionStorage.getItem("token");
+				try {
+					let response = await axios.get(process.env.BACKEND_URL + "/api/protected", {
+						headers: {
+							"Authorization": `Bearer ${token}`,
+						}
+					});
+
+					const data = response.data;
+					
+					setStore({
+						user: { ...data.user, token: token },
+						logged: true
+					});
+
+					return true;
+				} catch (error) {
+					console.log(error);
+					sessionStorage.removeItem("token");
+					setStore({ logged: false });
+					return false;
+				}
+			},
+
+
 
 
 			// Use getActions to call a function within a fuction

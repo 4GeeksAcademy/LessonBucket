@@ -40,6 +40,7 @@ class Subjects(db.Model):
     def serialize(self):
         return {
             "id": self.id,
+            "Subject":  self.Subject,
         
         }
 

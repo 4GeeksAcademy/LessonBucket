@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 export const Sidebar = () => {
 
     const [showSidebar, setShowSidebar] = useState("spread")
-    console.log(showSidebar)
+    // console.log(showSidebar)
 
    const  handleToggleSideBar = () => {
 
