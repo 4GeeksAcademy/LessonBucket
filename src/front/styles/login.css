@@ -84,7 +84,7 @@ label {
 }
 
 /* Estilos de botón */
-.form button {
+.login-button {
   width: 85%;
   height: 40px;
   margin: 12px auto 10%;
@@ -98,7 +98,26 @@ label {
   transition: .2s ease-in;
 }
 
-.form button:hover {
+.login-button:hover {
   background-color: #6d44b8;
+  transform: translateY(-2px);
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
 }
 
+/* ESTILOS PARA LINK */
+
+.link-recoverPass {
+  color: rgb(89, 16, 157);
+  font-weight: 400;
+  margin: 0 auto;
+  margin-bottom: -10px;
+  margin-top: -20px;
+  transition: color 0.3s;
+  transition: background-position 0.3s, transform 0.3s;
+  cursor: pointer;
+}
+
+.link-recoverPass:hover {
+  color: rgb(87, 9, 87); 
+  transform: scale(1.1); 
+}

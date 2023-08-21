@@ -1,11 +1,10 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
 import { useNavigate } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import "../../styles/login.css";
 import swal from 'sweetalert'
 import { Loader } from "../component/loader/loader";
-import "../component/loader/loader";
-
 
 
 export const Login = () => {
@@ -22,18 +21,29 @@ export const Login = () => {
 
     // SI EL USUARIO TIENE TOKEN SE REDIRIGE AUTOMATICAMENTE A DASHBOARD
 
-    useEffect(()=>{
+    useEffect(() => {
         if (store.logged == true) {
             setLoader(true)
             setTimeout(() => {
                 setLoader(false);
                 navigate("/dashboard")
-            },1000);
+            }, 1000);
         }
-    },[store.logged])
+    }, [store.logged])
+
 
     // PENDIENTE DE REVISAR QUE SI TIENES TOKEN NO TE CARGUE EL LOGIN
 
+
+    // FUNCIÓN PARA TRANSICIÓN A VISTA RECUPERAR CONTRASEÑA
+
+    const handleRecoverPassNavigate = () => {
+        setLoader(true)
+        setTimeout(() => {
+            setLoader(false);
+            navigate("/recoverPass")
+        }, 1000);
+    }
 
 
     //   FUNCION RESETEO INPUT
@@ -52,19 +62,34 @@ export const Login = () => {
         e.preventDefault()
         if (!name || !email || !password || !birthDate || !address) {
             swal("Please", "Fields cannot be empty", "warning", {
-                button: "Try Again",
+                buttons: {
+                    confirm: {
+                        text: "Try Again",
+                        className: "custom-swal-button",
+                    }
+                },
                 timer: 4000,
             });
             return;
         } else if (!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(email)) {
             swal("Please", "enter a valid email address, mail can only contain letters numbers periods hyphens and the underscore", "error", {
-                button: "Try Again",
+                buttons: {
+                    confirm: {
+                        text: "Try Again",
+                        className: "custom-swal-button",
+                    }
+                },
                 timer: 4000,
             });
             return;
         } else if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.{4,8})/.test(password)) {
             swal("Please", "Password must be 4 to 8 characters long and contain at least one digit, one lowercase letter, and one uppercase letter.", "error", {
-                button: "Try Again",
+                buttons: {
+                    confirm: {
+                        text: "Try Again",
+                        className: "custom-swal-button",
+                    }
+                },
                 timer: 4000,
             });
             return;
@@ -76,7 +101,12 @@ export const Login = () => {
 
         if (response) {
             swal("Good job!", "successfully created user.", "success", {
-                button: "OK",
+                buttons: {
+                    confirm: {
+                        text: "Try Again",
+                        className: "custom-swal-button",
+                    }
+                },
                 timer: 4000,
             });
 
@@ -91,7 +121,12 @@ export const Login = () => {
             setAddress("");
         } else {
             swal("Sorry", "An unexpected error has occurred", "error", {
-                button: "Try Again",
+                buttons: {
+                    confirm: {
+                        text: "Try Again",
+                        className: "custom-swal-button",
+                    }
+                },
                 timer: 4000,
             });
         }
@@ -104,7 +139,12 @@ export const Login = () => {
         e.preventDefault()
         if (!email || !password) {
             swal("Please", "Fields cannot be empty", "warning", {
-                button: "Try Again",
+                buttons: {
+                    confirm: {
+                        text: "Try Again",
+                        className: "custom-swal-button",
+                    }
+                },
                 timer: 4000,
             });
             return;
@@ -118,11 +158,16 @@ export const Login = () => {
             }, 2000);
             setEmail("");
             setPassword("");
-            
+
 
         } else {
             swal("Please", "Incorrect email or password", "warning", {
-                button: "Try Again",
+                buttons: {
+                    confirm: {
+                        text: "Try Again",
+                        className: "custom-swal-button",
+                    }
+                },
                 timer: 4000,
             });
         }
@@ -138,7 +183,8 @@ export const Login = () => {
                     <input className="input" autoFocus type="email" placeholder="Email" value={email} required="" onChange={(e) => setEmail(e.target.value)} />
                     <input className="input" type="password" placeholder="Password" value={password} required="" onChange={(e) => setPassword(e.target.value)} />
                     {loader && <Loader />}
-                    <button onClick={handleLogin}>Log in</button>
+                    <button className="login-button" onClick={handleLogin}>Log in</button>
+                    <a className="link-recoverPass" onClick={handleRecoverPassNavigate}>¿Has olvidado tu contraseña?</a>
                 </form>
             </div>
 
@@ -150,7 +196,7 @@ export const Login = () => {
                     <input className="input" type="password" placeholder="Password" value={password} required="" onChange={(e) => setPassword(e.target.value)} />
                     <input className="input" type="text" placeholder="Birth_Date" value={birthDate} required="" onChange={(e) => setBirthDate(e.target.value)} />
                     <input className="input" type="text" placeholder="Address" value={address} required="" onChange={(e) => setAddress(e.target.value)} />
-                    <button onClick={handleRegister}>Register</button>
+                    <button className="login-button" onClick={handleRegister}>Register</button>
                 </form>
             </div>
         </div>
