@@ -28,9 +28,11 @@ export const Login = () => {
             setTimeout(() => {
                 setLoader(false);
                 navigate("/dashboard")
-            }, 2000);
+            },1000);
         }
     },[store.logged])
+
+    // PENDIENTE DE REVISAR QUE SI TIENES TOKEN NO TE CARGUE EL LOGIN
 
 
 
