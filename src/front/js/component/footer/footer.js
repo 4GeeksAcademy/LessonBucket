@@ -28,9 +28,9 @@ export const Footer = () => (
 				<h6 className="text-white ">Follow Us</h6>
 				<div className="underline mx-auto mb-3"></div>
 				<div className="d-flex justify-content-center ">
-				<i class="fa-brands fa-github mx-2"></i>
-				<i class="fa-brands fa-linkedin mx-2"></i>
-				<i class="fa-brands fa-instagram mx-2"></i>
+				<i className="fa-brands fa-github mx-2"></i>
+				<i className="fa-brands fa-linkedin mx-2"></i>
+				<i className="fa-brands fa-instagram mx-2"></i>
 				</div>
 			</div>
 

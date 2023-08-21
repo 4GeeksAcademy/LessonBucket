@@ -9,7 +9,7 @@ import "../component/loader/loader";
 
 
 export const Login = () => {
-
+   
     const { store, actions } = useContext(Context);
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
