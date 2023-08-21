@@ -83,7 +83,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							"token": data.token
 						},
 					});
-			
+
 					return true;
 
 				} catch (error) {
@@ -104,7 +104,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 
 					const data = response.data;
-					
+
 					setStore({
 						user: { ...data.user, token: token },
 						logged: true
@@ -152,6 +152,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				//reset the global store
 				setStore({ demo: demo });
+			},
+			fetchSubjects: async () => {
+				try {
+					const response = await axios.get(`${process.env.BACKEND_URL}/admin/subjects`);
+					setStore({
+						subject: response.data
+					});
+					return true;
+				} catch (error) {
+					console.error("An error occurred while fetching subjects", error);
+					return false;
+				}
 			}
 		}
 	};

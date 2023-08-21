@@ -6,17 +6,11 @@ export const Calendar = (props) => {
 	const { store, actions } = useContext(Context);
 
 	return (
-		<div className="main">
-			<h5 className="pill-title">Pagos Pendientes</h5>
-			<div className="row">
-				{props.pagos.map((pago, index) => (
-					<div className="col-md-12 mb-12" key={index}>
-						<div className="pill">
-							<p className="pill-font">{pago}</p>
-						</div>
-					</div>
-				))}
-			</div>
+		<div>
+			<iframe
+				src={"https://calendar.google.com/calendar/embed?src=bdb86c31dd1521191e7d1a472d3e5bf9cf0e5d6fc30f63eabf3630227d053506%40group.calendar.google.com&ctz=America%2FBogota"}
+				style={{ border: 0, width: '100%', height: '500px', frameborder: '0', scrolling: 'no' }}
+			></iframe>
 		</div>
 	);
 };

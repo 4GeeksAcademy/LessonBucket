@@ -6,17 +6,13 @@ export const PagosPendientes = (props) => {
 	const { store, actions } = useContext(Context);
 
 	return (
-		<div className="main">
-			<h5 className="pill-title">Pagos Pendientes</h5>
-			<div className="row">
-				{props.payments.map((payment, index) => (
-					<div className="col-md-12 mb-12" key={index}>
-						<div className="pill">
+		<div className="container">
+					<h5 className="pill-title">Pagos Pendientes</h5>
+					{props.payments.map((payment, index) => (
+						<div className="pill" key={index}>
 							<p className="pill-font">{payment}</p>
 						</div>
-					</div>
-				))}
-			</div>
+					))}
 		</div>
 	);
 };

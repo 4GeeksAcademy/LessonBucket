@@ -1,7 +1,4 @@
 .separator {
-    top: 78px;
-    left: 244px;
-    width: 1676px;
     height: 60px;
     background: transparent linear-gradient(270deg, #D19BFF 0%, #801380 100%) 0% 0% no-repeat padding-box;
     border: 1px;
@@ -15,4 +12,12 @@
     padding: 1rem;
     margin-bottom: 0.5rem;
     margin-top: 0.5rem;
+}
+.dashboard-wrapper{
+    width: 90%;
+}
+
+.row{
+    margin: 0;
+    width: 100%;
 }
