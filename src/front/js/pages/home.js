@@ -25,10 +25,9 @@ export const Home = () => {
 
       <div className="container d-flex mt-5 mb-5">
         <div className="row backg me-3 p-4">
-          <h1>Tagline with your Unique selling proposition</h1>
+          <h1>The all-in-one app for teachers</h1>
           <p>
-            lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec
-            purus feugiat, molestie ipsum et,
+            Manage your students, classes, notes, and more from one place!
           </p>
           <button
             type="button"
@@ -58,23 +57,25 @@ export const Home = () => {
       <div className="container d-flex mt-5 mb-4 justify-content-evenly">
         <div className="row text-center backg p-4" style={{ width: "300px" }}>
           <i className="fa-solid fa-check"></i>
-          <h2>Gestion centralizada</h2>
+          <h2>All-in-one management</h2>
           <p>
-            Controla todas tus notas, comentarios, alumnos, fechas de clase y
-            cualquier otra cosa que puedas necesitar desde el mismo sitio!
+            Handle all your notes, comments, students, class dates and anything
+            else you might need!
           </p>
         </div>
         <div className="row text-center backg p-4" style={{ width: "300px" }}>
           <i className="fa-solid fa-flag"></i>
-          <h2>Sincroniza con Google Calendar</h2>
+          <h2>Google calendar sync</h2>
           <p>
-            Visualiza tus clases gracias a la implementacion de google calendar.
+            Visualize your classes thanks to the implementation of google calendar
           </p>
         </div>
         <div className="row text-center backg p-4" style={{ width: "300px" }}>
           <i className="fa-solid fa-star"></i>
-          <h2>Control de Pagos</h2>
-          <p>Registro visual y sencillo para llevar los pagos al día.</p>
+          <h2>Payment check control</h2>
+          <p>
+            Visual and simple record to keep payments up to date.
+          </p>
         </div>
       </div>
 
@@ -468,9 +469,7 @@ export const Home = () => {
       <div className="container mt-5 text-center backg p-4" style={{ width: "600px" }}>
         <h1>Subscribe for updates</h1>
         <p>
-          Fusce rhoncus semper faucibus. Vivamus pharetra eget nisi gravida
-          malesuada. Orci varius natoque penatibus et magnis dis parturient
-          montes, nascetur ridiculus mus. Nam a mollis augue.
+          Want to keep up to date with the latest updates and upgrades? Sign up!
         </p>
         <input className="me-3" type="text" placeholder="Email" />
         <input className="me-3" type="text" placeholder="Full name" />
