@@ -24,6 +24,7 @@ api = Blueprint('api', __name__)
 # ENDPOINT GET A USER
 
 @api.route('/user/<int:user_id>', methods=['GET'])
+@jwt_required
 def get_one_user_info(user_id):
 
     try:
@@ -83,7 +84,7 @@ def modify_user(user_id):
     user = User.query.get(user_id)
 
     if not user:
-        raise APIException('Usuario no encontrado', 404)
+        raise APIException('User no found', 404)
 
     required_fields = ["name", "email", "password", "birth_date", "address"]
     for field in required_fields:
@@ -112,6 +113,7 @@ def modify_user(user_id):
 
 
 @api.route('/users', methods=['GET'])
+@jwt_required()
 def get_all_users():
 
     users_query = User.query.all()
@@ -170,7 +172,13 @@ def login():
         return jsonify("Credenciales incorrectas"), 401
 
     access_token = create_access_token(identity=email)
-    return jsonify(access_token=access_token), 200
+
+    response_body = {
+        "msg": "logged",
+        "user": user.serialize(),
+        "token": access_token
+    }
+    return jsonify(response_body), 200
 
 
 # ENDPOINT GET ALL SUBJECTS 
@@ -577,9 +585,12 @@ def protected():
     current_user = get_jwt_identity()
     user = User.query.filter_by(email=current_user).first()
 
+    if not user:
+        return jsonify(success=False, message='User not found'), 404
+
     response_body = {
         "logged_in_as": current_user,
         "user": user.serialize()
     }
 
-    return jsonify(logged_in_as=response_body), 200
+    return jsonify(success=True, response=response_body), 200
