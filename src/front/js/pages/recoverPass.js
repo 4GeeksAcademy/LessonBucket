@@ -43,7 +43,7 @@ export const RecoverPass = () => {
         let response = await actions.recoverPass(email);
 
         if (response) {
-            swal("Good job!", "Email sent successfully.", "success", {
+            swal("Good job!", "Email sent successfull, please check your email inbox", "success", {
                 buttons: {
                     confirm: {
                         text: "Try Again",
@@ -60,7 +60,7 @@ export const RecoverPass = () => {
             swal("Sorry", "An unexpected error has occurred", "error", {
                 buttons: {
                     confirm: {
-                        text: "Try Again",
+                        text: "Please try again later or contact us",
                         className: "custom-swal-button",
                     }
                 },
@@ -82,7 +82,7 @@ export const RecoverPass = () => {
                             Once received, enter it to reset your password and regain access to your account.
                         </p>
                         <input className="recover-input" autoFocus type="email" placeholder="Email" value={email} required="" onChange={(e) => setEmail(e.target.value)} />
-                        {loader && <Loader />}
+                        {/* {loader && <Loader />} */}
                         <button className="recover-button" onClick={handlerecoverPass}>Send code to email</button>
                     </form>
                 </div>

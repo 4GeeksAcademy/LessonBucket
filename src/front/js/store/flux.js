@@ -8,8 +8,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			// ALMACEN DE USUARIOS
 			user: {},
+			// ALMACEN DE Token
 			token:"",
+			//ALMACEN DE PASSWORD
+			recoverPass:"",
 			// ESTADO DE DE LOGADO PARA GESTIÓN TOKEN
+
 			logged: false,
 
 			demo: [
@@ -125,32 +129,32 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			// FUNCIÓN PARA OBTENER VERIFICAR SI EMAIL ESTA REGISTRADO PARA RECUPERAR CONTRASEÑA
 
-			recoverPass: async (dataEmail) => {
-				try {
+			// recoverPass: async (dataEmail) => {
+			// 	try {
 
-					const response = await axios.post(process.env.BACKEND_URL + "/api/users", {
-						email: dataEmail,
-					});
+			// 		const response = await axios.get(process.env.BACKEND_URL + "/api/forgotpassword", {
+			// 			email: dataEmail,
+			// 		});
 
-					const data = response.data;
-					console.log(data)
+			// 		const data = response.data;
+			// 		console.log(data.result.email)
 
 					
-					// setStore({
+			// 		// setStore({
 
-					// 		user: data.user,
-					// 		token: data.token,
-					// 		logged: true
+			// 		// 		user: data.user,
+			// 		// 		token: data.token,
+			// 		// 		logged: true
 							
-					// });
+			// 		// });
 			
-					return true;
+			// 		return true;
 
-				} catch (error) {
-					console.error("An error occurred during user creation", error);
-					return false;
-				}
-			},
+			// 	} catch (error) {
+			// 		console.error("An error occurred during user creation", error);
+			// 		return false;
+			// 	}
+			// },
 
 
 			// Use getActions to call a function within a fuction

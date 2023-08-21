@@ -1,4 +1,4 @@
- 
+ /* CONTENEDOR PRINCPIAL */
 .recover-pass-main {
     position: relative;
     top:50px;
@@ -27,27 +27,11 @@
     display: none;
 }
   
-/* Estilos de inicio de sesión */
-.recover-login {
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
 
 .recover-login label {
     margin: 25% 0 5%;
 }
   
-/* Estilos de etiquetas comunes */
-label {
-    color: #fff;
-    font-size: 2rem;
-    justify-content: center;
-    display: flex;
-    font-weight: bold;
-    cursor: pointer;
-    transition: .5s ease-in-out;
-}
   
 /* Estilos de campos de entrada */
 .recover-input {
