@@ -7,7 +7,7 @@
     margin-bottom: 50px;
     display: flex;
     background: transparent linear-gradient(270deg, #D19BFF 0%, #801380 100%) 0% 0% no-repeat padding-box;
-    height: 470px;
+    height: 500px;
     width: 500px;
     overflow: hidden;
     border-radius: 12px;
@@ -48,6 +48,7 @@
   width: 85%;
   height: 40px;
   margin: 12px auto 10%;
+  margin-top: 30px;
   color: #fff;
   background: transparent linear-gradient(270deg, #D19BFF 0%, #801380 100%) 0% 0% no-repeat padding-box;
   font-size: 1rem;

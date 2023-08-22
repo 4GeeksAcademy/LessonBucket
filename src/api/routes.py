@@ -596,9 +596,9 @@ def protected():
 
     return jsonify(success=True, response=response_body), 200
 
-# ENDPOINT PARA RECUPERAR EMAIL Y CONTRASEÑA DE USUARIO
 
-#ENDPOINT RECUPERAR CONTRASEÑA OLVIDADA
+
+# ENDPOINT RECUPERAR CONTRASEÑA OLVIDADA
 
 @api.route("/forgotpassword", methods=["POST"])
 def forgotpassword():
@@ -626,4 +626,4 @@ def forgotpassword():
     msg.html = f"""<h1>Your new password is: {recover_password}</h1>"""
     current_app.mail.send(msg)
 
-    return jsonify({"msg": "Your new password has been sent to your email"}), 200
+    return jsonify({"msg": "Your new password has been sent to your email", "new_password": recover_password}), 200

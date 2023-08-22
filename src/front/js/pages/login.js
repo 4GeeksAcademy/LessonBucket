@@ -103,7 +103,7 @@ export const Login = () => {
             swal("Good job!", "successfully created user.", "success", {
                 buttons: {
                     confirm: {
-                        text: "Try Again",
+                        text: "OK",
                         className: "custom-swal-button",
                     }
                 },
@@ -182,7 +182,7 @@ export const Login = () => {
                     <label htmlFor="chk" aria-hidden="true">Log in</label>
                     <input className="input" autoFocus type="email" placeholder="Email" value={email} required="" onChange={(e) => setEmail(e.target.value)} />
                     <input className="input" type="password" placeholder="Password" value={password} required="" onChange={(e) => setPassword(e.target.value)} />
-                    {loader && <Loader />}
+                    {loader && <Loader view="login" />}
                     <button className="login-button" onClick={handleLogin}>Log in</button>
                     <a className="link-recoverPass" onClick={handleRecoverPassNavigate}>¿Has olvidado tu contraseña?</a>
                 </form>

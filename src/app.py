@@ -12,6 +12,7 @@ from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
 from flask_jwt_extended import JWTManager
+from flask_mail import Mail
 
 #from models import Person
 
@@ -37,6 +38,24 @@ CORS(app)
 # Setup the Flask-JWT-Extended extension
 app.config["JWT_SECRET_KEY"] = "super-secret"  # Change this!
 jwt = JWTManager(app)
+
+#CONFIGURACION EMAIL
+mail_settings = {
+    "MAIL_SERVER": 'smtp.mailtrap.io',
+    "MAIL_PORT":  2525,
+    "MAIL_USE_TLS": True,
+    "MAIL_USE_SSL": False,
+    "MAIL_USERNAME":  '30b1ace35a1f5f', 
+    "MAIL_PASSWORD": "04ebfb91f62f32", 
+    "MAIL_DEFAULT_SENDER": 'lessonBucket@gmail.com'
+}
+
+
+app.config.update(mail_settings)
+mail = Mail(app)
+#agregan mail a la app y se va llamar en routes.py como current_app
+app.mail= mail
+#FIN CONFIGURACION EMAIL
 
 # add the admin
 setup_admin(app)
