@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
 
+
 import { Home } from "./pages/home";
 import { Login } from "./pages/login";
 import { RecoverPass } from "./pages/recoverPass";
@@ -23,7 +24,9 @@ const Layout = () => {
     const basename = process.env.BASENAME || "";
 
     if (!process.env.BACKEND_URL || process.env.BACKEND_URL == "") return <BackendURL />;
-console.log(<Home/>)
+
+    
+
     return (
         <div>
             <BrowserRouter basename={basename}>
