@@ -8,10 +8,7 @@ export const Navbar = () => {
 	
 	const { store, actions } = useContext(Context);
 
-	console.log(store.user);
-	console.log(store.logged);
-
-
+	
 	const handleSignOut = () => {
 		if (store.logged === true){
 			sessionStorage.removeItem("token");

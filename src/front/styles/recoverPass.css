@@ -59,12 +59,29 @@
   transition: .2s ease-in;
 }
 
-.recover-button:hover {
+.recover-button-return {
+  width: 85%;
+  height: 40px;
+  margin: 12px auto 10%;
+  margin-top: 30px;
+  color: #fff;
+  background: transparent linear-gradient(270deg, #c893f7 100%, #801380 0%) 0% 0% no-repeat padding-box;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: .2s ease-in;
+}
+
+.recover-button:hover,
+.recover-button-return:hover {
   background-color: #6d44b8;
   transform: translateY(-2px);
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
 }
- 
+
+
 .recover-instruction {
   margin-left: 15px;
 }

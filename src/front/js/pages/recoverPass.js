@@ -12,8 +12,6 @@ export const RecoverPass = () => {
   const [loader, setLoader] = useState(false);
   const navigate = useNavigate();
 
-  
-
   const handlerecoverPass = async (e) => {
     e.preventDefault();
     if (!email) {
@@ -77,7 +75,6 @@ export const RecoverPass = () => {
         navigate("/login");
       }, 4000);
       setEmail("");
-      
     } else {
       swal("Sorry", "An unexpected error has occurred", "error", {
         buttons: {
@@ -117,13 +114,35 @@ export const RecoverPass = () => {
             onChange={(e) => setEmail(e.target.value)}
           />
           {loader && <Loader view="recoverPass" />}
-          <button
-            className="recover-button"
-            type="button"
-            onClick={handlerecoverPass}
-          >
-            Send code to email
-          </button>
+          <div className="container-fluid">
+            <div className="row ">
+            <div className="col-10">
+              <button
+                className="recover-button"
+                type="button"
+                onClick={handlerecoverPass}
+              >
+                Send code to email
+              </button>
+            </div>
+            <div className="col-2">
+              <button
+                className="recover-button-return"
+                type="button"
+                onClick={() => {
+                  setLoader(true);
+                  setTimeout(() => {
+                    setLoader(false);
+                    navigate("/login");
+                  }, 1000);
+                  setEmail("");
+                }}
+              >
+                Login
+              </button>
+            </div>
+            </div>
+          </div>
         </form>
       </div>
     </div>

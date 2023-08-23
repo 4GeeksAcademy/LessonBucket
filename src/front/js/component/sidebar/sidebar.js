@@ -1,9 +1,9 @@
 import React, { useState, useContext } from "react";
-import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import { Context } from "../../store/appContext"; import { Context } from "../../store/appContext";
+import { Context } from "../../store/appContext";
+
 export const Sidebar = () => {
-    const { store, actions } = useContext(Context);
+
     const { store, actions } = useContext(Context);
     const [showSidebar, setShowSidebar] = useState("spread")
 

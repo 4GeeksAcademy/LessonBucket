@@ -79,9 +79,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 
 					const data = response.data;
-
 					sessionStorage.setItem("token", data.token);
-					console.log(data.user);
 					setStore({
 
 							user: data.user,
@@ -89,7 +87,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 							logged: true
 							
 					});
-			
+
+					
 					return true;
 
 				} catch (error) {
@@ -101,8 +100,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// FUNCIÓN PARA VALIDAR TOKEN CUANDO SE CARGA LA PÁGINA Y VERIFICAR SI ESTA LOGADO O NO
 
 			verifyAuthToken: async () => {
-				const token = sessionStorage.getItem("token");
-				
+				const token = sessionStorage.setItem("token", data.token);
+
 				try {
 					let response = await axios.get(process.env.BACKEND_URL + "/api/protected", {
 						headers: {
@@ -117,10 +116,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 						token: token,
 						logged: true
 					});
-					
-					console.log(getStore().user)
 
+					
 					return true;
+
 				} catch (error) {
 					console.log(error, "No hay token");
 					sessionStorage.removeItem("token");
