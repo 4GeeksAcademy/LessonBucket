@@ -178,6 +178,7 @@ def login():
         "user": user.serialize(),
         "token": access_token
     }
+    print(response_body),
     return jsonify(response_body), 200
 
 
@@ -587,10 +588,10 @@ def protected():
 
     if not user:
         return jsonify(success=False, message='User not found'), 404
-
+    
     response_body = {
         "logged_in_as": current_user,
         "user": user.serialize()
     }
-
+    print(response_body)
     return jsonify(success=True, response=response_body), 200
