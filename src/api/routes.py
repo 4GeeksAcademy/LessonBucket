@@ -180,6 +180,7 @@ def login():
         "user": user.serialize(),
         "token": access_token
     }
+    print(response_body),
     return jsonify(response_body), 200
 
 
@@ -588,11 +589,15 @@ def protected():
 
     if not user:
         return jsonify(success=False, message='User not found'), 404
-
+    
     response_body = {
         "logged_in_as": current_user,
         "user": user.serialize()
     }
+<<<<<<< HEAD
+    print(response_body)
+    return jsonify(success=True, response=response_body), 200
+=======
 
     return jsonify(success=True, response=response_body), 200
 
@@ -627,3 +632,4 @@ def forgotpassword():
     current_app.mail.send(msg)
 
     return jsonify({"msg": "Your new password has been sent to your email", "new_password": recover_password}), 200
+>>>>>>> f0bccc5daec22f84e9151afc36fe156fbbb331c8

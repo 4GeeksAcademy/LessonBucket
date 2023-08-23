@@ -81,6 +81,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const data = response.data;
 
 					sessionStorage.setItem("token", data.token);
+					console.log(data.user);
 					setStore({
 
 							user: data.user,
@@ -116,6 +117,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 						token: token,
 						logged: true
 					});
+					
+					console.log(getStore().user)
 
 					return true;
 				} catch (error) {

@@ -1,8 +1,36 @@
-import React from "react";
+import React, { useContext, useState, useEffect }  from "react";
 import { Link } from "react-router-dom";
+import { Context } from "../../store/appContext";
 
+    
 
 export const Navbar = () => {
+	
+	const { store, actions } = useContext(Context);
+
+	console.log(store.user);
+	console.log(store.logged);
+
+
+	const handleSignOut = () => {
+		if (store.logged === true){
+			sessionStorage.removeItem("token");
+		}
+	}
+	
+
+	const handleLoginLogout = () =>{
+		if (store.logged === true)  {return "Logout"} else {return "Login"}
+
+	}
+
+	const handleUserName = () => {
+		if (store.logged === true) { return "Hola " + store.user.name}
+	}
+
+
+	
+
 	return (
 		<nav className="navtop d-flex align-items-center my-4">
 			<div className="container-fluid d-flex flex-row justify-content-between align-items-center mx-4 ">
@@ -12,8 +40,9 @@ export const Navbar = () => {
 				</Link>
 				</div>
 				<div className="ml-auto">
-					<Link to="/demo">
-						<a className="nav-links mx-4 ">Login</a>
+					<p className="user-name">{handleUserName()}</p>
+					<Link to="/login">
+						<a className="nav-links mx-4 " onClick={handleSignOut()}>{handleLoginLogout()}</a>
 					</Link>
 					<Link to="/demo">
 						<a className="nav-links mx-4 ">Profile</a>

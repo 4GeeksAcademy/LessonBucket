@@ -40,4 +40,4 @@ export const Loader = ({ view }) => {
             </svg>
         </div>
     )
-}
+};
