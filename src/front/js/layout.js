@@ -6,13 +6,13 @@ import { BackendURL } from "./component/backendURL";
 import { Home } from "./pages/home";
 import { Login } from "./pages/login";
 import { RecoverPass } from "./pages/recoverPass";
-import { Demo } from "./pages/demo";
+import { LearnMore } from "./pages/LearnMore";
 import { Single } from "./pages/single";
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar/navbar";
 import { Footer } from "./component/footer/footer";
-import {Sidebar} from "./component/sidebar/sidebar";
+import { Sidebar } from "./component/sidebar/sidebar";
 import { Dashboard } from "./pages/dashboard"
 
 
@@ -35,7 +35,7 @@ console.log(<Home/>)
                         <Route element={<Home />} path="/" />
                         <Route element={<Login />} path="/login" />
                         <Route element={<RecoverPass />} path="/recoverPass" />
-                        <Route element={<Demo />} path="/demo" />
+                        <Route element={<LearnMore />} path="/demo" />
                         <Route element={<Dashboard />} path="/dashboard" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<h1>Not found!</h1>} />
