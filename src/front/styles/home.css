@@ -5,3 +5,18 @@
     one more css for each page that will contain the selected used 
     on that page only (the ones not reused in other pages).
 */
+
+.backg {
+  background: rgb(43, 18, 40);
+  background: linear-gradient(
+    90deg,
+    rgba(43, 18, 40, 0.6264706566220238) 0%,
+    rgba(69, 15, 63, 0.6096639339329482) 35%,
+    rgba(113, 5, 97, 0.6208684157256652) 100%
+  );
+  border-radius: 5%;
+}
+
+.whiteText {
+  color: white;
+}
