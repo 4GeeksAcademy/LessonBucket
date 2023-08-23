@@ -6,9 +6,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			message: null,
 
-			// ALMACEN DE USUARIOS Y TOKEN
+			// ALMACEN DE USUARIOS
 			user: {},
+			// ALMACEN DE Token
+			token:"",
+			//ALMACEN DE PASSWORD
+			recoverPass:"",
 			// ESTADO DE DE LOGADO PARA GESTIÓN TOKEN
+
 			logged: false,
 
 			demo: [
@@ -78,10 +83,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 					sessionStorage.setItem("token", data.token);
 					setStore({
 
-						user: {
-							"user": data.user,
-							"token": data.token
-						},
+							user: data.user,
+							token: data.token,
+							logged: true
+							
 					});
 			
 					return true;
@@ -96,6 +101,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			verifyAuthToken: async () => {
 				const token = sessionStorage.getItem("token");
+				
 				try {
 					let response = await axios.get(process.env.BACKEND_URL + "/api/protected", {
 						headers: {
@@ -103,18 +109,46 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}
 					});
 
-					const data = response.data;
+					const userData = response.data.response.user;
 					
 					setStore({
-						user: { ...data.user, token: token },
+						user:  userData, 
+						token: token,
 						logged: true
 					});
 
 					return true;
 				} catch (error) {
-					console.log(error);
+					console.log(error, "No hay token");
 					sessionStorage.removeItem("token");
 					setStore({ logged: false });
+					return false;
+				}
+			},
+
+
+			// FUNCIÓN PARA OBTENER VERIFICAR SI EMAIL ESTA REGISTRADO PARA RECUPERAR CONTRASEÑA
+
+			recoverPass: async (dataEmail) => {
+				
+				try {
+
+					const response = await axios.post(process.env.BACKEND_URL + "/api/forgotpassword", {
+						email: dataEmail,
+					});
+
+					const data = response.data.new_password;
+					console.log(data)
+					
+
+					setStore({
+							recoverPass: data
+					});
+			
+					return true;
+
+				} catch (error) {
+					console.error("An error occurred during user creation", error);
 					return false;
 				}
 			},

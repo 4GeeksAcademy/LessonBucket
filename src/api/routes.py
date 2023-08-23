@@ -1,12 +1,15 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
-from flask import Flask, request, jsonify, url_for, Blueprint
+from flask import Flask, request, jsonify, url_for, Blueprint, current_app
 from api.models import db, User, Subjects, Students, Comments
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
+import random
+import string
+from flask_mail import Message
 
 api = Blueprint('api', __name__)
 
@@ -52,7 +55,7 @@ def register():
     for field in required_fields:
         if field not in request_body or not request_body[field]:
             raise APIException(f'The "{field}" field cannot be empty', 400)
-        
+
     verify_email = User.query.filter_by(email=request_body["email"]).first()
     if verify_email:
         raise APIException("An account with this email already exists", 400)
@@ -113,7 +116,6 @@ def modify_user(user_id):
 
 
 @api.route('/users', methods=['GET'])
-@jwt_required()
 def get_all_users():
 
     users_query = User.query.all()
@@ -181,7 +183,7 @@ def login():
     return jsonify(response_body), 200
 
 
-# ENDPOINT GET ALL SUBJECTS 
+# ENDPOINT GET ALL SUBJECTS
 
 @api.route('/user/<int:user_id>/subjects', methods=['GET'])
 def get_all_subjects(user_id):
@@ -205,7 +207,7 @@ def get_all_subjects(user_id):
     return jsonify(response_body), 200
 
 
-# ENDPOINT GET ONE SUBJECTS 
+# ENDPOINT GET ONE SUBJECTS
 
 @api.route('/user/<int:user_id>/subjects/<int:subjects_id>', methods=['GET'])
 def get_one_subject(user_id, subjects_id):
@@ -236,8 +238,9 @@ def create_one_subject(user_id):
     for field in required_fields:
         if field not in request_body or not request_body[field]:
             raise APIException(f'The "{field}" field cannot be empty', 400)
-        
-    verify_subjects = Subjects.query.filter_by(Subject=request_body["Subject"]).first()
+
+    verify_subjects = Subjects.query.filter_by(
+        Subject=request_body["Subject"]).first()
     if verify_subjects:
         raise APIException("This subject already exists", 400)
 
@@ -265,7 +268,7 @@ def del_subjects(user_id, subjects_id):
 
     subjects_query = Subjects.query.filter_by(id=subjects_id).first()
 
-    if not subjects_query :
+    if not subjects_query:
         raise APIException('User not found', 404)
 
     try:
@@ -299,7 +302,7 @@ def modify_subject(user_id, subjects_id):
             raise APIException(f'The "{field}" field cannot be empty', 400)
 
     subjects.Subject = body["Subject"]
-    
+
     try:
         db.session.commit()
     except:
@@ -312,7 +315,7 @@ def modify_subject(user_id, subjects_id):
     return jsonify(response_body), 200
 
 
-# ENDPOINT GET ALL STUDENTS 
+# ENDPOINT GET ALL STUDENTS
 
 @api.route('/user/<int:user_id>/students', methods=['GET'])
 def get_all_students(user_id):
@@ -366,11 +369,11 @@ def create_one_student(user_id):
     for field in required_fields:
         if field not in request_body or not request_body[field]:
             raise APIException(f'The "{field}" field cannot be empty', 400)
-        
+
     verify_email = User.query.filter_by(email=request_body["email"]).first()
     if verify_email:
         raise APIException("An account with this email already exists", 400)
-    
+
     student = Students(name=request_body["name"], email=request_body["email"], address=request_body["address"],
                 phone=request_body["phone"], goal=request_body["goal"])
 
@@ -396,7 +399,7 @@ def del_student(user_id, students_id):
 
     students_query = Students.query.filter_by(id=students_id).first()
 
-    if not students_query :
+    if not students_query:
         raise APIException('Student not found', 404)
 
     try:
@@ -447,8 +450,7 @@ def modify_student(user_id, students_id):
     return jsonify(response_body), 200
 
 
-
-# ENDPOINT GET ALL COMMENTS 
+# ENDPOINT GET ALL COMMENTS
 
 @api.route('/user/<int:user_id>/students/<int:students_id>/comments', methods=['GET'])
 def get_all_comments(user_id, students_id):
@@ -491,7 +493,6 @@ def get_one_comment(user_id, students_id, comments_id):
         raise APIException('Comments not found', 404)
 
 
-
 # ENDPOINT CREATE ONE COMMENT
 
 @api.route("/user/<int:user_id>/students/<int:students_id>/comments", methods=["POST"])
@@ -503,8 +504,7 @@ def create_one_comment(user_id, students_id):
     for field in required_fields:
         if field not in request_body or not request_body[field]:
             raise APIException(f'The "{field}" field cannot be empty', 400)
-        
-    
+
     comment = Comments(text_content=request_body["text_content"])
 
     db.session.add(comment)
@@ -523,12 +523,13 @@ def create_one_comment(user_id, students_id):
 
 # ENDPOINT DELETE COMMENT
 
+
 @api.route('/user/<int:user_id>/students/<int:students_id>/comments/<int:comments_id>', methods=['DELETE'])
-def del_comment(user_id, students_id,comments_id):
+def del_comment(user_id, students_id, comments_id):
 
     comment_query = Comments.query.filter_by(id=comments_id).first()
 
-    if not comment_query :
+    if not comment_query:
         raise APIException('Student not found', 404)
 
     try:
@@ -562,7 +563,7 @@ def modify_comment(user_id, students_id, comments_id):
             raise APIException(f'The "{field}" field cannot be empty', 400)
 
     comment.text_content = body["text_content"]
-   
+
     try:
         db.session.commit()
     except:
@@ -594,3 +595,35 @@ def protected():
     }
 
     return jsonify(success=True, response=response_body), 200
+
+
+
+# ENDPOINT RECUPERAR CONTRASEÑA OLVIDADA
+
+@api.route("/forgotpassword", methods=["POST"])
+def forgotpassword():
+    
+    recover_email = request.json.get('email')
+
+    if not recover_email:
+        return jsonify({"msg": "You must provide an email"}), 400
+    
+    # Busca si el correo existe en la base de datos
+    user = User.query.filter_by(email=recover_email).first()
+    if user is None:
+        return jsonify({"msg": "There is no user with the provided email"}), 400
+    
+    # Genera una nueva contraseña aleatoria
+    recover_password = ''.join(random.choice(
+        string.ascii_uppercase + string.digits) for _ in range(8))
+    
+    # Almacena la nueva contraseña en la base de datos
+    user.password = recover_password
+    db.session.commit()
+
+    # Envía el correo electrónico con la nueva contraseña
+    msg = Message("Password Recovery", recipients=[recover_email])
+    msg.html = f"""<h1>Your new password is: {recover_password}</h1>"""
+    current_app.mail.send(msg)
+
+    return jsonify({"msg": "Your new password has been sent to your email", "new_password": recover_password}), 200
