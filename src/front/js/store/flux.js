@@ -22,8 +22,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					background: "white",
 					initial: "white"
 				}
-			],
-			subjects: []
+			]
 		},
 		actions: {
 
@@ -156,10 +155,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			fetchSubjects: async () => {
 				try {
-					const response = await axios.get(`${process.env.BACKEND_URL}/api/user/1/subjects`);
-					console.log(response.data)
+					const response = await axios.get(`${process.env.BACKEND_URL}/admin/subjects`);
 					setStore({
-						subjects: response.data
+						subject: response.data
 					});
 					return true;
 				} catch (error) {

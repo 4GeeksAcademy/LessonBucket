@@ -1,14 +1,16 @@
 import React, { useContext, useEffect } from "react";
 import { PagosPendientes } from "./pagosPendientes";
 import { SubjectClass } from "./subjectClass";
-import { CalendarAux } from "./calendar";
+import { Calendar } from "./calendar";
 import "../../styles/dashboard.css";
 import { Context } from "../store/appContext";
 
 export const Dashboard = () => {
 	const { store, actions } = useContext(Context);
+
 	useEffect(() => {
 		actions.fetchSubjects();
+		console.log(store.subject);
 	}, []);
 
 	const payments = ["Miguel Martín Ramos - 09/09/2023", "Pablo García De Gregorio- 01/09/2023", "Toni Centenera - 15/09/2023", "Christian David Velasquez Osorio - 31/08/2023"];
@@ -21,7 +23,7 @@ export const Dashboard = () => {
 				<div className="col">
 					<div className="overflow-hidden">
 						<div className="d-flex flex-nowrap">
-							{store.subjects.results && store.subjects.results.map((subjectClass, index) => (
+							{store.subject && store.subject.map((subjectClass, index) => (
 								<div key={index}>
 									<SubjectClass subjectClass={subjectClass} />
 								</div>
@@ -39,7 +41,7 @@ export const Dashboard = () => {
 				<div className="col-md-1 mb-1">
 				</div>
 				<div className="main-pagos col-md-6 mb-4">
-					<CalendarAux email={idCalendar} />
+					<Calendar email={idCalendar} />
 				</div>
 			</div>
 		</div>

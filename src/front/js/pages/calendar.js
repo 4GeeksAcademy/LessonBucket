@@ -1,31 +1,16 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
-import Calendar from "@ericz1803/react-google-calendar";
 import "../../styles/calendar.css";
 
-export const CalendarAux = (props) => {
-	const API_KEY = "AIzaSyBrpMc_llCg1YH1cR1sMqDTM_eeY7E2HwY";
-	let calendars = [
-		{
-		  calendarId: props.email,
-		  color: "#801480"
-		}
-	];
-	let styles = {
-		calendar: {
-		  borderWidth: "0px"
-		}
-	  };
-	  
-	  const language = "ES";
+export const Calendar = (props) => {
+	const { store, actions } = useContext(Context);
+
 	return (
 		<div>
-			<Calendar
-			          apiKey={API_KEY}
-					  calendars={calendars}
-					  styles={styles}
-					  language={language}
-			/>
+			<iframe
+				src={"https://calendar.google.com/calendar/embed?src=bdb86c31dd1521191e7d1a472d3e5bf9cf0e5d6fc30f63eabf3630227d053506%40group.calendar.google.com&ctz=America%2FBogota"}
+				style={{ border: 0, width: '100%', height: '500px', frameborder: '0', scrolling: 'no' }}
+			></iframe>
 		</div>
 	);
 };

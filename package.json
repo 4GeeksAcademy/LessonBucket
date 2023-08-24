@@ -73,12 +73,10 @@
 		]
 	},
 	"dependencies": {
-		"@emotion/react": "^11.11.1",
-		"@ericz1803/react-google-calendar": "^4.3.1",
 		"axios": "^1.4.0",
 		"prop-types": "^15.6.1",
-		"react": "^16.14.0",
-		"react-dom": "^16.14.0",
+		"react": "^16.8.4",
+		"react-dom": "^16.8.4",
 		"react-polyfills": "0.0.1",
 		"react-router-dom": "^6.3.0",
 		"react-toastify": "^9.1.3",
