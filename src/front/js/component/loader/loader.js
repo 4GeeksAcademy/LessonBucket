@@ -2,9 +2,11 @@ import React from "react"
 
 
 
-export const Loader = () => {
+export const Loader = ({ view }) => {
+    const loaderClass = view === 'login' ? 'login-loader' : 'recoverpass-loader';
+
     return (
-        <div>
+        <div className={loaderClass}>
             <svg xmlns="http://www.w3.org/2000/svg" height="200px" width="200px" viewBox="0 0 200 200" class="pencil">
                 <defs>
                     <clipPath id="pencil-eraser">
@@ -38,4 +40,4 @@ export const Loader = () => {
             </svg>
         </div>
     )
-}
+};

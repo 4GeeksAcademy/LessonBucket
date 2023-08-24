@@ -9,9 +9,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// ALMACEN DE USUARIOS
 			user: {},
 			// ALMACEN DE Token
-			token: "",
+			token:"",
 			//ALMACEN DE PASSWORD
-			recoverPass: "",
+			recoverPass:"",
 			// ESTADO DE DE LOGADO PARA GESTIÓN TOKEN
 
 			logged: false,
@@ -84,10 +84,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(data.user);
 					setStore({
 
-						user: data.user,
-						token: data.token,
-						logged: true
-
+							user: data.user,
+							token: data.token,
+							logged: true
+							
 					});
 
 					return true;
@@ -102,7 +102,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			verifyAuthToken: async () => {
 				const token = sessionStorage.getItem("token");
-
+				
 				try {
 					let response = await axios.get(process.env.BACKEND_URL + "/api/protected", {
 						headers: {
@@ -111,12 +111,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 
 					const userData = response.data.response.user;
-
+					
 					setStore({
-						user: userData,
+						user:  userData, 
 						token: token,
 						logged: true
 					});
+					
+					console.log(getStore().user)
 
 					console.log(getStore().user)
 
@@ -133,7 +135,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// FUNCIÓN PARA OBTENER VERIFICAR SI EMAIL ESTA REGISTRADO PARA RECUPERAR CONTRASEÑA
 
 			recoverPass: async (dataEmail) => {
-
+				
 				try {
 
 					const response = await axios.post(process.env.BACKEND_URL + "/api/forgotpassword", {
@@ -142,12 +144,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					const data = response.data.new_password;
 					console.log(data)
-
+					
 
 					setStore({
-						recoverPass: data
+							recoverPass: data
 					});
-
+			
 					return true;
 
 				} catch (error) {

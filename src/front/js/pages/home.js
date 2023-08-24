@@ -4,34 +4,46 @@ import rigoImageUrl from "../../img/rigo-baby.jpg";
 import dashboardImageUrl from "../../img/dashboard.jpg";
 import placeholderImg from "../../img/placeholder1.jpg";
 import "../../styles/home.css";
+import { useNavigate } from "react-router-dom";
 
 export const Home = () => {
   const { store, actions } = useContext(Context);
+  const navigate = useNavigate();
+
+  const LoginRedirect = () => {
+    let login = "/login";
+    navigate(login);
+  }
+  const LearnMoreRedirect = () => {
+    let learnMore = "/LearnMore";
+    navigate(learnMore);
+  }
 
   return (
-    <div>
+    <div className="whiteText">
       {/* Title and preview section */}
 
-      <div className="container d-flex mt-5">
-        <div className="row">
-          <h1>Tagline with your Unique selling proposition</h1>
+      <div className="container d-flex mt-5 mb-5">
+        <div className="row backg me-3 p-4">
+          <h1>The all-in-one app for teachers</h1>
           <p>
-            lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec
-            purus feugiat, molestie ipsum et,
+            Manage your students, classes, notes, and more from one place!
           </p>
           <button
             type="button"
             style={{ height: "40px" }}
             className="btn btn-primary w-25 me-2"
+            onClick={() => { LoginRedirect() }}
           >
-            Primary
+            Get started!
           </button>
           <button
             type="button"
             style={{ height: "40px" }}
             className="btn btn-secondary w-25"
+            onClick={() => { LearnMoreRedirect() }}
           >
-            Secondary
+            Learn more!
           </button>
         </div>
         <div className="row">
@@ -43,32 +55,34 @@ export const Home = () => {
       {/* Features section */}
 
       <div className="container d-flex mt-5 mb-4 justify-content-evenly">
-        <div className="row text-center" style={{ width: "300px" }}>
+        <div className="row text-center backg p-4" style={{ width: "300px" }}>
           <i className="fa-solid fa-check"></i>
-          <h2>Gestion centralizada</h2>
+          <h2>All-in-one management</h2>
           <p>
-            Controla todas tus notas, comentarios, alumnos, fechas de clase y
-            cualquier otra cosa que puedas necesitar desde el mismo sitio!
+            Handle all your notes, comments, students, class dates and anything
+            else you might need!
           </p>
         </div>
-        <div className="row text-center" style={{ width: "300px" }}>
+        <div className="row text-center backg p-4" style={{ width: "300px" }}>
           <i className="fa-solid fa-flag"></i>
-          <h2>Sincroniza con Google Calendar</h2>
+          <h2>Google calendar sync</h2>
           <p>
-            Visualiza tus clases gracias a la implementacion de google calendar.
+            Visualize your classes thanks to the implementation of google calendar
           </p>
         </div>
-        <div className="row text-center" style={{ width: "300px" }}>
+        <div className="row text-center backg p-4" style={{ width: "300px" }}>
           <i className="fa-solid fa-star"></i>
-          <h2>Control de Pagos</h2>
-          <p>Registro visual y sencillo para llevar los pagos al día.</p>
+          <h2>Payment check control</h2>
+          <p>
+            Visual and simple record to keep payments up to date.
+          </p>
         </div>
       </div>
 
       {/* Main benefit section */}
 
       <div className="container d-flex mt-5 justify-content-evenly mb-5">
-        <div className="row me-5" style={{ width: "500px" }}>
+        <div className="row me-5 backg p-4" style={{ width: "500px" }}>
           <h1>Heading explaining the main benefit of your app</h1>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ultrices
@@ -81,9 +95,8 @@ export const Home = () => {
             parturient montes, nascetur ridiculus mus. Nam a mollis augue.
           </p>
         </div>
-        <img src={placeholderImg} alt="preview dashboard" />
-
-        <div className="row"></div>
+        <div className="row"><img src={placeholderImg} alt="preview dashboard" />
+        </div>
       </div>
       <hr />
 
@@ -92,7 +105,7 @@ export const Home = () => {
       {/* <!-- Carousel wrapper --> */}
       <div
         id="carouselMultiItemExample"
-        className="carousel slide carousel-dark text-center my-5"
+        className="carousel slide carousel-dark text-center my-5 backg"
         data-mdb-ride="carousel"
       >
         {/* <!-- Controls --> */}
@@ -453,12 +466,10 @@ export const Home = () => {
       {/* <!-- Carousel wrapper --> */}
       <hr />
       {/* Suscripción */}
-      <div className="container mt-5 text-center" style={{ width: "600px" }}>
+      <div className="container mt-5 text-center backg p-4" style={{ width: "600px" }}>
         <h1>Subscribe for updates</h1>
         <p>
-          Fusce rhoncus semper faucibus. Vivamus pharetra eget nisi gravida
-          malesuada. Orci varius natoque penatibus et magnis dis parturient
-          montes, nascetur ridiculus mus. Nam a mollis augue.
+          Want to keep up to date with the latest updates and upgrades? Sign up!
         </p>
         <input className="me-3" type="text" placeholder="Email" />
         <input className="me-3" type="text" placeholder="Full name" />
