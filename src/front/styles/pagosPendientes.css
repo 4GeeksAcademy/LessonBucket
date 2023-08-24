@@ -1,9 +1,10 @@
 .main-pagos {
-    background: #FFFFFF;
+    background: transparent linear-gradient(270deg, #390839 0%, #030819 100%);
     box-shadow: 0px 3px 6px #00000029;
-    border-radius: 30px;
+    border-radius: 20px;
     opacity: 1;
-    padding: 2rem;
+    padding: 1rem;
+    height: 832px;
 }
 
 .pill {
@@ -27,10 +28,9 @@
     text-align: left;
     font: normal normal bold 25px/30px Helvetica Neue;
     letter-spacing: 0px;
-    color: #696969;
+    color: #FFFFFF;
 }
 
-/* Add responsive styles using Bootstrap classes */
 @media (max-width: 768px) {
     .main-pagos {
         padding: 1rem;
