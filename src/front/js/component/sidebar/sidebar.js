@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Context } from "../../store/appContext";
 export const Sidebar = () => {
