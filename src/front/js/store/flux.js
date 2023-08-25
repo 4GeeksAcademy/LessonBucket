@@ -27,7 +27,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					background: "white",
 					initial: "white"
 				}
-			]
+			],
+			subjects: [],
+			studentsPendingPayment: []
 		},
 		actions: {
 
