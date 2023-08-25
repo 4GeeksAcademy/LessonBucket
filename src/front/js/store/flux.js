@@ -27,9 +27,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					background: "white",
 					initial: "white"
 				}
-			],
-			subjects: [],
-			studentsPendingPayment: []
+			]
 		},
 		actions: {
 
@@ -82,8 +80,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					const data = response.data;
 
-					sessionStorage.setItem("token", data.token);
-					console.log(data.user);
+
+					console.log(data);
 					setStore({
 
 						user: data.user,
@@ -91,6 +89,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						logged: true
 
 					});
+					sessionStorage.setItem("token", data.token);
 
 					return true;
 
@@ -122,11 +121,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					console.log(getStore().user)
 
-					console.log(getStore().user)
-
 					return true;
 				} catch (error) {
-					console.log(error, "No hay token");
 					sessionStorage.removeItem("token");
 					setStore({ logged: false });
 					return false;
@@ -159,6 +155,30 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			},
+
+
+			logout: () => {
+
+
+				console.log("Deslogando");
+				sessionStorage.removeItem("token");
+				setStore({
+					logged: false,
+					token: ""
+				});
+
+
+			},
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -227,7 +247,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			}
-
 		}
 	};
 };

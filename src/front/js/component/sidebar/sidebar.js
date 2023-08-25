@@ -1,19 +1,26 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../../store/appContext";
+import { useLocation } from 'react-router-dom';
+
+
 export const Sidebar = () => {
+    // console.log(useLocation().pathname);
+
     const { store, actions } = useContext(Context);
     const [showSidebar, setShowSidebar] = useState("spread")
 
 
     const handleToggleSideBar = () => {
+        if (Sidebar != null) {
 
-        if (showSidebar === "spread") { setShowSidebar("shrink") }
-        else { setShowSidebar("spread") }
+            if (showSidebar === "spread") { setShowSidebar("shrink") }
+            else { setShowSidebar("spread") }
+        }
     }
 
 
-    if (store.logged === false) return null
+    if (store.logged === false || (useLocation().pathname === "/")) return null
     else {
 
         if (showSidebar === "spread") {
