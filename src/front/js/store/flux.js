@@ -82,7 +82,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					const data = response.data;
 
-
+					
 					console.log(data);
 					setStore({
 
@@ -92,7 +92,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					});
 					sessionStorage.setItem("token", data.token);
-
+			
 					return true;
 
 				} catch (error) {
@@ -161,21 +161,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			logout: () => {
 
-
-				console.log("Deslogando");
-				sessionStorage.removeItem("token");
-				setStore({
-					logged: false,
-					token: ""
-				});
-
-
-			},
-
-
-
-
-
+				
+						console.log("Deslogando");
+						sessionStorage.removeItem("token");
+						setStore({ 
+							logged: false,
+							token:""						
+						});
+						
+					
+				},
+				
+					
+					
+				
+			
 
 
 

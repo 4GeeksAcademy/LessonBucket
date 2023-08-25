@@ -12,15 +12,16 @@ export const Sidebar = () => {
 
 
     const handleToggleSideBar = () => {
-        if (Sidebar != null) {
+        if (Sidebar !=null){
 
             if (showSidebar === "spread") { setShowSidebar("shrink") }
             else { setShowSidebar("spread") }
         }
     }
+    }
 
 
-    if (store.logged === false || (useLocation().pathname === "/")) return null
+    if (store.logged === false || (useLocation().pathname === "/") ) return null
     else {
 
         if (showSidebar === "spread") {

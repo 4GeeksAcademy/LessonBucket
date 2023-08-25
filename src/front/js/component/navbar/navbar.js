@@ -7,16 +7,10 @@ import { Context } from "../../store/appContext";
 export const Navbar = () => {
 	
 	const { store, actions } = useContext(Context);
-
-	console.log(store.user);
-	console.log(store.logged);
+	console.log(store.logged)
 
 
-	const handleSignOut = () => {
-		if (store.logged === true){
-			sessionStorage.removeItem("token");
-		}
-	}
+	
 	
 
 	const handleLoginLogout = () =>{
@@ -29,6 +23,14 @@ export const Navbar = () => {
 	}
 
 
+	const handleSignOut = () => {
+		if (store.logged === true){
+			actions.logout();
+		
+		
+
+		}
+	}
 	
 
 	return (
@@ -39,19 +41,19 @@ export const Navbar = () => {
 					<span className="navbar-brand mb-0 h1 "><i className="fa-solid fa-bucket me-2"></i>Lesson Bucket</span>
 				</Link>
 				</div>
-				<div className="ml-auto">
+				<div className="ml-auto d-flex flex-row align-items-center">
 					<p className="user-name">{handleUserName()}</p>
 					<Link to="/login">
-						<a className="nav-links mx-4 " onClick={handleSignOut()}>{handleLoginLogout()}</a>
+						<p className="nav-links mx-4 " onClick={handleSignOut}>{handleLoginLogout()}</p>
 					</Link>
-					<Link to="/demo">
-						<a className="nav-links mx-4 ">Profile</a>
+					<Link to="/Profile">
+						<p className="nav-links mx-4 ">Profile</p>
 					</Link>
-					<Link to="/demo">
-						<a className="nav-links mx-4 ">About us</a>
+					<Link to="/About Us">
+						<p className="nav-links mx-4 ">About us</p>
 					</Link>
-					<Link to="/demo">
-						<a className="nav-links mx-4 ">Pricing</a>
+					<Link to="/Pricing">
+						<p className="nav-links mx-4 ">Pricing</p>
 					</Link>
 				</div>
 			</div>
