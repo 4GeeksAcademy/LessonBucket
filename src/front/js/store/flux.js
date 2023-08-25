@@ -13,8 +13,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			//ALMACEN DE PASSWORD
 			recoverPass: "",
 			// ESTADO DE DE LOGADO PARA GESTIÓN TOKEN
-
 			logged: false,
+			// ALMACEN DE ESTUDIANTES
+			allStudents: [],
 
 			demo: [
 				{
@@ -81,8 +82,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 
 					const data = response.data;
-
-					
 					console.log(data);
 					setStore({
 
@@ -158,6 +157,29 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
+			// FUNCIÓN PARA VALIDAR TOKEN CUANDO SE CARGA LA PÁGINA Y VERIFICAR SI ESTA LOGADO O NO
+
+			getAllStudents: async () => {
+
+				const user_id = store.user.user.id;
+    			const token = store.token;
+
+				try {
+					let response = await axios.get(process.env.BACKEND_URL + `/user/${user_id}/students`, {
+						headers: {
+							"Authorization": `Bearer ${token}`,
+						}
+					});
+
+					console.log(getStore().user)
+					return true;
+
+				} catch (error) {
+					sessionStorage.removeItem("token");
+					setStore({ logged: false });
+					return false;
+				}
+			},
 
 			logout: () => {
 
