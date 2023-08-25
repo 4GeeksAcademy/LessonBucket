@@ -1,22 +1,38 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
+import Calendar from "@ericz1803/react-google-calendar";
 import "../../styles/calendar.css";
 
-export const Calendar = (props) => {
-	const { store, actions } = useContext(Context);
+export const CalendarAux = (props) => {
+	const API_KEY = "AIzaSyBrpMc_llCg1YH1cR1sMqDTM_eeY7E2HwY";
+	let calendars = [
+		{
+			calendarId: props.email,
+			color: "#801480"
+		}
+	];
+	let styles = {
+		calendar: {
+			borderWidth: "1px",
+			borderColor: "white",
+			borderRadius: "20px",
+			color: "white"
+		},
+		eventText :{
+			color: "white",
+			fontSize: "1.1rem"
+		}
+	};
 
+	const language = "ES";
 	return (
-		<div className="main">
-			<h5 className="pill-title">Pagos Pendientes</h5>
-			<div className="row">
-				{props.pagos.map((pago, index) => (
-					<div className="col-md-12 mb-12" key={index}>
-						<div className="pill">
-							<p className="pill-font">{pago}</p>
-						</div>
-					</div>
-				))}
-			</div>
+		<div style={{color:"white"}}>
+			<Calendar
+				apiKey={API_KEY}
+				calendars={calendars}
+				styles={styles}
+				language={language}
+			/>
 		</div>
 	);
 };
