@@ -18,7 +18,7 @@ export const Sidebar = () => {
             else { setShowSidebar("spread") }
         }
     }
-    }
+    
 
 
     if (store.logged === false || (useLocation().pathname === "/") ) return null
