@@ -42,18 +42,18 @@ export const Navbar = () => {
 				</Link>
 				</div>
 				<div className="ml-auto d-flex flex-row align-items-center">
-					<p className="user-name">{handleUserName()}</p>
+					<p className="user-name ">{handleUserName()}</p>
 					<Link to="/login">
-						<p className="nav-links mx-4 " onClick={handleSignOut}>{handleLoginLogout()}</p>
+						<p className="nav-links mx-4 nav-p" onClick={handleSignOut}>{handleLoginLogout()}</p>
 					</Link>
 					<Link to="/Profile">
-						<p className="nav-links mx-4 ">Profile</p>
+						<p className="nav-links mx-4 nav-p">Profile</p>
 					</Link>
 					<Link to="/About Us">
-						<p className="nav-links mx-4 ">About us</p>
+						<p className="nav-links mx-4 nav-p">About us</p>
 					</Link>
 					<Link to="/Pricing">
-						<p className="nav-links mx-4 ">Pricing</p>
+						<p className="nav-links mx-4 nav-p">Pricing</p>
 					</Link>
 				</div>
 			</div>
