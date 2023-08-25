@@ -1,11 +1,20 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
-import { Context } from "../store/appContext";
+import { CreateSubject } from "../component/SubjectsPage/createSubject.js";
+import { DropdownSubject } from "../component/SubjectsPage/dropdownSubject.js";
+import { Context } from "../store/appContext.js";
+import "../component/SubjectsPage/subjects.css";
 
 
 export const SubjectsPage = props => {
 	const { store, actions } = useContext(Context);
-	
 
-	return 
+
+	return (
+		<div className="min-vh-100">
+			<CreateSubject />
+			<DropdownSubject />
+		</div>
+
+	)
 }

@@ -82,7 +82,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					const data = response.data;
 
-					
+
 					console.log(data);
 					setStore({
 
@@ -92,7 +92,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					});
 					sessionStorage.setItem("token", data.token);
-			
+
 					return true;
 
 				} catch (error) {
@@ -161,21 +161,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			logout: () => {
 
-				
-						console.log("Deslogando");
-						sessionStorage.removeItem("token");
-						setStore({ 
-							logged: false,
-							token:""						
-						});
-						
-					
-				},
-				
-					
-					
-				
-			
+
+				console.log("Deslogando");
+				sessionStorage.removeItem("token");
+				setStore({
+					logged: false,
+					token: ""
+				});
+
+
+			},
+
+
+
+
+
 
 
 
@@ -248,7 +248,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error("An error occurred while fetching subjects", error);
 					return false;
 				}
-			}
+			},
+			//FUNCION PARA VER TODAS LAS MATERIAS
+			getAllSubjects: () => {
+				fetch(`${process.env.BACKEND_URL}/api/user/${userId}/subjects`)
+					.then((res) => res.json())
+					.then((data) => {
+						console.log(data);
+						setStore({ peopleGeneral: data.results });
+					})
+					.catch((err) => console.error(err));
+			},
+
 		}
 	};
 };
