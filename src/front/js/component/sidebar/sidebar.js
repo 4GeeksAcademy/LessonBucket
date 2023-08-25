@@ -14,8 +14,9 @@ export const Sidebar = () => {
     const handleToggleSideBar = () => {
         if (Sidebar !=null){
 
-        if (showSidebar === "spread") { setShowSidebar("shrink") }
-        else { setShowSidebar("spread") }
+            if (showSidebar === "spread") { setShowSidebar("shrink") }
+            else { setShowSidebar("spread") }
+        }
     }
     }
 

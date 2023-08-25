@@ -9,9 +9,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// ALMACEN DE USUARIOS
 			user: {},
 			// ALMACEN DE Token
-			token:"",
+			token: "",
 			//ALMACEN DE PASSWORD
-			recoverPass:"",
+			recoverPass: "",
 			// ESTADO DE DE LOGADO PARA GESTIÓN TOKEN
 
 			logged: false,
@@ -27,7 +27,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					background: "white",
 					initial: "white"
 				}
-			]
+			],
+			subjects: [],
+			studentsPendingPayment: []
 		},
 		actions: {
 
@@ -84,10 +86,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(data);
 					setStore({
 
-							user: data.user,
-							token: data.token,
-							logged: true
-							
+						user: data.user,
+						token: data.token,
+						logged: true
+
 					});
 					sessionStorage.setItem("token", data.token);
 			
@@ -103,7 +105,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			verifyAuthToken: async () => {
 				const token = sessionStorage.getItem("token");
-				
+
 				try {
 					let response = await axios.get(process.env.BACKEND_URL + "/api/protected", {
 						headers: {
@@ -112,13 +114,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 
 					const userData = response.data.response.user;
-					
+
 					setStore({
-						user:  userData, 
+						user: userData,
 						token: token,
 						logged: true
 					});
-					
+
 					console.log(getStore().user)
 
 					return true;
@@ -133,7 +135,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// FUNCIÓN PARA OBTENER VERIFICAR SI EMAIL ESTA REGISTRADO PARA RECUPERAR CONTRASEÑA
 
 			recoverPass: async (dataEmail) => {
-				
+
 				try {
 
 					const response = await axios.post(process.env.BACKEND_URL + "/api/forgotpassword", {
@@ -142,12 +144,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					const data = response.data.new_password;
 					console.log(data)
-					
+
 
 					setStore({
-							recoverPass: data
+						recoverPass: data
 					});
-			
+
 					return true;
 
 				} catch (error) {
@@ -213,6 +215,39 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				//reset the global store
 				setStore({ demo: demo });
+			},
+			fetchSubjects: async () => {
+				let userId = getStore().user.id;
+				if (userId === undefined) {
+					userId = 1;
+				}
+				try {
+					const response = await axios.get(`${process.env.BACKEND_URL}/api/user/${userId}/subjects`);
+					setStore({
+						subjects: response.data
+					});
+					return true;
+				} catch (error) {
+					console.error("An error occurred while fetching subjects", error);
+					return false;
+				}
+			},
+			fetchStudentsPendingPayment: async () => {
+				let userId = getStore().user.id;
+				if (userId === undefined) {
+					userId = 1;
+				}
+				try {
+					const response = await axios.get(`${process.env.BACKEND_URL}/api/user/${userId}/students`);
+					console.log(response.data);
+					setStore({
+						studentsPendingPayment: response.data
+					});
+					return true;
+				} catch (error) {
+					console.error("An error occurred while fetching subjects", error);
+					return false;
+				}
 			}
 		}
 	};

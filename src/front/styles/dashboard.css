@@ -1,9 +1,6 @@
 .separator {
-    top: 78px;
-    left: 244px;
-    width: 1676px;
     height: 60px;
-    background: transparent linear-gradient(270deg, #D19BFF 0%, #801380 100%) 0% 0% no-repeat padding-box;
+    background: transparent linear-gradient(271deg, #0C2FA8 -10%, #801480 51%);
     border: 1px;
     opacity: 1;
     /* UI Properties */
@@ -15,4 +12,14 @@
     padding: 1rem;
     margin-bottom: 0.5rem;
     margin-top: 0.5rem;
+}
+.dashboard-wrapper{
+    width: 95%;
+    float: right;
+    margin: 0px;
+}
+
+.row{
+    margin: 0;
+    width: 100%;
 }

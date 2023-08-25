@@ -1,22 +1,27 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/pagosPendientes.css";
 
 export const PagosPendientes = (props) => {
 	const { store, actions } = useContext(Context);
-
+	useEffect(() => {
+		actions.fetchStudentsPendingPayment();
+	}, []);
 	return (
-		<div className="main">
-			<h5 className="pill-title">Pagos Pendientes</h5>
-			<div className="row">
-				{props.payments.map((payment, index) => (
-					<div className="col-md-12 mb-12" key={index}>
-						<div className="pill">
-							<p className="pill-font">{payment}</p>
-						</div>
+		<div className="row">
+			<div className="col">
+				<div className="overflow-hidden">
+					<div className="overflow-auto">
+						<h5 className="pill-title">Pagos Pendientes</h5>
+						{store.studentsPendingPayment.results && store.studentsPendingPayment.results.map((payment, index) => (
+							<div className="pill" key={index}>
+								<p className="pill-font">{payment.name}</p>
+							</div>
+						))}
 					</div>
-				))}
+				</div>
 			</div>
 		</div>
+
 	);
 };
