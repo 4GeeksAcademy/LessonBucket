@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint, current_app
-from api.models import db, User, Subjects, Students, Comments
+from api.models import db, User, Subjects, Students, Comments, Class
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
@@ -628,3 +628,133 @@ def forgotpassword():
     current_app.mail.send(msg)
 
     return jsonify({"msg": "Your new password has been sent to your email", "new_password": recover_password}), 200
+
+# ENDPOINT PARA OBTENER TODAS LAS CLASES
+
+@api.route('/user/<int:user_id>/class', methods=['GET'])
+def get_all_class(user_id):
+
+    class_query = Class.query.all()
+
+    if not class_query:
+        raise APIException('The list of class is empty', 404)
+
+    results = list(map(lambda item: item.serialize(), class_query))
+
+    try:
+        response_body = {
+            "msg": "List of class obtained",
+            "results": results
+        }
+
+    except:
+        raise APIException('Internal error', 500)
+
+    return jsonify(response_body), 200
+
+
+# ENDPOINT PARA OBTENER UNA CLASE
+
+@api.route('/user/<int:user_id>/class/<int:class_id>', methods=['GET'])
+def get_one_class(user_id, class_id):
+
+    try:
+        class_information = Class.query.filter_by(id=class_id).first()
+
+        response_body = {
+            "msg": "Class obtained",
+            "students": class_information.serialize()
+        }
+
+        return jsonify(response_body), 200
+
+    except:
+        raise APIException('Class not found', 404)
+
+
+    # ENDPOINT CREATE ONE CLASS
+
+@api.route("/user/<int:user_id>/class", methods=["POST"])
+def create_one_class(user_id):
+
+    request_body = request.get_json(force=True)
+
+    required_fields = ["subjects_id", "student_id", "comments_id", "date", "price", "paid"]
+    for field in required_fields:
+        if field not in request_body or not request_body[field]:
+            raise APIException(f'The "{field}" field cannot be empty', 400)
+
+    newClass = Class(subjects_id=request_body["subjects_id"], student_id=request_body["student_id"], comments_id=request_body["comments_id"],
+                date=request_body["date"], price=request_body["price"], paid=request_body["paid"])
+
+    db.session.add(newClass)
+
+    try:
+        db.session.commit()
+    except:
+        raise APIException('Internal error', 500)
+
+    response_body = {
+        "msg": "Class created",
+        "student": newClass.serialize()
+    }
+
+    return jsonify(response_body), 200
+
+ # ENDPOINT MODIFY A CLASS
+
+@api.route('/user/<int:user_id>/class/<int:class_id>', methods=['PUT'])
+def modify_class(user_id, class_id):
+
+    body = request.get_json(force=True)
+    newClass = Class.query.get(class_id)
+
+    if not newClass:
+        raise APIException('Class not found', 404)
+
+    required_fields = ["subjects_id", "student_id", "comments_id", "date", "price"]
+    for field in required_fields:
+        if field not in body or not body[field]:
+            raise APIException(f'The "{field}" field cannot be empty', 400)
+
+    newClass.subjects_id = body["subjects_id"]
+    newClass.student_id = body["student_id"]
+    newClass.comments_id = body["comments_id"]
+    newClass.date = body["date"]
+    newClass.price = body["price"]
+    newClass.paid = body["paid"]
+
+    try:
+        db.session.commit()
+    except:
+        raise APIException('Internal error', 500)
+
+    response_body = {
+        "msg": "Class successfully modified",
+        "user": newClass.serialize()
+    }
+    return jsonify(response_body), 200
+
+
+# ENDPOINT DELETE COMMENT
+
+@api.route('/user/<int:user_id>/class/<int:class_id>', methods=['DELETE'])
+def del_class(user_id, class_id):
+
+    class_query = Class.query.filter_by(id=class_id).first()
+
+    if not class_query:
+        raise APIException('Class not found', 404)
+
+    try:
+        db.session.delete(class_query)
+        db.session.commit()
+
+        response_body = {
+            "msg": "class successfully deleted",
+        }
+
+    except:
+        raise APIException('Internal error', 500)
+
+    return jsonify(response_body), 200            
