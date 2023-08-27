@@ -1,0 +1,137 @@
+.student-card {
+  width: 250px;
+  border-radius: 20px;
+  background: linear-gradient(
+    90deg,
+    rgba(43, 18, 40, 0.6264706566220238) 0%,
+    rgba(69, 15, 63, 0.6096639339329482) 35%,
+    rgba(113, 5, 97, 0.6208684157256652) 100%
+  );
+  padding: 5px;
+  overflow: hidden;
+}
+
+.student-card:hover {
+  transform: scale(1.05);
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 20px 0px;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.student-card .student-top-section {
+  height: 150px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.5) 100%);
+  position: relative;
+}
+
+
+.student-card .student-top-section .student-border {
+      height: 30px;
+      width: 130px;
+      background: white;
+      background: linear-gradient( 90deg, rgba(43, 18, 40, 1) 0%, rgba(69, 15, 63, 1) 35%, rgba(113, 5, 97, 1) 100% );
+      position: relative;
+      transform: skew(-40deg);
+      right: 4px;
+      border-bottom-left-radius: 30px;
+      
+}
+
+.student-card .student-top-section .student-border::before {
+  content: "";
+  position: absolute;
+  width: 40px;
+  height: 10px;
+  top: 0;
+  right: -15px;
+  border-top-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  
+}
+
+.student-card .student-top-section .student-icons {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.student-card .student-top-section .student-icons .logo {
+  height: 100%;
+  aspect-ratio: 1;
+  padding: 7px 0 7px 15px;
+}
+
+.student-card .student-top-section .student-icons .student-logo .student-top-section {
+  height: 100%;
+}
+
+.student-card .student-top-section .student-icons .student-social-media {
+  height: 100%;
+  padding: 8px 15px;
+  display: flex;
+  gap: 7px;
+}
+
+.student-card .student-top-section .student-icons .student-social-media .student-svg {
+  height: 100%;
+  
+}
+
+.student-card .student-top-section .student-icons .student-social-media .student-svg:hover {
+  fill: white;
+}
+
+.student-card .student-bottom-section {
+  margin-top: 15px;
+  padding: 10px 5px;
+}
+
+.student-card .student-bottom-section .student-title {
+  display: block;
+  font-size: 17px;
+  font-weight: bolder;
+  color: white;
+  text-align: center;
+  letter-spacing: 2px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.student-card .student-bottom-section .student-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.student-card .student-bottom-section .student-row .student-item {
+  flex: 30%;
+  text-align: center;
+  padding: 5px;
+  color: rgba(170, 222, 243, 0.721);
+}
+
+.student-card .student-bottom-section .student-row .student-item .student-big-text {
+  font-size: 12px;
+  display: block;
+}
+
+.student-card .student-bottom-section .student-row .student-item .student-regular-text {
+  font-size: 9px;
+}
+
+.student-card .student-bottom-section .student-row .student-item:nth-child(2) {
+  border-left: 1px solid rgba(255, 255, 255, 0.126);
+  border-right: 1px solid rgba(255, 255, 255, 0.126);
+}
+
+.student-upTitle {
+  color: white;
+  margin-left: 12px;
+}
+

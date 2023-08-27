@@ -7,12 +7,8 @@ import { Context } from "../../store/appContext";
 export const Navbar = () => {
 	
 	const { store, actions } = useContext(Context);
-	console.log(store.logged)
-
-
 	
 	
-
 	const handleLoginLogout = () =>{
 		if (store.logged === true)  {return "Logout"} else {return "Login"}
 
