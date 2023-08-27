@@ -1,10 +1,15 @@
+/* contenedor principal */
+
 .student-main-container {
     max-width: 85%;
     min-height: 100vh;
     margin:0 auto;
     margin-bottom: 20px;
+    
 
 }
+
+/* barra menu superior de estudiantes */
 
 .student-navbar {
     display: flex;
@@ -13,14 +18,18 @@
     background: linear-gradient( 90deg, rgba(43, 18, 40, 1) 0%, rgba(69, 15, 63, 1) 35%, rgba(113, 5, 97, 1) 100% );
     border: 1px;
     opacity: 1;
-    color: white;
     margin-bottom: 35px;
     
 }
 
+/* boton para refrescar alumnos y hover */
+
 .student-button-refresh {
+  width: fit-content;
+  height: fit-content;
   cursor: pointer;
-  margin-right:15px;
+  margin-top: 18px;
+  margin-right:20px;
   border-radius: 4px;
   font-size: 1rem;
   border: none;
@@ -35,6 +44,52 @@
   
 }
 
+/* Interior de la barra de navegación de alumnos */
+
+/* titulo encabezado */
+
 .student-headboard {
-  color: brown;
+  color: white;
+  padding: 20px;
 }
+
+/* input de busqueda */
+
+.student-search-input {
+  margin-left: 750px;
+  height: 31px;
+  width: fit-content;
+  padding: 10px;
+  margin-top: 15px;
+  border-radius: 50px;
+  border: 0;
+}
+
+.search-icon-visible {
+  position: relative;
+  right: 200px;
+  top: 23px;
+}
+
+.search-icon-hidden {
+  display: none; 
+  
+}
+
+/* @media (max-width: 768px) {
+ 
+  .student-button-refresh {
+    margin-top: 10px; 
+    margin-right: 10px; 
+  }
+
+
+  .student-search-input {
+    margin-left: 10px; 
+    margin-top: 10px; 
+  }
+} */
+
+
+
+

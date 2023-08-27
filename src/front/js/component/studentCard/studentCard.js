@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Context } from "../../store/appContext";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import "./studentCard.css";
 
 
@@ -41,6 +43,9 @@ export const StudentCard = (props) => {
                     <div className="student-item">
                         <span className="student-big-text">{props.email}</span>
                         <span className="student-regular-text">email</span>
+                    </div>
+                    <div className="container-delete-icon">
+                        <span className="student-delete-icon"><FontAwesomeIcon icon={faTrash}/></span>  
                     </div>
                 </div>
             </div>

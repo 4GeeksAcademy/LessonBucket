@@ -9,6 +9,7 @@
   );
   padding: 5px;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .student-card:hover {
@@ -36,7 +37,7 @@
       transform: skew(-40deg);
       right: 4px;
       border-bottom-left-radius: 30px;
-      
+      border-bottom-right-radius: 18px;
 }
 
 .student-card .student-top-section .student-border::before {
@@ -135,3 +136,7 @@
   margin-left: 12px;
 }
 
+.student-delete-icon {
+  color: rgba(170, 222, 243, 0.721);
+  padding: 11px;
+}

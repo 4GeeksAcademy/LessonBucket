@@ -3,16 +3,15 @@ import { Context } from "../store/appContext";
 import { useNavigate } from 'react-router-dom';
 import { StudentCard } from "../component/studentCard/studentCard"
 import { Loader } from "../component/loader/loader";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import "../../styles/students.css"
-
-
-
 
 
 export const Students = () => {
     const { store, actions } = useContext(Context);
     const [loaded, setLoaded] = useState("loadedEmpty")
-    const [iconLoader, setIconLoader] = useState(false);
+    const [iconSearch, setIconSearch] = useState(true);
     const navigate = useNavigate()
 
   //  SE LLAMA A FUNCIÓN DESPUÉS DE TENER TOKEN
@@ -22,18 +21,34 @@ export const Students = () => {
       setLoaded("fullLoaded")
     }, [store.token]);
 
-   console.log(loaded)
 
    useEffect(() => {
     console.log(store.allStudents)
   }, [store.allStudents]);
-  
-  return (
+
+
+  const handleSearch = () => {
+    setIconSearch(!iconSearch);
+};
+
+return (
     <div className="student-main-container">
-      <div className ="student-navbar">
-        <h5 className="student-headboard">Alumnos</h5>
-        <input className="student-search-input" placeholder="Search..." required="" />
-        <button className="student-button-refresh" onClick={() => actions.getAllStudents()}>Refresh</button>
+        <div className ="student-navbar">
+            <h5 className="student-headboard">Alumnos <FontAwesomeIcon icon={faPlus} /></h5>
+            <input
+                className="student-search-input"
+                placeholder="    Search..."
+                required=""
+                onFocus={handleSearch}
+                onBlur={handleSearch}
+            />
+            <FontAwesomeIcon
+                icon={faMagnifyingGlass}
+                size="sm"
+                className={`search-icon ${iconSearch ? 'search-icon-visible' : 'search-icon-hidden'}`}
+                style={{"--fa-primary-opacity": "0.3", "--fa-secondary-opacity": "0.3"}}
+            />
+            <button className="student-button-refresh" onClick={() => actions.getAllStudents()}>Refresh</button>
       </div>
       {store.allStudents && store.allStudents !== "" && store.allStudents !== undefined ? (
         <>
@@ -74,4 +89,4 @@ export const Students = () => {
   );
 };
 
-
+  
