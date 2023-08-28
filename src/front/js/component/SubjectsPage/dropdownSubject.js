@@ -3,20 +3,22 @@ import { Link } from "react-router-dom";
 import "./subjects.css";
 import { Context } from "../../store/appContext.js";
 import { StudentPerSubject } from "./studentPerSubject";
+import PropTypes from "prop-types";
 
 
-export const DropdownSubject = () => {
+export const DropdownSubject = (props) => {
+
     return (
         <div className="container">
-            <div class="accordion" id="accordionExample">
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            Materia
+            <div className="accordion" id="accordionExample">
+                <div className="accordion-item">
+                    <h2 className="accordion-header">
+                        <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            {props.subject}
                         </button>
                     </h2>
-                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
+                    <div id="collapseOne" className="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                        <div className="accordion-body">
                             <StudentPerSubject />
                         </div>
                     </div>
@@ -26,3 +28,8 @@ export const DropdownSubject = () => {
         </div>
     );
 }
+
+DropdownSubject.propTypes = {
+    Subject: PropTypes.string
+};
+

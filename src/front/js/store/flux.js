@@ -28,7 +28,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					initial: "white"
 				}
 			],
-			subjects: [],
+			allSubjects: [],
 			studentsPendingPayment: []
 		},
 		actions: {
@@ -250,14 +250,64 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 			//FUNCION PARA VER TODAS LAS MATERIAS
-			getAllSubjects: () => {
-				fetch(`${process.env.BACKEND_URL}/api/user/${userId}/subjects`)
-					.then((res) => res.json())
-					.then((data) => {
-						console.log(data);
-						setStore({ peopleGeneral: data.results });
-					})
-					.catch((err) => console.error(err));
+			getAllSubjects: async () => {
+				const user_id = getStore().user.id;
+				const token = getStore().token
+				const allSubjects = getStore().allSubjects
+
+				console.log(user_id)
+				console.log(token)
+				console.log(allSubjects)
+
+				try {
+					let response = await axios.get(process.env.BACKEND_URL + `/api/user/${user_id}/subjects`, {
+						headers: {
+							"Authorization": `Bearer ${token}`,
+						}
+					});
+					const subjects = response.data.results
+					console.log(subjects);
+					setStore({
+						allSubjects: subjects
+					});
+					return true;
+				} catch (error) {
+					console.error("An error occurred during subject retrieval", error);
+					return false;
+				}
+			},
+			//FUNCION PARA CREAR MATERIA	
+			createSubject: async (SubjectName, UserID) => {
+				const user_id = getStore().user.id;
+				const token = getStore().token
+
+
+				try {
+
+					const response = await axios.post(process.env.BACKEND_URL + `/api/user/${user_id}/subjects`, {
+						headers: {
+							"Authorization": `Bearer ${token}`,
+						},
+						Subject: SubjectName,
+						UserID: UserID,
+					});
+
+					const data = response.data;
+
+					setStore({
+						AllSubjects: {
+							"Subject": data.SubjectName,
+							"UserID": data.UserID,
+						},
+					});
+
+
+					return true;
+
+				} catch (error) {
+					console.error("An error occurred during subject creation", error);
+					return false;
+				}
 			},
 
 		}

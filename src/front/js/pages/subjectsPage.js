@@ -8,12 +8,56 @@ import "../component/SubjectsPage/subjects.css";
 
 export const SubjectsPage = props => {
 	const { store, actions } = useContext(Context);
+	const subjects = store.allSubjects;
+	const user_id = store.user.id;
+	const [loaded, setLoaded] = useState("loadedEmpty")
+
+	useEffect(() => {
+		actions.getAllSubjects()
+		setLoaded("fullLoaded")
+	}, [store.token]);
+
+	useEffect(() => {
+		console.log(subjects)
+	}, [store.allSubjects]);
+
 
 
 	return (
 		<div className="min-vh-100">
 			<CreateSubject />
-			<DropdownSubject />
+			{store.allSubjects && store.allSubjects !== "" && store.allSubjects !== undefined ? (
+				<>
+					<div className="row d-flex flex-wrap justify-content-start gap-3">
+						{(loaded === "fullLoaded") && (
+							store.allSubjects.map(subject => (
+								<div className="col md-auto">
+									<DropdownSubject
+										subject={subject.Subject}
+										id={subject.id}
+										key={subject.id}
+									/>
+								</div>
+							))
+						)}
+					</div>
+				</>
+			) : (
+				<div className="text-center">
+					<h1>Usuario no regitrado, por favor, pulse el botón para volver a login.</h1>
+					<button
+						className="recover-button-return"
+						type="button"
+						onClick={() => {
+							setTimeout(() => {
+								navigate("/login");
+							}, 2000);
+						}}
+					>
+						Login
+					</button>
+				</div>
+			)}
 		</div>
 
 	)
