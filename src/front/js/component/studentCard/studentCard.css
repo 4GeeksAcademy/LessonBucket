@@ -111,6 +111,7 @@
 }
 
 .student-card .student-bottom-section .student-row .student-item {
+  width: 100px;
   flex: 30%;
   text-align: center;
   padding: 5px;
@@ -120,6 +121,9 @@
 .student-card .student-bottom-section .student-row .student-item .student-big-text {
   font-size: 12px;
   display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .student-card .student-bottom-section .student-row .student-item .student-regular-text {
@@ -136,7 +140,9 @@
   margin-left: 12px;
 }
 
-.student-delete-icon {
+.container-delete-icon {
   color: rgba(170, 222, 243, 0.721);
   padding: 11px;
+  margin-top: 5px;
 }
+

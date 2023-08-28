@@ -17,6 +17,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// ALMACEN DE ESTUDIANTES
 			allStudents: [],
 
+
 			demo: [
 				{
 					title: "FIRST",
@@ -159,7 +160,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// FUNCIÓN PARA VALIDAR TOKEN CUANDO SE CARGA LA PÁGINA Y VERIFICAR SI ESTA LOGADO O NO
 
 			getAllStudents: async () => {
-
 				const user_id = getStore().user.id;
     			const token = getStore().token			
 
@@ -185,8 +185,79 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 
+			// FUNCIÓN PARA CREAR UN NUEVO ESTUDIANTE
 
 
+			createOneStudent: async (dataName, dataEmail, dataAddress, dataPhone, dataGoal) => {
+
+				const user_id = getStore().user.id;
+    			const token = getStore().token		
+				
+				const requestData = {
+					name: dataName,
+					email: dataEmail,
+					address: dataAddress,
+					phone: dataPhone,
+					goal: dataGoal,
+				  };
+
+				try {
+					
+					let response = await axios.post(process.env.BACKEND_URL + `/api/user/${user_id}/students`, requestData, {
+						headers: {
+							"Authorization": `Bearer ${token}`,
+						},
+					});
+					
+
+					const newStudent = response.data.results
+					
+					setStore({
+						allStudents: newStudent
+					  });
+
+					console.log(response.data)
+					return true;
+
+				} catch (error) {
+					console.error("An error occurred during user creation", error);
+					return error;
+				}
+			},
+
+			// FUNCIÓN PARA ELIMINAR UN ESTUDIANTE
+
+
+			deleteOneStudent: async (student_id) => {
+
+				const user_id = getStore().user.id;
+    			const token = getStore().token		
+				
+				
+				try {
+					
+					let response = await axios.delete(process.env.BACKEND_URL + `/api/user/${user_id}/students/${student_id}`, {
+						headers: {
+							"Authorization": `Bearer ${token}`,
+						},
+					});
+
+					const newAllStudent = response.data.results
+					
+					setStore({
+						allStudents: newAllStudent
+					  });
+
+					console.log(response.data)
+					return true;
+
+				} catch (error) {
+					console.error("An error occurred during user creation", error);
+					return false;
+				}
+			},
+
+			
 			logout: () => {
 
 				

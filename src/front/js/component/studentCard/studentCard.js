@@ -10,6 +10,36 @@ export const StudentCard = (props) => {
     const { store, actions } = useContext(Context);
 
 
+    const handleDeleteStudent = async (e) => {
+        e.preventDefault()
+        let response = await actions.deleteOneStudent(props.id);
+        if(response) {
+            swal("Good job!", "Student successfully deleted.", "success", {
+                buttons: {
+                  confirm: {
+                    text: "OK",
+                    className: "custom-swal-button",
+                  }
+                },
+                timer: 4000,
+              });  
+
+              actions.getAllStudents()
+
+        }  else {
+            swal("Sorry", "An unexpected error has occurred", "error", {
+              buttons: {
+                confirm: {
+                  text: "Plase, Try Again Later",
+                  className: "custom-swal-button",
+                }
+              },
+              timer: 4000,
+            });
+          }
+        };
+    
+
     // Estructura de la card para estudiantes
 
     return (
@@ -37,15 +67,15 @@ export const StudentCard = (props) => {
                 <div className="student-title">{props.name}</div>
                 <div className="student-row row1">
                     <div className="student-item">
-                        <span className="student-big-text">{props.phone}</span>
+                        <span className="student-big-text" title={props.phone}>{props.phone}</span>
                         <span className="student-regular-text">phone</span>
                     </div>
                     <div className="student-item">
-                        <span className="student-big-text">{props.email}</span>
+                        <span className="student-big-text" title={props.email}>{props.email}</span>
                         <span className="student-regular-text">email</span>
                     </div>
                     <div className="container-delete-icon">
-                        <span className="student-delete-icon"><FontAwesomeIcon icon={faTrash}/></span>  
+                        <span className="student-delete-icon" ><FontAwesomeIcon icon={faTrash} onClick={handleDeleteStudent} /></span>
                     </div>
                 </div>
             </div>

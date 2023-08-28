@@ -89,14 +89,13 @@ def modify_user(user_id):
     if not user:
         raise APIException('User no found', 404)
 
-    required_fields = ["name", "email", "password", "birth_date", "address"]
+    required_fields = ["name", "email", "birth_date", "address"]
     for field in required_fields:
         if field not in body or not body[field]:
             raise APIException(f'The "{field}" field cannot be empty', 400)
 
     user.name = body["name"]
     user.email = body["email"]
-    user.password = body["password"]
     user.birth_date = body["birth_date"]
     user.address = body["address"]
 
@@ -371,9 +370,10 @@ def create_one_student(user_id):
         if field not in request_body or not request_body[field]:
             raise APIException(f'The "{field}" field cannot be empty', 400)
 
-    verify_email = User.query.filter_by(email=request_body["email"]).first()
+    verify_email = Students.query.filter_by(email=request_body["email"]).first()
+    
     if verify_email:
-        raise APIException("An account with this email already exists", 400)
+        raise APIException("An account with this email already exists", 402)
 
     student = Students(name=request_body["name"], email=request_body["email"], address=request_body["address"],
                 phone=request_body["phone"], goal=request_body["goal"])
@@ -393,7 +393,7 @@ def create_one_student(user_id):
     return jsonify(response_body), 200
 
 
-# ENDPOINT TO DELETE STUDENTS
+# ENDPOINT TO DELETE ONE STUDENT
 
 @api.route('/user/<int:user_id>/students/<int:students_id>', methods=['DELETE'])
 def del_student(user_id, students_id):
