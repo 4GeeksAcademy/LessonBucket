@@ -26,8 +26,8 @@ export const CreateSubject = () => {
     return (
         <div className="container">
             <div className="subjectsHeader">
-                <h1 className="row">aaaaaaa</h1>
-                <button onClick={() => handleModal()}><i class="fa-solid fa-plus"></i></button>
+                <h1 className="row">Materias</h1>
+                <button className="row" onClick={() => handleModal()}><i class="fa-solid fa-plus"></i></button>
             </div>
 
             {/* modal */}
@@ -53,6 +53,9 @@ export const CreateSubject = () => {
                             Login
                         </Button>
                     </Form>
+                    <div className="text-center">
+
+                    </div>
                 </Modal.Body>
             </Modal>
         </div>

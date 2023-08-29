@@ -28,19 +28,19 @@ export const SubjectsPage = props => {
 			<CreateSubject />
 			{store.allSubjects && store.allSubjects !== "" && store.allSubjects !== undefined ? (
 				<>
-					<div className="row d-flex flex-wrap justify-content-start gap-3">
-						{(loaded === "fullLoaded") && (
-							store.allSubjects.map(subject => (
-								<div className="col md-auto">
-									<DropdownSubject
-										subject={subject.Subject}
-										id={subject.id}
-										key={subject.id}
-									/>
-								</div>
-							))
-						)}
-					</div>
+
+					{(loaded === "fullLoaded") && (
+						store.allSubjects.map(subject => (
+							<div className="col md-auto">
+								<DropdownSubject
+									subject={subject.Subject}
+									id={subject.id}
+									key={subject.id}
+								/>
+							</div>
+						))
+					)}
+
 				</>
 			) : (
 				<div className="text-center">
