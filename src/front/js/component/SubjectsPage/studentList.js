@@ -10,13 +10,14 @@ export const StudentList = () => {
 
     return (
         <div>
-            <hr />
-            <div className="row mx-1 my-1">
+
+            <div className="row py-2 px-2">
                 <div className="col-3">Name:</div>
                 <div className="col-4">email:</div>
                 <div className="col-4">goal:</div>
                 <input type="checkbox" id="addStudent" className="col-1" />
             </div>
+            <hr />
         </div>
 
     )

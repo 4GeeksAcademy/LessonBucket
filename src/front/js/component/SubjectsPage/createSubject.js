@@ -26,9 +26,8 @@ export const CreateSubject = () => {
     };
     return (
         <div>
-            <div className="subjectsHeader">
-                <h1 className="row">Materias</h1>
-                <button className="row" onClick={() => handleModal()}><i class="fa-solid fa-plus"></i></button>
+            <div className="container subjectsHeader">
+                <h1 className="col-11">Subjects <i class="fa-solid fa-plus fa-2xs" onClick={() => handleModal()}></i></h1>
             </div>
 
             {/* modal */}
@@ -58,7 +57,7 @@ export const CreateSubject = () => {
                     </Form>
                     <h1>Students</h1>
                     <p>You can choose students from your list to add to this subject!</p>
-                    <div class="overflow-auto" style={{ maxHeight: "200px", maxWidth: "100%" }}>
+                    <div class="overflow-auto" id="StudentsBox" style={{ maxHeight: "300px", maxWidth: "100%" }}>
                         <StudentList />
                         <StudentList />
                         <StudentList />

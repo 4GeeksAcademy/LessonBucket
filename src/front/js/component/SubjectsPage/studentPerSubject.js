@@ -7,8 +7,17 @@ export const StudentPerSubject = () => {
 
 
     return (
-        <div className="container">
-            <p>Estudiante</p>
+        <div>
+            <div className="row">
+                <div className="col-4">Name:</div>
+                <div className="col-4">email:</div>
+                <div className="col-4">phone:</div>
+            </div>
+            <div className="row">
+                <div className="col-8">address:</div>
+                <div className="col-4">goal:</div>
+            </div>
+            <hr />
         </div>
     );
 }

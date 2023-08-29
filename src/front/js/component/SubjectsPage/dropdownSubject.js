@@ -8,17 +8,21 @@ import PropTypes from "prop-types";
 
 export const DropdownSubject = (props) => {
 
+    const accordionID = `#${props.subject}`
+
     return (
-        <div className="container">
-            <div className="accordion" id={props.subject}>
+        <div className="container my-2">
+            <div className="accordion" id="accordionFlushExample">
                 <div className="accordion-item">
                     <h2 className="accordion-header">
-                        <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target={props.subject} aria-expanded="true" aria-controls={props.subject}>
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={accordionID} aria-expanded="false" aria-controls="flush-collapseOne">
                             {props.subject}
+                            <i class="fa-solid fa-trash fa-2xs ms-2" style={{ color: "red" }}></i>
                         </button>
                     </h2>
-                    <div id={props.subject} className="accordion-collapse collapse show" data-bs-parent={props.subject} >
+                    <div id={props.subject} class="accordion-collapse collapse">
                         <div className="accordion-body">
+                            <StudentPerSubject />
                             <StudentPerSubject />
                         </div>
                     </div>
