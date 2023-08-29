@@ -22,6 +22,7 @@ export const Students = () => {
   const [goal, setGoal] = useState("")
   const [loader, setLoader] = useState(false)
   const navigate = useNavigate()
+  
 
 
   //  SE LLAMA A FUNCIÓN DESPUÉS DE TENER TOKEN
@@ -82,14 +83,14 @@ export const Students = () => {
         timer: 4000,
       });
 
-      
+
       setShow(false)
       setName("");
       setEmail("");
       setAddress("");
       setPhone("");
       setGoal("");
-      
+
       actions.getAllStudents()
 
     } else if (response.response.request.status === 402) {
@@ -112,8 +113,8 @@ export const Students = () => {
         },
         timer: 4000,
       });
-  };
-}
+    };
+  }
 
   // SE RENDERIZAN TARJETAS Y SE INCLUYE MODAL
 
@@ -121,9 +122,9 @@ export const Students = () => {
     <div className="student-main-container">
       <div className="student-navbar">
         <h5 className="student-headboard">Alumnos <FontAwesomeIcon className="add-icon" icon={faPlus} onClick={() => setShow(!show)} /></h5>
-        
+
         {/* INICIO DEL MODAL */}
-        
+
         {show && (
           <Modal className="student-modal-main-container" tabIndex="-1" role="dialog" show={show} id="modalCreateSubject">
             <form action="" className="student-modal-form_main">
@@ -184,11 +185,34 @@ export const Students = () => {
                     name={student.name}
                     phone={student.phone}
                     email={student.email}
+                    address={student.address}
+                    goal={student.goal}
                   />
                 </div>
               ))
             )}
           </div>
+          {/* INICIO PAGINACIÓN */}
+
+            <nav aria-label="Page navigation example">
+              <ul className="pagination">
+                <li className="page-item">
+                  <a className="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                <li className="page-item"><a className="page-link" href="#">1</a></li>
+                <li className="page-item"><a className="page-link" href="#">2</a></li>
+                <li className="page-item"><a className="page-link" href="#">3</a></li>
+                <li className="page-item">
+                  <a className="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+
+            {/* FIN DE PAGINACIÓN */}
         </>
       ) : (
         <div className="recover-pass-main">
