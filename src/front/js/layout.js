@@ -15,6 +15,7 @@ import { Navbar } from "./component/navbar/navbar";
 import { Footer } from "./component/footer/footer";
 import { Sidebar } from "./component/sidebar/sidebar";
 import { Dashboard } from "./pages/dashboard"
+import { Classes } from "./pages/classes"
 
 
 //create your first component
@@ -40,6 +41,7 @@ const Layout = () => {
                         <Route element={<RecoverPass />} path="/recoverPass" />
                         <Route element={<LearnMore />} path="/demo" />
                         <Route element={<Dashboard />} path="/dashboard" />
+                        <Route element={<Classes />} path="/classes" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>

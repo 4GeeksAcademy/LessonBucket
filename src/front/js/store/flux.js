@@ -28,7 +28,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					initial: "white"
 				}
 			],
-			subjects: [],
+			classes: [],
 			studentsPendingPayment: []
 		},
 		actions: {
@@ -216,19 +216,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 				//reset the global store
 				setStore({ demo: demo });
 			},
-			fetchSubjects: async () => {
+			fetchClasses: async () => {
 				let userId = getStore().user.id;
 				if (userId === undefined) {
 					userId = 1;
 				}
 				try {
-					const response = await axios.get(`${process.env.BACKEND_URL}/api/user/${userId}/subjects`);
+					const response = await axios.get(`${process.env.BACKEND_URL}/api/user/${userId}/class`);
+					console.log(response.data);
 					setStore({
-						subjects: response.data
+						classes: response.data
 					});
 					return true;
 				} catch (error) {
-					console.error("An error occurred while fetching subjects", error);
+					console.error("An error occurred while fetching classes", error);
 					return false;
 				}
 			},
@@ -245,7 +246,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 					return true;
 				} catch (error) {
-					console.error("An error occurred while fetching subjects", error);
+					console.error("An error occurred while fetching classes", error);
 					return false;
 				}
 			}

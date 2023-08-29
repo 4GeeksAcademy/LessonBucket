@@ -8,7 +8,7 @@ import { Context } from "../store/appContext";
 export const Dashboard = () => {
 	const { store, actions } = useContext(Context);
 	useEffect(() => {
-		actions.fetchSubjects();
+		actions.fetchClasses();
 	}, []);
 
 	//const payments = ["Miguel Martín Ramos - 09/09/2023", "Pablo García De Gregorio- 01/09/2023", "Toni Centenera - 15/09/2023", "Christian David Velasquez Osorio - 31/08/2023"];
@@ -20,7 +20,7 @@ export const Dashboard = () => {
 			<div className="row">
 				<div className="col">
 					<div className="d-flex flex-nowrap overflow-auto">
-						{store.subjects.results && store.subjects.results.map((subjectClass, index) => (
+						{store.classes.results && store.classes.results.slice(0,3).map((subjectClass, index) => (
 							<div key={index}>
 								<SubjectClass subjectClass={subjectClass} />
 							</div>
