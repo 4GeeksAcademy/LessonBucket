@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "./subjects.css";
 import { Context } from "../../store/appContext.js";
 import { Modal, Button, Form } from "react-bootstrap";
+import { StudentList } from "./studentList";
 
 
 
@@ -24,7 +25,7 @@ export const CreateSubject = () => {
 
     };
     return (
-        <div className="container">
+        <div>
             <div className="subjectsHeader">
                 <h1 className="row">Materias</h1>
                 <button className="row" onClick={() => handleModal()}><i class="fa-solid fa-plus"></i></button>
@@ -33,7 +34,7 @@ export const CreateSubject = () => {
             {/* modal */}
             <Modal class="modal" show={show} onHide={handleClose} id="modalCreateSubject">
                 <Modal.Header closeButton>
-                    <Modal.Title>Login Form</Modal.Title>
+                    <Modal.Title>Create a new subject</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form onSubmit={onSubjectFormSubmit}>
@@ -47,17 +48,34 @@ export const CreateSubject = () => {
                             />
                         </Form.Group>
                         <Form.Group controlId="formBasicCheckbox">
-                            <Form.Check type="checkbox" label="Remember Me!" />
+                            <div className="container">
+
+                            </div>
                         </Form.Group>
-                        <Button variant="primary" onSubmit={onSubjectFormSubmit} type="submit" block>
-                            Login
+                        <Button className="mt-3" variant="primary" onSubmit={onSubjectFormSubmit} type="submit" block>
+                            Create
                         </Button>
                     </Form>
-                    <div className="text-center">
+                    <h1>Students</h1>
+                    <p>You can choose students from your list to add to this subject!</p>
+                    <div class="overflow-auto" style={{ maxHeight: "200px", maxWidth: "100%" }}>
+                        <StudentList />
+                        <StudentList />
+                        <StudentList />
+                        <StudentList />
+                        <StudentList />
+                        <StudentList />
+                        <StudentList />
+                        <StudentList />
+                        <StudentList />
+                        <StudentList />
+                        <StudentList />
+                        <StudentList />
+                        <StudentList />
 
                     </div>
                 </Modal.Body>
             </Modal>
-        </div>
+        </div >
     );
 }

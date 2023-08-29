@@ -1,3 +1,15 @@
 .subjectsHeader {
   background-color: red;
 }
+
+#modalCreateSubject {
+  width: 60%;
+  max-width: 60%;
+  height: 400px;
+  max-height: 400px;
+}
+
+.studentsBox {
+  border-color: grey;
+  border-radius: 5%;
+}
