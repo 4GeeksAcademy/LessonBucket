@@ -7,6 +7,7 @@ import { BackendURL } from "./component/backendURL";
 import { Home } from "./pages/home";
 import { Login } from "./pages/login";
 import { RecoverPass } from "./pages/recoverPass";
+import { Students } from "./pages/students";
 import { LearnMore } from "./pages/LearnMore";
 import { Single } from "./pages/single";
 import { SubjectsPage } from "./pages/subjectsPage";
@@ -39,6 +40,7 @@ const Layout = () => {
                         <Route element={<Home />} path="/" />
                         <Route element={<Login />} path="/login" />
                         <Route element={<RecoverPass />} path="/recoverPass" />
+                        <Route element={<Students />} path="/students" />
                         <Route element={<LearnMore />} path="/demo" />
                         <Route element={<Dashboard />} path="/dashboard" />
                         <Route element={<SubjectsPage />} path="/subjects" />
