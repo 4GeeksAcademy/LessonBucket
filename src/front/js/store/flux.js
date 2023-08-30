@@ -28,7 +28,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					initial: "white"
 				}
 			],
-			subjects: [],
+			allSubjects: [],
 			studentsPendingPayment: []
 		},
 		actions: {
@@ -84,7 +84,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					const data = response.data;
 
-					
+
 					console.log(data);
 					setStore({
 
@@ -94,7 +94,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					});
 					sessionStorage.setItem("token", data.token);
-			
+
 					return true;
 
 				} catch (error) {
@@ -163,64 +163,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			logout: () => {
 
-				
-						console.log("Deslogando");
-						sessionStorage.removeItem("token");
-						setStore({ 
-							logged: false,
-							token:""						
-						});
-						
-					
-				},
-				
-					
-			
-			// FUNCIONES PARA MODIFICAR PROFILE
 
-			editProfile: async (newName, newEmail,newAddress,newBirth) => {
-
-				const user_id = getStore().user.id;
-				try {
-
-					const response = await axios.patch(process.env.BACKEND_URL + `/api/user/${user_id}`, {
-						name: newName,
-						email: newEmail,
-						address:newAddress,
-						birth_date:newBirth,
+				console.log("Deslogando");
+				sessionStorage.removeItem("token");
+				setStore({
+					logged: false,
+					token: ""
 				});
-					const data = response.data;
-					console.log(response.data)
-					console.log(data)
-					return true;
-				}
-				catch (error) {
-					console.error("An error occurred during user creation", error);
-					return false;
-				}
+
+
 			},
 
-			editPassword: async (newPassword) => {
-
-				const user_id = getStore().user.id;
-				try {
-
-					const response = await axios.patch(process.env.BACKEND_URL + `/api/user/${user_id}`, {
-						password: newPassword,
-				});
-					const data = response.data;
-					console.log(response.data)
-					console.log(data)
-					return true;
-				}
-				catch (error) {
-					console.error("An error occurred during user creation", error);
-					return false;
-				}
-			},
-				
-			
-			
 
 
 
@@ -297,7 +250,68 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error("An error occurred while fetching subjects", error);
 					return false;
 				}
-			}
+			},
+			//FUNCION PARA VER TODAS LAS MATERIAS
+			getAllSubjects: async () => {
+				const user_id = getStore().user.id;
+				const token = getStore().token
+				const allSubjects = getStore().allSubjects
+
+				console.log(user_id)
+				console.log(token)
+				console.log(allSubjects)
+
+				try {
+					let response = await axios.get(process.env.BACKEND_URL + `/api/user/${user_id}/subjects`, {
+						headers: {
+							"Authorization": `Bearer ${token}`,
+						}
+					});
+					const subjects = response.data.results
+					console.log(subjects);
+					setStore({
+						allSubjects: subjects
+					});
+					return true;
+				} catch (error) {
+					console.error("An error occurred during subject retrieval", error);
+					return false;
+				}
+			},
+			//FUNCION PARA CREAR MATERIA	
+			createSubject: async (SubjectName, UserID) => {
+				const user_id = getStore().user.id;
+				const token = getStore().token
+
+
+				try {
+
+					const response = await axios.post(process.env.BACKEND_URL + `/api/user/${user_id}/subjects`, {
+						headers: {
+							"Authorization": `Bearer ${token}`,
+						},
+						Subject: SubjectName,
+						UserID: UserID,
+					});
+
+					const data = response.data;
+
+					setStore({
+						AllSubjects: {
+							"Subject": data.SubjectName,
+							"UserID": data.UserID,
+						},
+					});
+
+
+					return true;
+
+				} catch (error) {
+					console.error("An error occurred during subject creation", error);
+					return false;
+				}
+			},
+
 		}
 	};
 };

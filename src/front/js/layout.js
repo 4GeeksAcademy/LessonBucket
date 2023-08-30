@@ -9,6 +9,7 @@ import { Login } from "./pages/login";
 import { RecoverPass } from "./pages/recoverPass";
 import { LearnMore } from "./pages/LearnMore";
 import { Single } from "./pages/single";
+import { SubjectsPage } from "./pages/subjectsPage";
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar/navbar";
@@ -41,6 +42,7 @@ const Layout = () => {
                         <Route element={<RecoverPass />} path="/recoverPass" />
                         <Route element={<LearnMore />} path="/demo" />
                         <Route element={<Dashboard />} path="/dashboard" />
+                        <Route element={<SubjectsPage />} path="/subjects" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<Profile />} path="/profile" />
                         <Route element={<h1>Not found!</h1>} />
