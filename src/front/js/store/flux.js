@@ -278,7 +278,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				
 				// try {
 					
-				// 	let response = await axios.path(process.env.BACKEND_URL + `/api/user/${user_id}/students/${student_id}`, {
+				// 	let response = await axios.patch(process.env.BACKEND_URL + `/api/user/${user_id}/students/${student_id}`, {
 				// 		headers: {
 				// 			"Authorization": `Bearer ${token}`,
 				// 		},
@@ -420,7 +420,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			//FUNCION PARA CREAR MATERIA	
 			createSubject: async (SubjectName, UserID) => {
-				
+
 				const user_id = getStore().user.id;
 				const token = getStore().token
 
