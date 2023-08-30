@@ -245,6 +245,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 
 					const newAllStudent = response.data.results
+					console.log(newAllStudent)
 					
 					setStore({
 						allStudents: newAllStudent
@@ -262,47 +263,51 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			// FUNCIÓN PARA MODIFICAR ESTUDIANTE
 
-			modifyOneStudent: async (editedName, editedPhone, editedEmail, editedAddress, editedGoal) => {
+			modifyOneStudent: async (editedName, editedEmail, editedPhone, editedAddress, editedGoal, student_id) => {
 
-				//const user_id = getStore().user.id;
-    			//const token = getStore().token	
-				//const student_id = getStore().allStudents.id
-				// const student_id = getStore().allstudent.id;	
-				//console.log(getStore().allStudents)
-				//console.log(student_id)
+				const user_id = getStore().user.id;
+    			const token = getStore().token	
 
-				// const students = getStore().allStudents;
-				// students.forEach(student => {
-				// 	const studentId = student.id;
-				// 	console.log(studentId);
-				// });
-				
-				
-				// try {
+				const requestData = {
+					name: editedName,
+					email: editedEmail,
+					phone: editedPhone,
+					address: editedAddress,
+					goal: editedGoal,
+				  };
+
+				  	
+				try {
 					
-				// 	let response = await axios.patch(process.env.BACKEND_URL + `/api/user/${user_id}/students/${student_id}`, {
-				// 		headers: {
-				// 			"Authorization": `Bearer ${token}`,
-				// 		},
-				// 	});
+					let response = await axios.patch(process.env.BACKEND_URL + `/api/user/${user_id}/students/${student_id}`, requestData, {
+						headers: {
+							"Authorization": `Bearer ${token}`,
+						},
+					});
 
+					console.log(response)
 
-				// 	const modifyStudent = response.data.results
+					const modifyStudent = response.data.results
+
+					console.log(modifyStudent)
 					
 					
-				// 	setStore({
-				// 		allStudents: newAllStudent
-				// 	  });
+					setStore({
+						allStudents: modifyStudent
+					  });
 
-				// 	console.log(response.data)
-				// 	return true;
+					console.log(response.data)
+					return true;
 
-				// } catch (error) {
-				// 	console.error("An error occurred during user creation", error);
-				// 	return false;
-				// }
+				} catch (error) {
+					console.error("An error occurred during user creation", error);
+					return false;
+				}
 			},
 			
+
+			
+
 			logout: () => {
 
 
@@ -316,17 +321,45 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			},
 
+			editProfile: async (newName, newEmail,newAddress,newBirth) => {
+				const user_id = getStore().user.id;
+
+				try {
+					const response = await axios.patch(process.env.BACKEND_URL + `/api/user/${user_id}`, {
+						name: newName,
+						email: newEmail,
+						address:newAddress,
+						birth_date:newBirth,
+				});
+
+					const data = response.data;
+					console.log(response.data)
+					console.log(data)
+					return true;
+				}
+				catch (error) {
+					console.error("An error occurred during user creation", error);
+					return false;
+				}
+			},
 
 
-
-
-
-
-
-
-
-
-
+			editPassword: async (newPassword) => {
+				const user_id = getStore().user.id;
+				try {
+					const response = await axios.patch(process.env.BACKEND_URL + `/api/user/${user_id}`, {
+						password: newPassword,
+				});
+					const data = response.data;
+					console.log(response.data)
+					console.log(data)
+					return true;
+				}
+				catch (error) {
+					console.error("An error occurred during user creation", error);
+					return false;
+				}
+			},
 
 
 			// Use getActions to call a function within a fuction
@@ -376,6 +409,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			},
+
 			fetchStudentsPendingPayment: async () => {
 				let userId = getStore().user.id;
 				if (userId === undefined) {
@@ -393,6 +427,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			},
+
 			//FUNCION PARA VER TODAS LAS MATERIAS
 			getAllSubjects: async () => {
 				const user_id = getStore().user.id;
