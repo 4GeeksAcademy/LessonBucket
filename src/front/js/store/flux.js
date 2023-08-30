@@ -257,6 +257,43 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
+
+			// FUNCIÓN PARA MODIFICAR ESTUDIANTE
+
+			modifyOneStudent: async (editedName, editedPhone, editedEmail, editedAddress, editedGoal) => {
+
+				//const user_id = getStore().user.id;
+    			//const token = getStore().token	
+				//const student_id = getStore().allStudents.id
+				// const student_id = getStore().allstudent.id;	
+				//console.log(getStore().allStudents)
+				//console.log(student_id)
+				
+				
+				// try {
+					
+				// 	let response = await axios.path(process.env.BACKEND_URL + `/api/user/${user_id}/students/${student_id}`, {
+				// 		headers: {
+				// 			"Authorization": `Bearer ${token}`,
+				// 		},
+				// 	});
+
+
+				// 	const modifyStudent = response.data.results
+					
+					
+				// 	setStore({
+				// 		allStudents: newAllStudent
+				// 	  });
+
+				// 	console.log(response.data)
+				// 	return true;
+
+				// } catch (error) {
+				// 	console.error("An error occurred during user creation", error);
+				// 	return false;
+				// }
+			},
 			
 			logout: () => {
 

@@ -19,11 +19,67 @@ export const StudentCard = (props) => {
     const [editedAddress, setEditedAddress] = useState(props.address);
     const [editedGoal, setEditedGoal] = useState(props.goal);
 
-    // const handleSaveChanges = () => {
-    //   e.preventDefault()
+    const handleModifyStudent = async (e) => {
+        if (!editedName || !editedPhone || !editedEmail || !editedPhone || !editedGoal) {
+          swal("Please", "Fields cannot be empty", "warning", {
+            buttons: {
+              confirm: {
+                text: "Try Again",
+                className: "custom-swal-button",
+              }
+            },
+            timer: 4000,
+          });
+          return;
+        } else if (!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(editedEmail)) {
+          swal("Please", "enter a valid email address, mail can only contain letters numbers periods hyphens and the underscore", "error", {
+            buttons: {
+              confirm: {
+                text: "Try Again",
+                className: "custom-swal-button",
+              }
+            },
+            timer: 4000,
+          });
+          return;
+        }
+    
+        let response = await actions.modifyOneStudent(editedName, editedPhone, editedEmail, editedPhone, editedGoal);
+        // console.log(response)
+    
+        if (response === true) {
+    
+          swal("Good job!", "user successfully modified", "success", {
+            buttons: {
+              confirm: {
+                text: "OK",
+                className: "custom-swal-button",
+              }
+            },
+            timer: 4000,
+          });
+    
+    
+          setIsEditing(!isEditing);
+          setEditedName(editedName);
+          setEditedEmail(editedEmail);
+          setEditedPhone(editedPhone);
+          setEditedAddress(editedAddress);
+          setEditedGoal(editedGoal);
+    
+        } else {
+          swal("Sorry", "An unexpected error has occurred", "error", {
+            buttons: {
+              confirm: {
+                text: "Try Again",
+                className: "custom-swal-button",
+              }
+            },
+            timer: 4000,
+          });
+        };
+      }
 
-    //     setIsEditing(false);
-    // };
 
     const handleDeleteStudent = async () => {
         swal({
@@ -174,7 +230,7 @@ export const StudentCard = (props) => {
                                                     className="student-modal-button studentCard-modal-button-create"
                                                     onClick={() => {
                                                         if (isEditing) {
-                                                            handleSaveChanges();
+                                                            handleModifyStudent();
                                                         }
                                                         setIsEditing(!isEditing);
                                                     }}
