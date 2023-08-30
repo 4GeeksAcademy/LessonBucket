@@ -19,7 +19,9 @@ export const StudentCard = (props) => {
     const [editedAddress, setEditedAddress] = useState(props.address);
     const [editedGoal, setEditedGoal] = useState(props.goal);
 
+    
     const handleModifyStudent = async (e) => {
+        e.preventDefault
         if (!editedName || !editedPhone || !editedEmail || !editedPhone || !editedGoal) {
           swal("Please", "Fields cannot be empty", "warning", {
             buttons: {

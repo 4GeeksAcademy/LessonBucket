@@ -268,6 +268,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 				// const student_id = getStore().allstudent.id;	
 				//console.log(getStore().allStudents)
 				//console.log(student_id)
+
+				// const students = getStore().allStudents;
+				// students.forEach(student => {
+				// 	const studentId = student.id;
+				// 	console.log(studentId);
+				// });
 				
 				
 				// try {
