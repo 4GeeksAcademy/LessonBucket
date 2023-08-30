@@ -2,13 +2,7 @@ import React, { useState, useContext } from "react";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Context } from "../../store/appContext";
-export const Sidebar = () => {
-    const { store, actions } = useContext(Context);
-    const [showSidebar, setShowSidebar] = useState("spread")
-    import React, { useState, useContext } from "react";
-    import { Link } from "react-router-dom";
-    import { Context } from "../../store/appContext";
-    import { useLocation } from 'react-router-dom';
+
 
 
     export const Sidebar = () => {
@@ -25,10 +19,12 @@ export const Sidebar = () => {
                 else { setShowSidebar("spread") }
             }
         }
-    }
+    
+
 
 
     if (store.logged === false || (useLocation().pathname === "/")) return null
+
     else {
 
         if (showSidebar === "spread") {
@@ -203,4 +199,4 @@ export const Sidebar = () => {
             }
         }
     }
-}};
+};
