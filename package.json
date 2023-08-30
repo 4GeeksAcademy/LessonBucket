@@ -75,8 +75,6 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@ericz1803/react-google-calendar": "^4.3.1",
-    "@emotion/react": "^11.11.1",
-    "@ericz1803/react-google-calendar": "^4.3.1",
     "axios": "^1.4.0",
     "bootstrap": "^5.3.1",
     "prop-types": "^15.6.1",

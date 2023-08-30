@@ -420,6 +420,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			//FUNCION PARA CREAR MATERIA	
 			createSubject: async (SubjectName, UserID) => {
+				
 				const user_id = getStore().user.id;
 				const token = getStore().token
 
