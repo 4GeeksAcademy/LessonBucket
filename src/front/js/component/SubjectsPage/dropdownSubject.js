@@ -12,20 +12,20 @@ export const DropdownSubject = (props) => {
 
     return (
         <div className="container my-2">
-            <div className="accordion" id="accordionSubjects">
-                <div className="accordion-item">
-                    <h2 className="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={accordionID} aria-expanded="false" aria-controls="flush-collapseOne">
-                            {props.subject}
-                            <i class="fa-solid fa-trash fa-2xs ms-2" style={{ color: "red" }}></i>
-                        </button>
-                    </h2>
-                    <div id={props.subject} class="accordion-collapse collapse" data-bs-parent="#accordionSubjects">
-                        <div className="accordion-body">
-                            <StudentPerSubject />
-                            <StudentPerSubject />
-                        </div>
+
+            <div className="accordion-item">
+                <h2 className="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={accordionID} aria-expanded="false" aria-controls="flush-collapseOne">
+                        {props.subject}
+                        <i class="fa-solid fa-trash fa-2xs ms-2" style={{ color: "red" }}></i>
+                    </button>
+                </h2>
+                <div id={props.subject} class="accordion-collapse collapse" data-bs-parent="#accordionSubjects">
+                    <div className="accordion-body">
+                        <StudentPerSubject />
+                        <StudentPerSubject />
                     </div>
+
                 </div>
 
             </div>

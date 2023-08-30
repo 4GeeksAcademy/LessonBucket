@@ -32,11 +32,13 @@ export const SubjectsPage = props => {
 					{(loaded === "fullLoaded") && (
 						store.allSubjects.map(subject => (
 							<div className="col md-auto">
-								<DropdownSubject
-									subject={subject.Subject}
-									id={subject.id}
-									key={subject.id}
-								/>
+								<div className="accordion" id="accordionSubjects">
+									<DropdownSubject
+										subject={subject.Subject}
+										id={subject.id}
+										key={subject.id}
+									/>
+								</div>
 							</div>
 						))
 					)}
