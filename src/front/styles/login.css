@@ -5,7 +5,12 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  background: transparent linear-gradient(270deg, #D19BFF 0%, #801380 100%) 0% 0% no-repeat padding-box;
+  background: linear-gradient(
+    90deg,
+    rgba(43, 18, 40, 0.6264706566220238) 0%,
+    rgba(69, 15, 63, 0.6096639339329482) 35%,
+    rgba(113, 5, 97, 0.6208684157256652) 100%
+  );
   height: 500px;
   width: 350px;
   overflow: hidden;
@@ -92,7 +97,12 @@ label {
   height: 40px;
   margin: 12px auto 10%;
   color: #fff;
-  background: transparent linear-gradient(270deg, #D19BFF 0%, #801380 100%) 0% 0% no-repeat padding-box;
+  background: linear-gradient(
+    90deg,
+    rgba(43, 18, 40, 0.6264706566220238) 0%,
+    rgba(69, 15, 63, 0.6096639339329482) 35%,
+    rgba(113, 5, 97, 0.6208684157256652) 100%
+  );
   font-size: 1rem;
   font-weight: bold;
   border: none;
@@ -110,7 +120,7 @@ label {
 /* ESTILOS PARA LINK */
 
 .link-recoverPass {
-  color: rgb(89, 16, 157);
+  color: white;
   font-weight: 400;
   margin: 0 auto;
   margin-bottom: -10px;
@@ -121,14 +131,14 @@ label {
 }
 
 .link-recoverPass:hover {
-  color: rgb(87, 9, 87); 
+  color: rgb(45, 7, 168); 
   transform: scale(1.1); 
 }
 
 /* ESTILOS ALERTAS SWAL */
 
 .custom-swal-button {
-  background-color: #007BFF;
+  background-color: #2572c5;
   color: white;
   border: none;
 }
