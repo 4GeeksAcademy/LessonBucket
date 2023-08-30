@@ -35,7 +35,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		},
 		actions: {
 
-			
+
 
 			// FUNCION PARA CREAR USUARIO
 
@@ -85,7 +85,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 
 					const data = response.data;
-					
+
 					setStore({
 
 						user: data.user,
@@ -123,7 +123,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						logged: true
 					});
 
-				
+
 					return true;
 				} catch (error) {
 					sessionStorage.removeItem("token");
@@ -163,7 +163,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			getAllStudents: async () => {
 				const user_id = getStore().user.id;
-    			const token = getStore().token			
+				const token = getStore().token
 
 				try {
 					let response = await axios.get(process.env.BACKEND_URL + `/api/user/${user_id}/students`, {
@@ -173,9 +173,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 
 					const students = response.data.results
-						
+
 					setStore({
-						allStudents: students 
+						allStudents: students
 					});
 
 					return true;
@@ -193,30 +193,30 @@ const getState = ({ getStore, getActions, setStore }) => {
 			createOneStudent: async (dataName, dataEmail, dataAddress, dataPhone, dataGoal) => {
 
 				const user_id = getStore().user.id;
-    			const token = getStore().token		
-				
+				const token = getStore().token
+
 				const requestData = {
 					name: dataName,
 					email: dataEmail,
 					address: dataAddress,
 					phone: dataPhone,
 					goal: dataGoal,
-				  };
+				};
 
 				try {
-					
+
 					let response = await axios.post(process.env.BACKEND_URL + `/api/user/${user_id}/students`, requestData, {
 						headers: {
 							"Authorization": `Bearer ${token}`,
 						},
 					});
-					
+
 
 					const newStudent = response.data.results
-					
+
 					setStore({
 						allStudents: newStudent
-					  });
+					});
 
 					console.log(response.data)
 					return true;
@@ -233,11 +233,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 			deleteOneStudent: async (student_id) => {
 
 				const user_id = getStore().user.id;
-    			const token = getStore().token		
-				
-				
+				const token = getStore().token
+
+
 				try {
-					
+
 					let response = await axios.delete(process.env.BACKEND_URL + `/api/user/${user_id}/students/${student_id}`, {
 						headers: {
 							"Authorization": `Bearer ${token}`,
@@ -245,10 +245,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 
 					const newAllStudent = response.data.results
-					
+
 					setStore({
 						allStudents: newAllStudent
-					  });
+					});
 
 					console.log(response.data)
 					return true;
@@ -265,7 +265,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			modifyOneStudent: async (editedName, editedPhone, editedEmail, editedAddress, editedGoal) => {
 
 				//const user_id = getStore().user.id;
-    			//const token = getStore().token	
+				//const token = getStore().token	
 				//const student_id = getStore().allStudents.id
 				// const student_id = getStore().allstudent.id;	
 				//console.log(getStore().allStudents)
@@ -276,10 +276,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				// 	const studentId = student.id;
 				// 	console.log(studentId);
 				// });
-				
-				
+
+
 				// try {
-					
+
 				// 	let response = await axios.path(process.env.BACKEND_URL + `/api/user/${user_id}/students/${student_id}`, {
 				// 		headers: {
 				// 			"Authorization": `Bearer ${token}`,
@@ -288,8 +288,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 
 				// 	const modifyStudent = response.data.results
-					
-					
+
+
 				// 	setStore({
 				// 		allStudents: newAllStudent
 				// 	  });
@@ -302,7 +302,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				// 	return false;
 				// }
 			},
-			
+
 			logout: () => {
 
 
@@ -383,7 +383,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 				try {
 					const response = await axios.get(`${process.env.BACKEND_URL}/api/user/${userId}/students`);
-					
+
 					setStore({
 						studentsPendingPayment: response.data
 					});
@@ -420,9 +420,44 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			},
+			editProfile: async (newName, newEmail, newAddress, newBirth) => {
+				const user_id = getStore().user.id;
+				try {
+					const response = await axios.patch(process.env.BACKEND_URL + `/api/user/${user_id}`, {
+						name: newName,
+						email: newEmail,
+						address: newAddress,
+						birth_date: newBirth,
+					});
+					const data = response.data;
+					console.log(response.data)
+					console.log(data)
+					return true;
+				}
+				catch (error) {
+					console.error("An error occurred during user creation", error);
+					return false;
+				}
+			},
+			editPassword: async (newPassword) => {
+				const user_id = getStore().user.id;
+				try {
+					const response = await axios.patch(process.env.BACKEND_URL + `/api/user/${user_id}`, {
+						password: newPassword,
+					});
+					const data = response.data;
+					console.log(response.data)
+					console.log(data)
+					return true;
+				}
+				catch (error) {
+					console.error("An error occurred during user creation", error);
+					return false;
+				}
+			},
 			//FUNCION PARA CREAR MATERIA	
 			createSubject: async (SubjectName, UserID) => {
-				
+
 				const user_id = getStore().user.id;
 				const token = getStore().token
 
