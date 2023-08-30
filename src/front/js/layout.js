@@ -10,6 +10,7 @@ import { RecoverPass } from "./pages/recoverPass";
 import { Students } from "./pages/students";
 import { LearnMore } from "./pages/LearnMore";
 import { Single } from "./pages/single";
+import { SubjectsPage } from "./pages/subjectsPage";
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar/navbar";
@@ -42,6 +43,7 @@ const Layout = () => {
                         <Route element={<Students />} path="/students" />
                         <Route element={<LearnMore />} path="/demo" />
                         <Route element={<Dashboard />} path="/dashboard" />
+                        <Route element={<SubjectsPage />} path="/subjects" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>

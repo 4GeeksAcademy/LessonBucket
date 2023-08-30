@@ -20,11 +20,11 @@ export const Dashboard = () => {
 			<div className="row">
 				<div className="col">
 					<div className="d-flex flex-nowrap overflow-auto">
-						{store.subjects.results && store.subjects.results.map((subjectClass, index) => (
+						{/* {store.subjects.results && store.subjects.results.map((subjectClass, index) => (
 							<div key={index}>
 								<SubjectClass subjectClass={subjectClass} />
 							</div>
-						))}
+						))} */}
 					</div>
 				</div>
 			</div>
