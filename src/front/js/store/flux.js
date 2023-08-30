@@ -35,6 +35,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 		},
 		actions: {
 
+			
+
 			// FUNCION PARA CREAR USUARIO
 
 			signup: async (dataName, dataEmail, dataPassword, dataBirthDate, dataAddress) => {

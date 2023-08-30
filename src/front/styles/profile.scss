@@ -1,0 +1,43 @@
+.profile-wrapper{
+    width:fit-content;
+}
+
+.tag, .profile{
+    font-weight: 500;
+    margin-top: 0;
+    margin-bottom:0;
+
+}
+p{
+    margin-top:0;
+    margin-bottom:0;
+}
+
+.passwordForm{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width:280px;
+}
+
+.fa-pen-to-square:hover, .password:hover, .fa-floppy-disk:hover{
+        color: #A3A3FF;
+        cursor:pointer;
+}
+.fa-xmark, .fa-backward{
+    cursor:pointer;
+}
+
+.profile-input{
+    border:none;
+    
+    &:focus{
+        outline:none;
+        border-bottom:1px;
+        
+    }
+
+    &::placeholder{
+        color:black;
+    }
+}
