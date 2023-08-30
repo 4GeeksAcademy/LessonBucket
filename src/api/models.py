@@ -35,6 +35,7 @@ class Subjects(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     Subject = db.Column(db.String(120), unique=False, nullable=False)
     Students = db.relationship("Students", backref="subjects", lazy=True)
+    Class = db.relationship("Class", backref="subjects", lazy=True)
 
 
     def serialize(self):
@@ -56,6 +57,7 @@ class Students(db.Model):
     phone = db.Column(db.String(50), unique=False, nullable=False)
     goal = db.Column(db.String(200), unique=False, nullable=False)
     Comments = db.relationship("Comments", backref="students", lazy=True)
+    Class = db.relationship("Class", backref="students", lazy=True)
 
 
     def serialize(self):
@@ -76,6 +78,7 @@ class Comments(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     comments_id = db.Column(db.Integer, db.ForeignKey("students.id"))
     text_content = db.Column(db.String(200), unique=False, nullable=False)
+    Class = db.relationship("Class", backref="comments", lazy=True)
         
         
     def serialize(self):
@@ -84,6 +87,33 @@ class Comments(db.Model):
             "text_content": self.text_content,
             
         }
+
+class Class(db.Model):
+    __tablename__ = 'class'
+
+    id = db.Column(db.Integer, primary_key=True)
+    subjects_id = db.Column(db.Integer, db.ForeignKey("subjects.id"))
+    student_id = db.Column(db.Integer, db.ForeignKey("students.id"))
+    comments_id = db.Column(db.Integer, db.ForeignKey("comments.id"))
+    date = db.Column(db.String(120), unique=False, nullable=False)
+    price = db.Column(db.Float, unique=False, nullable=False)
+    paid = db.Column(db.Boolean, unique=False, nullable=False)
+
+    
+
+    def __repr__(self):
+        return f'<User {self.id}>'
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "subjects_id": self.subjects_id,
+            "comments_id": self.comments_id,
+            "date": self.date,
+            "price": self.price,
+            "paid": self.paid,
+            
+        }        
     
 # class RefArchivos(db.Model):
 #      __tablename__ = 'refArchivos'
