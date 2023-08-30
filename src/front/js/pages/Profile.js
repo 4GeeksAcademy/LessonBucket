@@ -25,6 +25,7 @@ export const Profile = () => {
     
 
     console.log(passInput1)
+    
 
     const handleNameText = (event) => {
         setNameText(event.target.value)
