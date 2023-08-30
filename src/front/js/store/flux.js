@@ -33,6 +33,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 		},
 		actions: {
 
+			
+
 			// FUNCION PARA CREAR USUARIO
 
 			signup: async (dataName, dataEmail, dataPassword, dataBirthDate, dataAddress) => {
@@ -173,9 +175,56 @@ const getState = ({ getStore, getActions, setStore }) => {
 				},
 				
 					
-					
+			
+			// FUNCIONES PARA MODIFICAR PROFILE
+
+			editProfile: async (newName, newEmail,newAddress,newBirth) => {
+
+				const user_id = getStore().user.id;
+				try {
+
+					const response = await axios.patch(process.env.BACKEND_URL + `/api/user/${user_id}`, {
+						name: newName,
+						email: newEmail,
+						address:newAddress,
+						birth_date:newBirth,
+				});
+					const data = response.data;
+					console.log(response.data)
+					console.log(data)
+					return true;
+				}
+				catch (error) {
+					console.error("An error occurred during user creation", error);
+					return false;
+				}
+			},
+
+			editPassword: async (newPassword) => {
+
+				const user_id = getStore().user.id;
+				try {
+
+					const response = await axios.patch(process.env.BACKEND_URL + `/api/user/${user_id}`, {
+						password: newPassword,
+				});
+					const data = response.data;
+					console.log(response.data)
+					console.log(data)
+					return true;
+				}
+				catch (error) {
+					console.error("An error occurred during user creation", error);
+					return false;
+				}
+			},
 				
 			
+			
+
+
+
+
 
 
 

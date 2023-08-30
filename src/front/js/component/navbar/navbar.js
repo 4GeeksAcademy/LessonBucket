@@ -46,7 +46,7 @@ export const Navbar = () => {
 					<Link to="/login">
 						<p className="nav-links mx-4 nav-p" onClick={handleSignOut}>{handleLoginLogout()}</p>
 					</Link>
-					<Link to="/Profile">
+					<Link to="/profile">
 						<p className="nav-links mx-4 nav-p">Profile</p>
 					</Link>
 					<Link to="/About Us">
