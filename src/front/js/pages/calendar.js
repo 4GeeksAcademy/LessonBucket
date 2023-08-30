@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import Calendar from "@ericz1803/react-google-calendar";
+
 import "../../styles/calendar.css";
 
 export const CalendarAux = (props) => {

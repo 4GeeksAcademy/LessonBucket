@@ -89,7 +89,7 @@ def modify_user(user_id):
     if not user:
         raise APIException('User no found', 404)
 
-    required_fields = ["name", "email", "birth_date", "address"]
+    required_fields = ["name", "email", "birth_date", "address","password"]
     for field in required_fields:
         if field not in body or not body[field]:
             raise APIException(f'The "{field}" field cannot be empty', 400)
@@ -109,6 +109,34 @@ def modify_user(user_id):
         "user": user.serialize()
     }
     return jsonify(response_body), 200
+
+
+### ENDPOINT PATCH  USER
+
+
+@api.route('/user/<int:user_id>', methods=['PATCH'])
+def update_user(user_id):
+
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({'message': 'User not found'}), 404
+    data = request.get_json()
+    if 'name' in data:
+        user.name = data['name']
+    if 'email' in data:
+        user.email = data['email']
+    if 'address' in data:
+        user.address = data['address']
+    if 'birth_date' in data:
+        user.birth_date = data['birth_date'] 
+    if 'password' in data:
+        user.password = data['password'] 
+
+    db.session.commit()
+    return jsonify({'message': 'User updated successfully'}), 200
+
+
+
 
 
 # ENDPOINT GET ALL USERS
@@ -314,6 +342,7 @@ def modify_subject(user_id, subjects_id):
         "subject": subjects.serialize()
     }
     return jsonify(response_body), 200
+
 
 
 # ENDPOINT GET ALL STUDENTS
