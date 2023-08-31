@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import "./subjects.css";
 import { Context } from "../../store/appContext.js";
-import { propTypes } from "react-bootstrap/esm/Image";
+import { PropTypes } from "prop-types";
 
 
 
@@ -26,7 +26,7 @@ export const StudentList = (props) => {
 }
 
 StudentList.propTypes = {
-    name: propTypes.string,
-    email: propTypes.string,
-    goal: propTypes.string
+    name: PropTypes.string,
+    email: PropTypes.string,
+    goal: PropTypes.string
 };  

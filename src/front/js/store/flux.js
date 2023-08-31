@@ -94,6 +94,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					});
 					sessionStorage.setItem("token", data.token);
+					sessionStorage.setItem("userID", data.user.id);
 
 					return true;
 
@@ -458,26 +459,26 @@ const getState = ({ getStore, getActions, setStore }) => {
 			//FUNCION PARA CREAR MATERIA	
 			createSubject: async (SubjectName, UserID) => {
 
-				const user_id = getStore().user.id;
-				const token = getStore().token
+				const user_id = sessionStorage.getItem("userID");
 
 
 				try {
 
 					const response = await axios.post(process.env.BACKEND_URL + `/api/user/${user_id}/subjects`, {
-						headers: {
-							"Authorization": `Bearer ${token}`,
-						},
 						Subject: SubjectName,
-						UserID: UserID,
+
 					});
 
 					const data = response.data;
+					console.log(response);
+					if (response.status == 200) {
+						getActions().getAllSubjects();
+					}
 
 					setStore({
 						AllSubjects: {
-							"Subject": data.SubjectName,
-							"UserID": data.UserID,
+							"Subject": data.subjects.Subject,
+							"UserID": data.userId,
 						},
 					});
 

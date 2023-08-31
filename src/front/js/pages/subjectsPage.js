@@ -33,20 +33,21 @@ export const SubjectsPage = props => {
 			<CreateSubject />
 			{store.allSubjects && store.allSubjects !== "" && store.allSubjects !== undefined ? (
 				<>
+					<div className="accordion" id="accordionSubjects">
+						{(loaded === "fullLoaded") && (
+							store.allSubjects.map(subject => (
+								<div className="col md-auto">
 
-					{(loaded === "fullLoaded") && (
-						store.allSubjects.map(subject => (
-							<div className="col md-auto">
-								<div className="accordion" id="accordionSubjects">
 									<DropdownSubject
 										subject={subject.Subject}
 										id={subject.id}
 										key={subject.id}
 									/>
 								</div>
-							</div>
-						))
-					)}
+
+							))
+						)}
+					</div>
 
 				</>
 			) : (

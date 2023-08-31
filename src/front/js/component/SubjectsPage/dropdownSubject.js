@@ -16,7 +16,6 @@ export const DropdownSubject = (props) => {
 
     return (
         <div className="container my-2">
-
             <div className="accordion-item">
                 <h2 className="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={accordionID} aria-expanded="false" aria-controls="flush-collapseOne">
