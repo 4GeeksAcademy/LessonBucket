@@ -2,7 +2,6 @@ import React, { useState, useContext } from "react";
 import { Context } from "../../store/appContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faCamera } from '@fortawesome/free-solid-svg-icons';
-
 import { Modal } from "react-bootstrap";
 import "./studentCard.css";
 import "../../../styles/students.css";
@@ -20,8 +19,7 @@ export const StudentCard = (props) => {
     const [editedGoal, setEditedGoal] = useState(props.goal);
 
     
-    const handleModifyStudent = async (e) => {
-        e.preventDefault
+    const handleModifyStudent = async () => {
         if (!editedName || !editedPhone || !editedEmail || !editedPhone || !editedGoal) {
           swal("Please", "Fields cannot be empty", "warning", {
             buttons: {
@@ -46,8 +44,7 @@ export const StudentCard = (props) => {
           return;
         }
     
-        let response = await actions.modifyOneStudent(editedName, editedPhone, editedEmail, editedPhone, editedGoal);
-        // console.log(response)
+        let response = await actions.modifyOneStudent(editedName, editedEmail, editedPhone, editedAddress, editedGoal, props.id);
     
         if (response === true) {
     
@@ -61,13 +58,13 @@ export const StudentCard = (props) => {
             timer: 4000,
           });
     
-    
-          setIsEditing(!isEditing);
           setEditedName(editedName);
           setEditedEmail(editedEmail);
           setEditedPhone(editedPhone);
           setEditedAddress(editedAddress);
           setEditedGoal(editedGoal);
+
+          actions.getAllStudents();
     
         } else {
           swal("Sorry", "An unexpected error has occurred", "error", {
@@ -119,8 +116,6 @@ export const StudentCard = (props) => {
             }
         });
     };
-
-
 
 
 

@@ -21,8 +21,9 @@ export const Students = () => {
   const [phone, setPhone] = useState("")
   const [goal, setGoal] = useState("")
   const [loader, setLoader] = useState(false)
+  const [searchStudent, setSearchStudent] = useState("")
   const navigate = useNavigate()
-  
+  const students = store.allStudents
 
 
   //  SE LLAMA A FUNCIÓN DESPUÉS DE TENER TOKEN
@@ -36,9 +37,39 @@ export const Students = () => {
 
   // FUNCIÓN PARA MANEJAR EL ICONO DE LA LUPA EN EL INPUT SEARCH
 
-  const handleSearch = () => {
+  const handleSearchShow = () => {
     setIconSearch(!iconSearch);
   };
+
+  // FUNCIÓN PARA MANEJAR EL INPUT DE BUSQUEDA
+
+  // const handleEnterKeyPress = (e) => {
+  //   e.preventDefault()
+  //   if (e.key === 'Enter') {
+  //     const searchStudent = searchStudent.toUpperCase();
+
+  //       filteredStudents = students.filter(student => {
+  //       return student.name.toUpperCase().includes(searchStudentUpperCase);
+
+  //     })
+
+  //     setIconSearch(!iconSearch);
+  //     setSearchStudent("");
+      
+
+  //   } else {
+  //     swal("Sorry", "No matches found", "warning", {
+  //       buttons: {
+  //         confirm: {
+  //           text: "Try Again",
+  //           className: "custom-swal-button",
+  //         }
+  //       },
+  //       timer: 4000,
+  //     });
+  //   };
+  // }
+
 
   // FUNCIÓN PARA AGREGAR ESTUDIANTES
 
@@ -163,13 +194,16 @@ export const Students = () => {
           className="student-search-input"
           placeholder="    Search..."
           required=""
-          onFocus={handleSearch}
-          onBlur={handleSearch}
+          value={searchStudent}
+          onFocus={handleSearchShow}
+          onBlur={handleSearchShow}
+          // onChange={() => { setSearchStudent(e.target.value) }}
+          // onKeyDown={handleEnterKeyPress}
         />
         <FontAwesomeIcon
           icon={faMagnifyingGlass}
           size="sm"
-          className={`search-icon ${iconSearch ? 'search-icon-visible' : 'search-icon-hidden'}`}
+          className={`${iconSearch ? 'search-icon-visible' : 'search-icon-hidden'}`}
           style={{ "--fa-primary-opacity": "0.3", "--fa-secondary-opacity": "0.3" }}
         />
         <button className="student-button-refresh" onClick={() => actions.getAllStudents()}>Refresh</button>
@@ -178,7 +212,7 @@ export const Students = () => {
         <>
           <div className="row d-flex flex-wrap justify-content-start gap-3">
             {(loaded === "fullLoaded") && (
-              store.allStudents.map(student => (
+              students.map(student => (
                 <div className="col md-auto" key={student.id}>
                   <StudentCard
                     id={student.id}
@@ -194,7 +228,7 @@ export const Students = () => {
           </div>
           {/* INICIO PAGINACIÓN */}
 
-            <nav aria-label="Page navigation example">
+          {/* <nav aria-label="Page navigation example">
               <ul className="pagination">
                 <li className="page-item">
                   <a className="page-link" href="#" aria-label="Previous">
@@ -210,16 +244,15 @@ export const Students = () => {
                   </a>
                 </li>
               </ul>
-            </nav>
+            </nav> */}
 
-            {/* FIN DE PAGINACIÓN */}
+          {/* FIN DE PAGINACIÓN */}
         </>
       ) : (
         <div className="recover-pass-main">
           {store.logged ? (
             <div>
-              <Loader view="recoverPass" />
-              <h1 className="loading-screen">Please wait a moment</h1>
+              <h1 className="loading-screen">The student list is empty. Please include your students in the + icon to get started.</h1>
               <button className="student-button-refresh student-button-refresh-loadding-screen " onClick={() => actions.getAllStudents()}>Refresh</button>
             </div>
           ) : (

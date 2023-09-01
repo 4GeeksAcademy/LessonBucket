@@ -175,6 +175,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 
 					const students = response.data.results
+		
+						
 
 					setStore({
 						allStudents: students
@@ -264,24 +266,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			// FUNCIÓN PARA MODIFICAR ESTUDIANTE
 
-			modifyOneStudent: async (editedName, editedPhone, editedEmail, editedAddress, editedGoal) => {
+			modifyOneStudent: async (editedName, editedEmail, editedPhone, editedAddress, editedGoal, student_id) => {
 
 				const user_id = getStore().user.id;
-				const token = getStore().token
-				const student_id = getStore().allStudents.id
-				console.log(getStore().allStudents)
-				console.log(student_id)
+    			const token = getStore().token	
 
-				const students = getStore().allStudents;
-				students.forEach(student => {
-					const studentId = student.id;
-					console.log(studentId);
-				});
-
-
+				const requestData = {
+					name: editedName,
+					email: editedEmail,
+					phone: editedPhone,
+					address: editedAddress,
+					goal: editedGoal,
+				};
+				
 				try {
-
-					let response = await axios.path(process.env.BACKEND_URL + `/api/user/${user_id}/students/${student_id}`, {
+					
+					let response = await axios.patch(process.env.BACKEND_URL + `/api/user/${user_id}/students/${student_id}`, requestData, {
 						headers: {
 							"Authorization": `Bearer ${token}`,
 						},
@@ -289,11 +289,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 
 					const modifyStudent = response.data.results
-
-
+					
+					
 					setStore({
-						allStudents: newAllStudent
-					});
+						allStudents: modifyStudent
+					  });
 
 					console.log(response.data)
 					return true;
@@ -303,6 +303,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			},
+			
+
+			
+
 
 			logout: () => {
 
@@ -317,6 +321,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			},
 
+			
 
 			editProfileName: async (newName) => {
 				const user_id = getStore().user.id;
@@ -445,13 +450,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 
-
-
-
-
-
-
-
+			editPassword: async (newPassword) => {
+				const user_id = getStore().user.id;
+				try {
+					const response = await axios.patch(process.env.BACKEND_URL + `/api/user/${user_id}`, {
+						password: newPassword,
+				});
+					const data = response.data;
+					console.log(response.data)
+					console.log(data)
+					return true;
+				}
+				catch (error) {
+					console.error("An error occurred during user creation", error);
+					return false;
+				}
+			},
 
 
 			// Use getActions to call a function within a fuction
@@ -502,6 +516,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			},
+
 			fetchStudentsPendingPayment: async () => {
 				try {
 					
@@ -576,6 +591,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			},
+
 			//FUNCION PARA VER TODAS LAS MATERIAS
 			getAllSubjects: async () => {
 				const user_id = getStore().user.id;
