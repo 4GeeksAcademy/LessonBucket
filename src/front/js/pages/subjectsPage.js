@@ -10,12 +10,17 @@ export const SubjectsPage = props => {
 	const { store, actions } = useContext(Context);
 	const subjects = store.allSubjects;
 	const user_id = store.user.id;
+	const students = store.allStudents;
 	const [loaded, setLoaded] = useState("loadedEmpty")
 
 	useEffect(() => {
 		actions.getAllSubjects()
 		setLoaded("fullLoaded")
 	}, [store.token]);
+
+	useEffect(() => {
+		console.log(subjects)
+	}, [store.allSubjects]);
 
 	useEffect(() => {
 		console.log(subjects)
@@ -28,20 +33,21 @@ export const SubjectsPage = props => {
 			<CreateSubject />
 			{store.allSubjects && store.allSubjects !== "" && store.allSubjects !== undefined ? (
 				<>
+					<div className="accordion" id="accordionSubjects">
+						{(loaded === "fullLoaded") && (
+							store.allSubjects.map(subject => (
+								<div className="col md-auto">
 
-					{(loaded === "fullLoaded") && (
-						store.allSubjects.map(subject => (
-							<div className="col md-auto">
-								<div className="accordion" id="accordionSubjects">
 									<DropdownSubject
 										subject={subject.Subject}
 										id={subject.id}
 										key={subject.id}
 									/>
 								</div>
-							</div>
-						))
-					)}
+
+							))
+						)}
+					</div>
 
 				</>
 			) : (
