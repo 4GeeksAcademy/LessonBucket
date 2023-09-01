@@ -533,6 +533,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 			createSubjectClass: async (newClassInfo, closeModal) => {
+
+				const user_id = getStore().user.id;
 				try {
 					// Create the new class object using the provided parameters
 					const newSubjectClass = {
@@ -545,7 +547,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					};
 
 					// Make a POST request to create the new class
-					const response = await axios.post(`${process.env.BACKEND_URL}/api/user/${getStore().user.id}/class`, newSubjectClass);
+					const response = await axios.post(`${process.env.BACKEND_URL}/api/user/${user_id}/class`, newSubjectClass);
 
 					if (response.status === 200) {
 						// Update the classes in the store with the new data
