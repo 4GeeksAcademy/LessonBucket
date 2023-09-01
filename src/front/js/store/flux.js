@@ -271,10 +271,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const user_id = getStore().user.id;
     			const token = getStore().token	
 
+				const requestData = {
+					name: editedName,
+					email: editedEmail,
+					phone: editedPhone,
+					address: editedAddress,
+					goal: editedGoal,
+				};
 				
 				try {
 					
-					let response = await axios.path(process.env.BACKEND_URL + `/api/user/${user_id}/students/${student_id}`, {
+					let response = await axios.patch(process.env.BACKEND_URL + `/api/user/${user_id}/students/${student_id}`, requestData, {
 						headers: {
 							"Authorization": `Bearer ${token}`,
 						},
