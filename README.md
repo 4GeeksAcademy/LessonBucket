@@ -1,3 +1,9 @@
+instalar calendarios 
+1. npm install react react-dom @emotion/react
+2. npm install @ericz1803/react-google-calendar
+
+
+
 # WebApp boilerplate with React JS and Flask API
 
 Build web applications using React.js for the front end and python/flask for your backend API.

@@ -13,8 +13,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 			//ALMACEN DE PASSWORD
 			recoverPass: "",
 			// ESTADO DE DE LOGADO PARA GESTIÓN TOKEN
-
 			logged: false,
+			// ALMACEN DE ESTUDIANTES
+			allStudents: [],
+
 
 			demo: [
 				{
@@ -29,9 +31,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			],
 			classes: [],
+			allSubjects: [],
 			studentsPendingPayment: []
 		},
 		actions: {
+
+			
 
 			// FUNCION PARA CREAR USUARIO
 
@@ -81,9 +86,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 
 					const data = response.data;
-
-
-					console.log(data);
+					
 					setStore({
 
 						user: data.user,
@@ -121,8 +124,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						logged: true
 					});
 
-					console.log(getStore().user)
-
+				
 					return true;
 				} catch (error) {
 					sessionStorage.removeItem("token");
@@ -158,7 +160,150 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
+			// FUNCIÓN PARA VALIDAR TOKEN CUANDO SE CARGA LA PÁGINA Y VERIFICAR SI ESTA LOGADO O NO
 
+			getAllStudents: async () => {
+				const user_id = getStore().user.id;
+    			const token = getStore().token			
+
+				try {
+					let response = await axios.get(process.env.BACKEND_URL + `/api/user/${user_id}/students`, {
+						headers: {
+							"Authorization": `Bearer ${token}`,
+						}
+					});
+
+					const students = response.data.results
+						
+					setStore({
+						allStudents: students 
+					});
+
+					return true;
+
+				} catch (error) {
+					console.error("An error occurred during user creation", error);
+					return false;
+				}
+			},
+
+
+			// FUNCIÓN PARA CREAR UN NUEVO ESTUDIANTE
+
+
+			createOneStudent: async (dataName, dataEmail, dataAddress, dataPhone, dataGoal) => {
+
+				const user_id = getStore().user.id;
+    			const token = getStore().token		
+				
+				const requestData = {
+					name: dataName,
+					email: dataEmail,
+					address: dataAddress,
+					phone: dataPhone,
+					goal: dataGoal,
+				  };
+
+				try {
+					
+					let response = await axios.post(process.env.BACKEND_URL + `/api/user/${user_id}/students`, requestData, {
+						headers: {
+							"Authorization": `Bearer ${token}`,
+						},
+					});
+					
+
+					const newStudent = response.data.results
+					
+					setStore({
+						allStudents: newStudent
+					  });
+
+					console.log(response.data)
+					return true;
+
+				} catch (error) {
+					console.error("An error occurred during user creation", error);
+					return error;
+				}
+			},
+
+			// FUNCIÓN PARA ELIMINAR UN ESTUDIANTE
+
+
+			deleteOneStudent: async (student_id) => {
+
+				const user_id = getStore().user.id;
+    			const token = getStore().token		
+				
+				
+				try {
+					
+					let response = await axios.delete(process.env.BACKEND_URL + `/api/user/${user_id}/students/${student_id}`, {
+						headers: {
+							"Authorization": `Bearer ${token}`,
+						},
+					});
+
+					const newAllStudent = response.data.results
+					
+					setStore({
+						allStudents: newAllStudent
+					  });
+
+					console.log(response.data)
+					return true;
+
+				} catch (error) {
+					console.error("An error occurred during user creation", error);
+					return false;
+				}
+			},
+
+
+			// FUNCIÓN PARA MODIFICAR ESTUDIANTE
+
+			modifyOneStudent: async (editedName, editedPhone, editedEmail, editedAddress, editedGoal) => {
+
+				//const user_id = getStore().user.id;
+    			//const token = getStore().token	
+				//const student_id = getStore().allStudents.id
+				// const student_id = getStore().allstudent.id;	
+				//console.log(getStore().allStudents)
+				//console.log(student_id)
+
+				// const students = getStore().allStudents;
+				// students.forEach(student => {
+				// 	const studentId = student.id;
+				// 	console.log(studentId);
+				// });
+				
+				
+				// try {
+					
+				// 	let response = await axios.path(process.env.BACKEND_URL + `/api/user/${user_id}/students/${student_id}`, {
+				// 		headers: {
+				// 			"Authorization": `Bearer ${token}`,
+				// 		},
+				// 	});
+
+
+				// 	const modifyStudent = response.data.results
+					
+					
+				// 	setStore({
+				// 		allStudents: newAllStudent
+				// 	  });
+
+				// 	console.log(response.data)
+				// 	return true;
+
+				// } catch (error) {
+				// 	console.error("An error occurred during user creation", error);
+				// 	return false;
+				// }
+			},
+			
 			logout: () => {
 
 
@@ -304,7 +449,69 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error("An error occurred while updating the class", error);
 					return false;
 				}
-			}
+			},
+			//FUNCION PARA VER TODAS LAS MATERIAS
+			getAllSubjects: async () => {
+				const user_id = getStore().user.id;
+				const token = getStore().token
+				const allSubjects = getStore().allSubjects
+
+				console.log(user_id)
+				console.log(token)
+				console.log(allSubjects)
+
+				try {
+					let response = await axios.get(process.env.BACKEND_URL + `/api/user/${user_id}/subjects`, {
+						headers: {
+							"Authorization": `Bearer ${token}`,
+						}
+					});
+					const subjects = response.data.results
+					console.log(subjects);
+					setStore({
+						allSubjects: subjects
+					});
+					return true;
+				} catch (error) {
+					console.error("An error occurred during subject retrieval", error);
+					return false;
+				}
+			},
+			//FUNCION PARA CREAR MATERIA	
+			createSubject: async (SubjectName, UserID) => {
+				
+				const user_id = getStore().user.id;
+				const token = getStore().token
+
+
+				try {
+
+					const response = await axios.post(process.env.BACKEND_URL + `/api/user/${user_id}/subjects`, {
+						headers: {
+							"Authorization": `Bearer ${token}`,
+						},
+						Subject: SubjectName,
+						UserID: UserID,
+					});
+
+					const data = response.data;
+
+					setStore({
+						AllSubjects: {
+							"Subject": data.SubjectName,
+							"UserID": data.UserID,
+						},
+					});
+
+
+					return true;
+
+				} catch (error) {
+					console.error("An error occurred during subject creation", error);
+					return false;
+				}
+			},
+
 		}
 	};
 };

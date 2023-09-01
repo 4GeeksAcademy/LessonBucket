@@ -20,7 +20,9 @@ export const Sidebar = () => {
     }
 
 
+
     if (store.logged === false || (useLocation().pathname === "/")) return null
+
     else {
 
         if (showSidebar === "spread") {
@@ -88,6 +90,8 @@ export const Sidebar = () => {
             );
         }
 
+
+        if (store.logged === false || (useLocation().pathname === "/")) return null
         else {
             return (
                 <>
@@ -142,4 +146,4 @@ export const Sidebar = () => {
             );
         }
     }
-}
+};
