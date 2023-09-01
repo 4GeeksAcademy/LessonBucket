@@ -349,8 +349,8 @@ def modify_subject(user_id, subjects_id):
 
 @api.route('/user/<int:user_id>/students', methods=['GET'])
 def get_all_students(user_id):
-
-    students_query = Students.query.all()
+    
+    students_query = Students.query.filter_by(user_id=user_id).all()
 
     if not students_query:
         raise APIException('The list of students is empty', 404)
@@ -372,14 +372,14 @@ def get_all_students(user_id):
 # ENDPOINT GET ONE STUDENT
 
 @api.route('/user/<int:user_id>/students/<int:students_id>', methods=['GET'])
-def get_one_student(user_id, students_id):
+def get_one_student(user_id, student_id):
 
     try:
-        students_information = Students.query.filter_by(id=students_id).first()
+        student_information = Students.query.filter_by(user_id=user_id, id=student_id).first()
 
         response_body = {
             "msg": "Student obtained",
-            "students": students_information.serialize()
+            "students": student_information.serialize()
         }
 
         return jsonify(response_body), 200
@@ -405,7 +405,7 @@ def create_one_student(user_id):
     if verify_email:
         raise APIException("An account with this email already exists", 402)
 
-    student = Students(name=request_body["name"], email=request_body["email"], address=request_body["address"],
+    student = Students(user_id=user_id,name=request_body["name"], email=request_body["email"], address=request_body["address"],
                 phone=request_body["phone"], goal=request_body["goal"])
 
     db.session.add(student)
@@ -428,7 +428,7 @@ def create_one_student(user_id):
 @api.route('/user/<int:user_id>/students/<int:students_id>', methods=['DELETE'])
 def del_student(user_id, students_id):
 
-    students_query = Students.query.filter_by(id=students_id).first()
+    students_query = Students.query.filter_by(user_id=user_id, id=students_id).first()
 
     if not students_query:
         raise APIException('Student not found', 404)
@@ -449,31 +449,38 @@ def del_student(user_id, students_id):
 
 # ENDPOINT MODIFY A STUDENT
 
-@api.route('/user/<int:user_id>/students/<int:students_id>', methods=['PATCH'])
-def update_student(user_id, students_id):
+@api.route('/user/<int:user_id>/students/<int:student_id>', methods=['PATCH'])
+def update_student(user_id, student_id):
+    try:
+        student = Students.query.filter_by(user_id=user_id, id=student_id).first()
 
-    student = Students.query.get(students_id)
-    if not student:
-        return jsonify({'message': 'User not found'}), 404
-    
-    data = request.get_json()
-    if 'name' in data:
-        student.name = data['name']
-    if 'email' in data:
-        student.email = data['email']
-    if 'address' in data:
-        student.address = data['address']
-    if 'phone' in data:
-        student.birth_date = data['phone']
-    if 'goal' in data:
-        student.goal = data['goal']    
-    db.session.commit()
+        if not student:
+            return jsonify({'message': 'Student not found'}), 404
 
-    response_body = {
-        "msg": "Student updated successfully",
-        "student": student.serialize()
-    }
-    return jsonify(response_body), 200
+        data = request.get_json()
+        if 'name' in data:
+            student.name = data['name']
+        if 'email' in data:
+            student.email = data['email']
+        if 'address' in data:
+            student.address = data['address']
+        if 'phone' in data:
+            student.phone = data['phone']
+        if 'goal' in data:
+            student.goal = data['goal']
+
+        db.session.commit()
+
+        response_body = {
+            "msg": "Student updated successfully",
+            "student": student.serialize()
+        }
+
+        return jsonify(response_body), 200
+
+    except:
+
+        raise APIException('Internal error', 500)
 
 
 # ENDPOINT GET ALL COMMENTS

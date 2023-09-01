@@ -2,7 +2,6 @@ import React, { useState, useContext } from "react";
 import { Context } from "../../store/appContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faCamera } from '@fortawesome/free-solid-svg-icons';
-
 import { Modal } from "react-bootstrap";
 import "./studentCard.css";
 import "../../../styles/students.css";
@@ -46,7 +45,6 @@ export const StudentCard = (props) => {
         }
     
         let response = await actions.modifyOneStudent(editedName, editedEmail, editedPhone, editedAddress, editedGoal, props.id);
-        console.log(response)
     
         if (response === true) {
     
@@ -66,7 +64,7 @@ export const StudentCard = (props) => {
           setEditedAddress(editedAddress);
           setEditedGoal(editedGoal);
 
-        //   actions.getAllStudents();
+          actions.getAllStudents();
     
         } else {
           swal("Sorry", "An unexpected error has occurred", "error", {

@@ -173,6 +173,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 
 					const students = response.data.results
+		
 						
 					setStore({
 						allStudents: students 
@@ -276,6 +277,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					goal: editedGoal,
 				  };
 
+				  console.log(requestData)
 				  	
 				try {
 					
