@@ -266,43 +266,42 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			modifyOneStudent: async (editedName, editedPhone, editedEmail, editedAddress, editedGoal) => {
 
-				//const user_id = getStore().user.id;
-				//const token = getStore().token	
-				//const student_id = getStore().allStudents.id
-				// const student_id = getStore().allstudent.id;	
-				//console.log(getStore().allStudents)
-				//console.log(student_id)
+				const user_id = getStore().user.id;
+				const token = getStore().token
+				const student_id = getStore().allStudents.id
+				console.log(getStore().allStudents)
+				console.log(student_id)
 
-				// const students = getStore().allStudents;
-				// students.forEach(student => {
-				// 	const studentId = student.id;
-				// 	console.log(studentId);
-				// });
-
-
-				// try {
-
-				// 	let response = await axios.path(process.env.BACKEND_URL + `/api/user/${user_id}/students/${student_id}`, {
-				// 		headers: {
-				// 			"Authorization": `Bearer ${token}`,
-				// 		},
-				// 	});
+				const students = getStore().allStudents;
+				students.forEach(student => {
+					const studentId = student.id;
+					console.log(studentId);
+				});
 
 
-				// 	const modifyStudent = response.data.results
+				try {
+
+					let response = await axios.path(process.env.BACKEND_URL + `/api/user/${user_id}/students/${student_id}`, {
+						headers: {
+							"Authorization": `Bearer ${token}`,
+						},
+					});
 
 
-				// 	setStore({
-				// 		allStudents: newAllStudent
-				// 	  });
+					const modifyStudent = response.data.results
 
-				// 	console.log(response.data)
-				// 	return true;
 
-				// } catch (error) {
-				// 	console.error("An error occurred during user creation", error);
-				// 	return false;
-				// }
+					setStore({
+						allStudents: newAllStudent
+					});
+
+					console.log(response.data)
+					return true;
+
+				} catch (error) {
+					console.error("An error occurred during user creation", error);
+					return false;
+				}
 			},
 
 			logout: () => {
