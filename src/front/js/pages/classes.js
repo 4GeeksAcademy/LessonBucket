@@ -12,10 +12,9 @@ export const Classes = () => {
     const [showModal, setShowModal] = useState(false); // State to control modal visibility
 
     useEffect(() => {
-        // if (store.logged === false) {
-        // 	window.location = '/login';
-        // }
-
+        if (store.logged === false) {
+            window.location = '/login';
+        }
         actions.fetchClasses();
     }, [store.token]);
 
