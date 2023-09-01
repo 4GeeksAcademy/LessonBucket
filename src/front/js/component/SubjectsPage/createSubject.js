@@ -58,20 +58,20 @@ export const CreateSubject = () => {
                     <h1>Students</h1>
                     <p>You can choose students from your list to add to this subject!</p>
                     <div class="overflow-auto" id="StudentsBox" style={{ maxHeight: "300px", maxWidth: "100%" }}>
-                        <StudentList />
-                        <StudentList />
-                        <StudentList />
-                        <StudentList />
-                        <StudentList />
-                        <StudentList />
-                        <StudentList />
-                        <StudentList />
-                        <StudentList />
-                        <StudentList />
-                        <StudentList />
-                        <StudentList />
-                        <StudentList />
-
+                        {(
+                            store.allStudents.map(student => (
+                                <div className="col md-auto" key={student.id}>
+                                    <StudentList
+                                        id={student.id}
+                                        name={student.name}
+                                        phone={student.phone}
+                                        email={student.email}
+                                        address={student.address}
+                                        goal={student.goal}
+                                    />
+                                </div>
+                            ))
+                        )}
                     </div>
                 </Modal.Body>
             </Modal>
