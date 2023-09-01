@@ -8,6 +8,9 @@ import { Context } from "../store/appContext";
 export const Dashboard = () => {
 	const { store, actions } = useContext(Context);
 	useEffect(() => {
+		if(store.logged === false ){
+			window.location = '/login';
+		}
 		actions.fetchClasses();
 	}, []);
 

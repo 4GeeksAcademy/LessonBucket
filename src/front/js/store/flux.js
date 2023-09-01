@@ -82,7 +82,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					const data = response.data;
 
-					
+
 					console.log(data);
 					setStore({
 
@@ -92,7 +92,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					});
 					sessionStorage.setItem("token", data.token);
-			
+
 					return true;
 
 				} catch (error) {
@@ -161,21 +161,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			logout: () => {
 
-				
-						console.log("Deslogando");
-						sessionStorage.removeItem("token");
-						setStore({ 
-							logged: false,
-							token:""						
-						});
-						
-					
-				},
-				
-					
-					
-				
-			
+
+				console.log("Deslogando");
+				sessionStorage.removeItem("token");
+				setStore({
+					logged: false,
+					token: ""
+				});
+
+
+			},
+
+
+
+
+
 
 
 
@@ -234,12 +234,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 			fetchStudentsPendingPayment: async () => {
-				let userId = getStore().user.id;
-				if (userId === undefined) {
-					userId = 1;
-				}
 				try {
-					const response = await axios.get(`${process.env.BACKEND_URL}/api/user/${userId}/students`);
+					const response = await axios.get(`${process.env.BACKEND_URL}/api/user/${getStore().user.id}/students`);
 					console.log(response.data);
 					setStore({
 						studentsPendingPayment: response.data
@@ -247,6 +243,65 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return true;
 				} catch (error) {
 					console.error("An error occurred while fetching classes", error);
+					return false;
+				}
+			},
+			createSubjectClass: async (newClassInfo, closeModal) => {
+				try {
+					// Create the new class object using the provided parameters
+					const newSubjectClass = {
+						subjects_id: newClassInfo.subjects_id,
+						student_id: newClassInfo.student_id,
+						comments_id: newClassInfo.comments_id,
+						date: newClassInfo.date,
+						price: parseFloat(newClassInfo.price),
+						paid: newClassInfo.paid
+					};
+
+					// Make a POST request to create the new class
+					const response = await axios.post(`${process.env.BACKEND_URL}/api/user/${getStore().user.id}/class`, newSubjectClass);
+
+					if (response.status === 200) {
+						// Update the classes in the store with the new data
+						const updatedClasses = [...getStore().classes.results, response.data.student];
+						setStore({
+							classes: { ...getStore().classes, results: updatedClasses }
+						});
+
+						closeModal(); // Close the modal
+
+						return true;
+					} else {
+						console.error("Failed to create class");
+						return false;
+					}
+				} catch (error) {
+					console.error("An error occurred while creating a new class", error);
+					return false;
+				}
+			},
+			updateSubjectClassInStore: async (classId, updatedInfo) => {
+				try {
+					const response = await axios.put(`${process.env.BACKEND_URL}/api/user/${getStore().user.id}/class/${classId}`, updatedInfo);
+
+					if (response.status === 200) {
+						// Update the class in the store with the updated data
+						const updatedClasses = getStore().classes.results.map((subjectClass) => {
+							if (subjectClass.id === classId) {
+								return { ...subjectClass, ...updatedInfo };
+							}
+							return subjectClass;
+						});
+						setStore({
+							classes: { ...getStore().classes, results: updatedClasses }
+						});
+						return true;
+					} else {
+						console.error("Failed to update class");
+						return false;
+					}
+				} catch (error) {
+					console.error("An error occurred while updating the class", error);
 					return false;
 				}
 			}

@@ -108,6 +108,7 @@ class Class(db.Model):
         return {
             "id": self.id,
             "subjects_id": self.subjects_id,
+            "student_id": self.student_id,
             "comments_id": self.comments_id,
             "date": self.date,
             "price": self.price,
