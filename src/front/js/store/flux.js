@@ -317,25 +317,115 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 
-			editProfile: async (newName, newEmail,newAddress,newBirth) => {
+			editProfileName: async (newName) => {
 				const user_id = getStore().user.id;
-				try {
-					const response = await axios.patch(process.env.BACKEND_URL + `/api/user/${user_id}`, {
-						name: newName,
-						email: newEmail,
-						address:newAddress,
-						birth_date:newBirth,
-				});
-					const data = response.data;
-					console.log(response.data)
-					console.log(data)
-					return true;
-				}
-				catch (error) {
-					console.error("An error occurred during user creation", error);
-					return false;
-				}
-			},
+				
+					try {
+						const response = await axios.patch(process.env.BACKEND_URL + `/api/user/${user_id}`, {
+							name: newName,	
+					});
+						setStore({
+							user:{
+								name:newName,
+								email: getStore().user.email,
+								address: getStore().user.address,
+								birth_date: getStore().user.birth_date,
+								id:user_id,
+							} ,
+						});
+						return true;
+					}
+					catch (error) {
+						console.error("An error occurred during user creation", error);
+						return false;
+					}
+				},
+
+				editProfileEmail: async (newEmail) => {
+					const user_id = getStore().user.id;
+					
+						try {
+							const response = await axios.patch(process.env.BACKEND_URL + `/api/user/${user_id}`, {
+								email: newEmail,	
+						});
+							setStore({
+								user:{
+									name:getStore().user.name,
+									email: newEmail,
+									address: getStore().user.address,
+									birth_date: getStore().user.birth_date,
+									id:user_id,
+								} ,
+							});
+						return true;
+						}
+						catch (error) {
+							console.error("An error occurred during user creation", error);
+							return false;
+						}
+					},
+
+					editProfileAddress: async (newAddress) => {
+						const user_id = getStore().user.id;
+						
+							try {
+								const response = await axios.patch(process.env.BACKEND_URL + `/api/user/${user_id}`, {
+									address: newAddress,	
+							});
+								setStore({
+									user:{
+										name:getStore().user.name,
+										email: getStore().user.email,
+										address: newAddress,
+										birth_date: getStore().user.birth_date,
+										id:user_id,
+									} ,
+								});
+							return true;
+							}
+							catch (error) {
+								console.error("An error occurred during user creation", error);
+								return false;
+							}
+						},
+
+						editProfileBirth: async (newBirth) => {
+							const user_id = getStore().user.id;
+							
+								try {
+									const response = await axios.patch(process.env.BACKEND_URL + `/api/user/${user_id}`, {
+										birth_date: newBirth,	
+								});
+									setStore({
+										user:{
+											name:getStore().user.name,
+											email: getStore().user.email,
+											address: getStore().user.address,
+											birth_date: newBirth,
+											id:user_id,
+										} ,
+									});
+								return true;
+								}
+								catch (error) {
+									console.error("An error occurred during user creation", error);
+									return false;
+								}
+							},
+
+
+
+
+				
+			
+
+
+
+
+
+
+
+
 			editPassword: async (newPassword) => {
 				const user_id = getStore().user.id;
 				try {

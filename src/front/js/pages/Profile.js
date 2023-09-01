@@ -22,11 +22,8 @@ export const Profile = () => {
     const [editPass, setEditPass] = useState(false);
     const { store, actions } = useContext(Context);
 
-    
 
-    console.log(passInput1)
-    
-
+      
     const handleNameText = (event) => {
         setNameText(event.target.value)
     }
@@ -46,22 +43,27 @@ export const Profile = () => {
     
     const saveDataName = () => { 
         setEditName(false)
-        actions.editProfile(nameText);
+        actions.editProfileName(nameText);
+        setNameText('')
     }
 
     const saveDataEmail = () => { 
         setEditEmail(false)
-        actions.editProfile(store.user.name,emailText);
+        actions.editProfileEmail(emailText);
+        setEmailText('')
     }
 
     const saveDataAddress = () => { 
         setEditAddress(false)
-        actions.editProfile(store.user.name,store.user.email,addressText);
+        actions.editProfileAddress(addressText);
+        setAddressText('')
     }
 
     const saveDataBirth = () => { 
+        
         setEditBirth(false)
-        actions.editProfile(store.user.name,store.user.email,store.user.address, birthText);
+        actions.editProfileBirth(birthText);
+        setBirthText('')
     }
 
     const saveDataPassword = () => {
@@ -96,7 +98,7 @@ export const Profile = () => {
             return (
                 <div className="profile-data my-1 align-items-center d-flex flex-row justify-content-between p-2 border rounded">
                     <p className="tag me-2 align-items-center">Full Name</p>
-                    <form>
+                    <form onSubmit={saveDataName}>
                         <input type="text" id="name-input" placeholder={store.user.name} onChange={handleNameText} onBlur={() => { document.getElementById("name-input").value = ""; }} className=" name-input profile-input data mb-0 align-items-center"></input>
                         <i className="fa-solid fa-xmark me-1 text-danger" onClick={() => { setEditName(false); }}></i>
                         <i className="fa-solid fa-floppy-disk" onClick={saveDataName}></i>
@@ -130,8 +132,8 @@ export const Profile = () => {
             return (
                 <div className="profile-data my-1 align-items-center d-flex flex-row justify-content-between p-2 border rounded">
                     <p className="tag me-2 align-items-center">Email</p>
-                    <form>
-                        <input type="text" id="email-input" placeholder={store.user.email} onChange={handleEmailText} onBlur={() => { document.getElementById("email-input").value = ""; }} className=" profile-input data mb-0 align-items-center"></input>
+                    <form onSubmit={saveDataEmail}>
+                        <input type="email" id="email-input" placeholder={store.user.email} onChange={handleEmailText} onBlur={() => { document.getElementById("email-input").value = ""; }} className=" profile-input data mb-0 align-items-center"></input>
                     </form>
                     <i className="fa-solid fa-xmark me-1 text-danger" onClick={() => { setEditEmail(false); }}></i>
                     <i className="fa-solid fa-floppy-disk" onClick={saveDataEmail}></i>
@@ -159,7 +161,7 @@ export const Profile = () => {
             return (
                 <div className="profile-data my-1 align-items-center d-flex flex-row justify-content-between p-2 border rounded">
                     <p className="tag me-2 align-items-center">Address</p>
-                    <form>
+                    <form onSubmit={saveDataAddress}>
                         <input type="text" id="address-input" placeholder={store.user.address} onChange={handleAddressText} onBlur={() => { document.getElementById("address-input").value = ""; }} className=" profile-input data mb-0 align-items-center"></input>
                     </form>
                     <i className="fa-solid fa-xmark me-1 text-danger" onClick={() => { setEditAddress(false); }}></i>
@@ -172,6 +174,23 @@ export const Profile = () => {
 
 
     const handleBirth = () => {
+
+        
+
+            if (editBirth === false) {
+                return (
+    
+                    <div className="profile-data my-1 align-items-center d-flex flex-row justify-content-between p-2 border rounded">
+                        <p className="tag me-2 align-items-center">Birth Date</p>
+                        <p className="data mb-0 align-items-center">{store.user.birth_date}</p>
+                        <i className="fa-solid fa-pen-to-square align-items-center" onClick={() => { setEditBirth(true) }}></i>
+                    </div>
+    
+                );
+            }
+
+        
+
         if (editBirth === false) {
             return (
 
@@ -188,8 +207,8 @@ export const Profile = () => {
             return (
                 <div className="profile-data my-1 align-items-center d-flex flex-row justify-content-between p-2 border rounded">
                     <p className="tag me-2 align-items-center">Birth Date</p>
-                    <form>
-                        <input type="text" id="birth-input" placeholder={store.user.birth_date} onChange={handleBirthText} onBlur={() => { document.getElementById("birth-input").value = ""; }} className=" profile-input data mb-0 align-items-center"></input>
+                    <form onSubmit={saveDataBirth}>
+                        <input type="text" id="birth-input" placeholder={store.user.birth_date}  onChange={handleBirthText} onBlur={() => { document.getElementById("birth-input").value = ""; }} className=" profile-input data mb-0 align-items-center"></input>
                     </form>
                     <i className="fa-solid fa-xmark me-1 text-danger" onClick={() => { setEditBirth(false); }}></i>
                     <i className="fa-solid fa-floppy-disk" onClick={saveDataBirth}></i>
@@ -249,10 +268,12 @@ export const Profile = () => {
         </>
         )}
     }
- 
+
+    
    
 
     // LOGIN OUTPUT
+  
 
     return (
 
@@ -265,6 +286,7 @@ export const Profile = () => {
             
                 <>
                 <h2 className="mb-4"> Profile Information</h2>
+                
                 {handleName()}
                 {handleEmail()}
                 {handleAddress()}
@@ -291,5 +313,8 @@ export const Profile = () => {
 
         </>
     )
+
+
+
 
 }
