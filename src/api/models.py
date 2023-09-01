@@ -14,6 +14,7 @@ class User(db.Model):
     address = db.Column(db.String(200), unique=False, nullable=False)
     Subjects = db.relationship("Subjects", backref="user", lazy=True)
     Students = db.relationship("Students", backref="user", lazy=True)
+    Class = db.relationship("Class", backref="user", lazy=True)
 
     def __repr__(self):
         return f'<User {self.email}>'
@@ -95,9 +96,10 @@ class Class(db.Model):
     __tablename__ = 'class'
 
     id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     subjects_id = db.Column(db.Integer, db.ForeignKey("subjects.id"))
     student_id = db.Column(db.Integer, db.ForeignKey("students.id"))
-    comments_id = db.Column(db.Integer, db.ForeignKey("comments.id"))
+    comments_id = db.Column(db.Integer, db.ForeignKey("comments.id"), nullable=True)
     date = db.Column(db.String(120), unique=False, nullable=False)
     price = db.Column(db.Float, unique=False, nullable=False)
     paid = db.Column(db.Boolean, unique=False, nullable=False)
