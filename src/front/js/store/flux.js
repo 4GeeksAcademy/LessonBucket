@@ -504,7 +504,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			fetchStudentsPendingPayment: async () => {
 				try {
-					const response = await axios.get(`${process.env.BACKEND_URL}/api/user/${userId}/students`);
+					
 
 					const response = await axios.get(`${process.env.BACKEND_URL}/api/user/${getStore().user.id}/students`);
 					console.log(response.data);
