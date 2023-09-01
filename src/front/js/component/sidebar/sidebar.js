@@ -29,8 +29,8 @@ export const Sidebar = () => {
 
             return (
                 <>
-
-                    < nav className="sidebar mt-5 align-items-center my-auto py-4 pe-5 ps-3 ">
+        
+                    < nav className="sidebar align-items-center my-auto py-4 pe-5 ps-3 ">
 
                         <ul className="list-unstyled components mb-0 pb-0 lista">
                             <li>

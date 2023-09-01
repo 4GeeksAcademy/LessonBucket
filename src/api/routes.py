@@ -284,7 +284,7 @@ def create_one_subject(user_id):
     response_body = {
         "msg": "Subjects created",
         "subjects": subjects.serialize(),
-        "userId": user_id.serialize()
+        "userId": user_id
     }
 
     return jsonify(response_body), 200
