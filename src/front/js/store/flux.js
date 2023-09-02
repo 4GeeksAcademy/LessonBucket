@@ -175,8 +175,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 
 					const students = response.data.results
-		
-						
+
+
 
 					setStore({
 						allStudents: students
@@ -269,7 +269,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			modifyOneStudent: async (editedName, editedEmail, editedPhone, editedAddress, editedGoal, student_id) => {
 
 				const user_id = getStore().user.id;
-    			const token = getStore().token	
+				const token = getStore().token
 
 				const requestData = {
 					name: editedName,
@@ -278,9 +278,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					address: editedAddress,
 					goal: editedGoal,
 				};
-				
+
 				try {
-					
+
 					let response = await axios.patch(process.env.BACKEND_URL + `/api/user/${user_id}/students/${student_id}`, requestData, {
 						headers: {
 							"Authorization": `Bearer ${token}`,
@@ -289,11 +289,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 
 					const modifyStudent = response.data.results
-					
-					
+
+
 					setStore({
 						allStudents: modifyStudent
-					  });
+					});
 
 					console.log(response.data)
 					return true;
@@ -303,9 +303,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			},
-			
 
-			
+
+
 
 
 			logout: () => {
@@ -321,7 +321,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			},
 
-			
+
 
 			editProfileName: async (newName) => {
 				const user_id = getStore().user.id;
@@ -455,7 +455,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				try {
 					const response = await axios.patch(process.env.BACKEND_URL + `/api/user/${user_id}`, {
 						password: newPassword,
-				});
+					});
 					const data = response.data;
 					console.log(response.data)
 					console.log(data)
@@ -687,6 +687,34 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				} catch (error) {
 					console.error("An error occurred during subject creation", error);
+					return false;
+				}
+			},
+			//FUNCION PARA ELIMINAR MATERIA
+			deleteSubject: async (subject_id) => {
+				const user_id = getStore().user.id;
+				const token = getStore().token;
+
+
+				try {
+
+					let response = await axios.delete(process.env.BACKEND_URL + `/api/user/${user_id}/subjects/${subject_id}`, {
+						headers: {
+							"Authorization": `Bearer ${token}`,
+						},
+					});
+
+					const newAllSubjects = response.data.results
+
+					setStore({
+						allSubjects: newAllSubjects
+					});
+
+					console.log(response.data)
+					return true;
+
+				} catch (error) {
+					console.error("An error occurred during subject removal", error);
 					return false;
 				}
 			},

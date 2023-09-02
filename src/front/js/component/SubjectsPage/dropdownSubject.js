@@ -9,6 +9,7 @@ import PropTypes from "prop-types";
 export const DropdownSubject = (props) => {
 
     const { store, actions } = useContext(Context);
+    const students = store.allStudents;
     const accordionID = `#${props.subject}`
     useEffect(() => {
         actions.getAllStudents()
@@ -20,13 +21,13 @@ export const DropdownSubject = (props) => {
                 <h2 className="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={accordionID} aria-expanded="false" aria-controls="flush-collapseOne">
                         {props.subject}
-                        <i class="fa-solid fa-trash fa-2xs ms-2" style={{ color: "red" }}></i>
+                        <i class="fa-solid fa-trash fa-2xs ms-2" style={{ color: "red" }} onClick={() => { actions.deleteSubject() }}></i>
                     </button>
                 </h2>
                 <div id={props.subject} class="accordion-collapse collapse" data-bs-parent="#accordionSubjects">
                     <div className="accordion-body">
                         {(
-                            store.allStudents.map(student => (
+                            students.map(student => (
                                 <div className="col md-auto" key={student.id}>
                                     <StudentPerSubject
                                         id={student.id}

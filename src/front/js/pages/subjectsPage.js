@@ -10,7 +10,6 @@ export const SubjectsPage = props => {
 	const { store, actions } = useContext(Context);
 	const subjects = store.allSubjects;
 	const user_id = store.user.id;
-	const students = store.allStudents;
 	const [loaded, setLoaded] = useState("loadedEmpty")
 
 	useEffect(() => {

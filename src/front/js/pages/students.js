@@ -55,7 +55,7 @@ export const Students = () => {
 
   //     setIconSearch(!iconSearch);
   //     setSearchStudent("");
-      
+
 
   //   } else {
   //     swal("Sorry", "No matches found", "warning", {
@@ -124,7 +124,7 @@ export const Students = () => {
 
       actions.getAllStudents()
 
-    } else if (response.response.request.status === 402) {
+    } else if (response.request.status === 402) {
       swal("Sorry", "An account with this email already exists", "error", {
         buttons: {
           confirm: {
@@ -197,8 +197,8 @@ export const Students = () => {
           value={searchStudent}
           onFocus={handleSearchShow}
           onBlur={handleSearchShow}
-          // onChange={() => { setSearchStudent(e.target.value) }}
-          // onKeyDown={handleEnterKeyPress}
+        // onChange={() => { setSearchStudent(e.target.value) }}
+        // onKeyDown={handleEnterKeyPress}
         />
         <FontAwesomeIcon
           icon={faMagnifyingGlass}
