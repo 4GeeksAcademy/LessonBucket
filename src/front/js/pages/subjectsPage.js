@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { CreateSubject } from "../component/SubjectsPage/createSubject.js";
 import { DropdownSubject } from "../component/SubjectsPage/dropdownSubject.js";
+import { ModifySubject } from "../component/SubjectsPage/modifySubject.js";
 import { Context } from "../store/appContext.js";
 import "../component/SubjectsPage/subjects.css";
 
