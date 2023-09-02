@@ -21,7 +21,7 @@ export const DropdownSubject = (props) => {
                 <h2 className="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={accordionID} aria-expanded="false" aria-controls="flush-collapseOne">
                         {props.subject}
-                        <i class="fa-solid fa-trash fa-2xs ms-2" style={{ color: "red" }} onClick={() => { actions.deleteSubject() }}></i>
+                        <i class="fa-solid fa-trash fa-2xs ms-2" style={{ color: "red" }} onClick={() => { actions.deleteSubject(props.id) }}></i>
                     </button>
                 </h2>
                 <div id={props.subject} class="accordion-collapse collapse" data-bs-parent="#accordionSubjects">

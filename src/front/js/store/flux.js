@@ -699,11 +699,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				try {
 
 					let response = await axios.delete(process.env.BACKEND_URL + `/api/user/${user_id}/subjects/${subject_id}`, {
-						headers: {
-							"Authorization": `Bearer ${token}`,
-						},
 					});
-
+					console.log(response)
 					const newAllSubjects = response.data.results
 
 					setStore({
