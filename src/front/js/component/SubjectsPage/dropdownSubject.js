@@ -17,7 +17,7 @@ export const DropdownSubject = (props) => {
     const [showModify, setShowModify] = useState(false)
     const [Subject, setSubject] = useState("")
     const HandleModifyModal = () => { setShowModify(true)}
-    const handleModifyClose = () => { setShow(false) }
+    const handleModifyClose = () => { setShowModify(false) }
     const HandleConfirmationModal = () => { setShow(true)}
     const handleConfirmationClose = () => { setShow(false) }
     const UserID = store.user.id

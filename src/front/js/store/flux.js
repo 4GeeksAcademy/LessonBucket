@@ -32,7 +32,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			],
 			classes: [],
 			allSubjects: [],
-			studentsPendingPayment: []
+			studentsPendingPayment: [],
+			studentsPerSubject: [],
 		},
 		actions: {
 
@@ -605,7 +606,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				console.log(allSubjects)
 
 				try {
-					let response = await axios.get(process.env.BACKEND_URL + `/api/user/${user_id}/subjects`, {
+					let response = await axios.get(process.env.BACKEND_URL + `/api/user/${user_id}/subjects/`, {
 						headers: {
 							"Authorization": `Bearer ${token}`,
 						}
@@ -754,6 +755,32 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			},
+			// getAllStudentsPerSubject: async (subject_id) => {
+			// 	const user_id = getStore().user.id;
+			// 	const token = getStore().token
+
+			// 	try {
+			// 		let response = await axios.get(process.env.BACKEND_URL + `/api/user/${user_id}/students/${subject_id}`, {
+			// 			headers: {
+			// 				"Authorization": `Bearer ${token}`,
+			// 			}
+			// 		});
+
+			// 		const studentsPerSubject = response.data.results
+
+
+
+			// 		setStore({
+			// 			AllStudents: studentsPerSubject
+			// 		});
+
+			// 		return true;
+
+			// 	} catch (error) {
+			// 		console.error("An error occurred during student retrieval", error);
+			// 		return false;
+			// 	}
+			// },
 
 		}
 	};

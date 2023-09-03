@@ -789,4 +789,26 @@ def del_class(user_id, class_id):
     except:
         raise APIException('Internal error', 500)
 
-    return jsonify(response_body), 200            
+    return jsonify(response_body), 200      
+
+# ENDPOINT GET STUDENTS ASIGNED TO A SUBJECT
+@api.route('/user/<int:user_id>/students/<int:subject_id>', methods=['GET'])
+def get_all_students_per_subject(user_id, subject_id):
+    
+    students_query = Students.query.filter_by(user_id=user_id, id=subject_id).all()
+
+    if not students_query:
+        raise APIException('The list of students is empty', 404)
+
+    results = list(map(lambda item: item.serialize(), students_query))
+
+    try:
+        response_body = {
+            "msg": "List of students obtained",
+            "results": results
+         }
+
+    except:
+        raise APIException('Internal error', 500)
+
+    return jsonify(response_body), 200      
