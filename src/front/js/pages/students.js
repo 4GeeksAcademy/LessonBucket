@@ -22,8 +22,10 @@ export const Students = () => {
   const [goal, setGoal] = useState("")
   const [loader, setLoader] = useState(false)
   const [searchStudent, setSearchStudent] = useState("")
+  const [searchResult, setSearchResults] = useState([])
   const navigate = useNavigate()
   const students = store.allStudents
+
 
 
   //  SE LLAMA A FUNCIÓN DESPUÉS DE TENER TOKEN
@@ -33,42 +35,38 @@ export const Students = () => {
     setLoaded("fullLoaded")
   }, [store.token]);
 
+  // useEffectPARA MANEJAR EL INPUT DE BUSQUEDA
 
+  useEffect(() => {
+
+  
+      const searchStudentUpper = searchStudent.toUpperCase();
+
+      const filteredStudents = students.filter(student => {
+        return student.name.toUpperCase().includes(searchStudentUpper);
+      });
+
+      setSearchResults(filteredStudents)
+      
+    }
+  , [searchStudent]);
+
+
+  // FUNCIÓN PARA MANEJAR EL INPUT DEL SEARCH
+
+  const handleInputChange = (e) => {
+    const inputValue = e.target.value
+    
+    setSearchStudent(inputValue)
+  }
 
   // FUNCIÓN PARA MANEJAR EL ICONO DE LA LUPA EN EL INPUT SEARCH
-
   const handleSearchShow = () => {
     setIconSearch(!iconSearch);
+    setSearchStudent("")
+    setSearchResults("")
   };
-
-  // FUNCIÓN PARA MANEJAR EL INPUT DE BUSQUEDA
-
-  // const handleEnterKeyPress = (e) => {
-  //   e.preventDefault()
-  //   if (e.key === 'Enter') {
-  //     const searchStudent = searchStudent.toUpperCase();
-
-  //       filteredStudents = students.filter(student => {
-  //       return student.name.toUpperCase().includes(searchStudentUpperCase);
-
-  //     })
-
-  //     setIconSearch(!iconSearch);
-  //     setSearchStudent("");
-      
-
-  //   } else {
-  //     swal("Sorry", "No matches found", "warning", {
-  //       buttons: {
-  //         confirm: {
-  //           text: "Try Again",
-  //           className: "custom-swal-button",
-  //         }
-  //       },
-  //       timer: 4000,
-  //     });
-  //   };
-  // }
+  
 
 
   // FUNCIÓN PARA AGREGAR ESTUDIANTES
@@ -189,16 +187,18 @@ export const Students = () => {
 
           // FIN DEL MODAL
 
+          //  INICIO FUNCIÓN SEARCH
+
         )}
         <input
           className="student-search-input"
           placeholder="    Search..."
           required=""
           value={searchStudent}
+          onChange={(e) => handleInputChange(e)}
           onFocus={handleSearchShow}
           onBlur={handleSearchShow}
-          // onChange={() => { setSearchStudent(e.target.value) }}
-          // onKeyDown={handleEnterKeyPress}
+          
         />
         <FontAwesomeIcon
           icon={faMagnifyingGlass}
@@ -206,14 +206,17 @@ export const Students = () => {
           className={`${iconSearch ? 'search-icon-visible' : 'search-icon-hidden'}`}
           style={{ "--fa-primary-opacity": "0.3", "--fa-secondary-opacity": "0.3" }}
         />
-        <button className="student-button-refresh" onClick={() => actions.getAllStudents()}>Refresh</button>
+
+        {/* FIN FUNCIÓN SEARCH  */}
+
+        <button className="student-button-refresh" onClick={() => {actions.getAllStudents(); setSearchResults([])}}>Refresh</button>
       </div>
-      {store.allStudents && store.allStudents !== "" && store.allStudents !== undefined ? (
+      {store.allStudents && store.allStudents.length > 0 ? (
         <>
           <div className="row d-flex flex-wrap justify-content-start gap-3">
-            {(loaded === "fullLoaded") && (
-              students.map(student => (
-                <div className="col md-auto" key={student.id}>
+            {loaded === "fullLoaded" && (
+              (searchResult.length > 0 ? searchResult : students).map(student => (
+                <div className="col-3" key={student.id}>
                   <StudentCard
                     id={student.id}
                     name={student.name}
@@ -226,27 +229,6 @@ export const Students = () => {
               ))
             )}
           </div>
-          {/* INICIO PAGINACIÓN */}
-
-          {/* <nav aria-label="Page navigation example">
-              <ul className="pagination">
-                <li className="page-item">
-                  <a className="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li className="page-item"><a className="page-link" href="#">1</a></li>
-                <li className="page-item"><a className="page-link" href="#">2</a></li>
-                <li className="page-item"><a className="page-link" href="#">3</a></li>
-                <li className="page-item">
-                  <a className="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-            </nav> */}
-
-          {/* FIN DE PAGINACIÓN */}
         </>
       ) : (
         <div className="recover-pass-main">
