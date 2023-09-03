@@ -19,6 +19,7 @@ import { Sidebar } from "./component/sidebar/sidebar";
 import { Dashboard } from "./pages/dashboard"
 import { Classes } from "./pages/classes"
 import { Profile } from "./pages/Profile";
+import {JobsNearby} from "./pages/JobsNearby"
 
 
 //create your first component
@@ -49,6 +50,7 @@ const Layout = () => {
                         <Route element={<SubjectsPage />} path="/subjects" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<Profile />} path="/profile" />
+                        <Route element={<JobsNearby />} path="/jobsnearby" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     {/* </div> */}
