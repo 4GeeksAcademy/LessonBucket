@@ -13,7 +13,6 @@ import "../../styles/students.css"
 export const Students = () => {
   const { store, actions } = useContext(Context);
   const [loaded, setLoaded] = useState("loadedEmpty")
-  const [iconSearch, setIconSearch] = useState(true);
   const [show, setShow] = useState(false)
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
@@ -22,8 +21,10 @@ export const Students = () => {
   const [goal, setGoal] = useState("")
   const [loader, setLoader] = useState(false)
   const [searchStudent, setSearchStudent] = useState("")
+  const [searchResult, setSearchResults] = useState([])
   const navigate = useNavigate()
   const students = store.allStudents
+
 
 
   //  SE LLAMA A FUNCIÓN DESPUÉS DE TENER TOKEN
@@ -33,43 +34,44 @@ export const Students = () => {
     setLoaded("fullLoaded")
   }, [store.token]);
 
+ 
 
 
-  // FUNCIÓN PARA MANEJAR EL ICONO DE LA LUPA EN EL INPUT SEARCH
+  // FUNCIÓN PARA MANEJAR EL INPUT DEL SEARCH
 
-  const handleSearchShow = () => {
-    setIconSearch(!iconSearch);
-  };
+  const handleInputChange = (e) => {
+    const inputValue = e.target.value
 
+    setSearchStudent(inputValue)
+  }
+
+  
   // FUNCIÓN PARA MANEJAR EL INPUT DE BUSQUEDA
 
-  // const handleEnterKeyPress = (e) => {
-  //   e.preventDefault()
-  //   if (e.key === 'Enter') {
-  //     const searchStudent = searchStudent.toUpperCase();
+  const handleEnterKeyPress = (e) => {
+    e.preventDefault();
+    const searchStudentUpperCase = searchStudent.toUpperCase(); 
+    const filteredStudents = students.filter(student => {
+      return student.name.toUpperCase().includes(searchStudentUpperCase);
+    });
+  
 
-  //       filteredStudents = students.filter(student => {
-  //       return student.name.toUpperCase().includes(searchStudentUpperCase);
-
-  //     })
-
-  //     setIconSearch(!iconSearch);
-  //     setSearchStudent("");
-
-
-  //   } else {
-  //     swal("Sorry", "No matches found", "warning", {
-  //       buttons: {
-  //         confirm: {
-  //           text: "Try Again",
-  //           className: "custom-swal-button",
-  //         }
-  //       },
-  //       timer: 4000,
-  //     });
-  //   };
-  // }
-
+    if (filteredStudents.length > 0) { 
+      setSearchResults(filteredStudents)
+      setSearchStudent("");
+    } else {
+      swal("Sorry", "no matches found", "warning", {
+        buttons: {
+          confirm: {
+            text: "Try Again",
+            className: "custom-swal-button",
+          }
+        },
+        timer: 4000,
+      });
+      setSearchStudent("")
+    }
+  }
 
   // FUNCIÓN PARA AGREGAR ESTUDIANTES
 
@@ -189,31 +191,33 @@ export const Students = () => {
 
           // FIN DEL MODAL
 
+          //  INICIO FUNCIÓN SEARCH
+
         )}
         <input
           className="student-search-input"
           placeholder="    Search..."
           required=""
           value={searchStudent}
-          onFocus={handleSearchShow}
-          onBlur={handleSearchShow}
-        // onChange={() => { setSearchStudent(e.target.value) }}
-        // onKeyDown={handleEnterKeyPress}
+          onChange={(e) => handleInputChange(e)}
+          onKeyPress={(e) => {
+            if (e.key === 'Enter') {
+              handleEnterKeyPress(e);
+            }
+          }}
+
         />
-        <FontAwesomeIcon
-          icon={faMagnifyingGlass}
-          size="sm"
-          className={`${iconSearch ? 'search-icon-visible' : 'search-icon-hidden'}`}
-          style={{ "--fa-primary-opacity": "0.3", "--fa-secondary-opacity": "0.3" }}
-        />
-        <button className="student-button-refresh" onClick={() => actions.getAllStudents()}>Refresh</button>
+        
+        {/* FIN FUNCIÓN SEARCH  */}
+
+        <button className="student-button-refresh" onClick={() => { actions.getAllStudents(); setSearchResults([]) }}>Refresh</button>
       </div>
-      {store.allStudents && store.allStudents !== "" && store.allStudents !== undefined ? (
+      {store.allStudents && store.allStudents.length > 0 ? (
         <>
           <div className="row d-flex flex-wrap justify-content-start gap-3">
-            {(loaded === "fullLoaded") && (
-              students.map(student => (
-                <div className="col md-auto" key={student.id}>
+            {loaded === "fullLoaded" && (
+              (searchResult.length > 0 ? searchResult : students).map(student => (
+                <div className="col-3" key={student.id}>
                   <StudentCard
                     id={student.id}
                     name={student.name}
@@ -226,27 +230,6 @@ export const Students = () => {
               ))
             )}
           </div>
-          {/* INICIO PAGINACIÓN */}
-
-          {/* <nav aria-label="Page navigation example">
-              <ul className="pagination">
-                <li className="page-item">
-                  <a className="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li className="page-item"><a className="page-link" href="#">1</a></li>
-                <li className="page-item"><a className="page-link" href="#">2</a></li>
-                <li className="page-item"><a className="page-link" href="#">3</a></li>
-                <li className="page-item">
-                  <a className="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-            </nav> */}
-
-          {/* FIN DE PAGINACIÓN */}
         </>
       ) : (
         <div className="recover-pass-main">
