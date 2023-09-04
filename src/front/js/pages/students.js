@@ -13,7 +13,6 @@ import "../../styles/students.css"
 export const Students = () => {
   const { store, actions } = useContext(Context);
   const [loaded, setLoaded] = useState("loadedEmpty")
-  const [iconSearch, setIconSearch] = useState(true);
   const [show, setShow] = useState(false)
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
@@ -35,67 +34,44 @@ export const Students = () => {
     setLoaded("fullLoaded")
   }, [store.token]);
 
-  // useEffectPARA MANEJAR EL INPUT DE BUSQUEDA
-
-  useEffect(() => {
-
-  
-      const searchStudentUpper = searchStudent.toUpperCase();
-
-      const filteredStudents = students.filter(student => {
-        return student.name.toUpperCase().includes(searchStudentUpper);
-      });
-
-      setSearchResults(filteredStudents)
-      
-    }
-  ,[searchStudent]);
+ 
 
 
   // FUNCIÓN PARA MANEJAR EL INPUT DEL SEARCH
 
   const handleInputChange = (e) => {
     const inputValue = e.target.value
-    
+
     setSearchStudent(inputValue)
   }
 
-  // FUNCIÓN PARA MANEJAR EL ICONO DE LA LUPA EN EL INPUT SEARCH
-  const handleSearchShow = () => {
-    setIconSearch(!iconSearch);
-    setSearchStudent("")
-    setSearchResults("")
-  };
-
+  
   // FUNCIÓN PARA MANEJAR EL INPUT DE BUSQUEDA
 
-  // const handleEnterKeyPress = (e) => {
-  //   e.preventDefault()
-  //   if (e.key === 'Enter') {
-  //     const searchStudent = searchStudent.toUpperCase();
+  const handleEnterKeyPress = (e) => {
+    e.preventDefault();
+    const searchStudentUpperCase = searchStudent.toUpperCase(); 
+    const filteredStudents = students.filter(student => {
+      return student.name.toUpperCase().includes(searchStudentUpperCase);
+    });
+  
 
-  //       filteredStudents = students.filter(student => {
-  //       return student.name.toUpperCase().includes(searchStudentUpperCase);
-
-  //     })
-
-  //     setIconSearch(!iconSearch);
-  //     setSearchStudent("");
-
-
-  //   } else {
-  //     swal("Sorry", "No matches found", "warning", {
-  //       buttons: {
-  //         confirm: {
-  //           text: "Try Again",
-  //           className: "custom-swal-button",
-  //         }
-  //       },
-  //       timer: 4000,
-  //     });
-  //   };
-  // }
-
+    if (filteredStudents.length > 0) { 
+      setSearchResults(filteredStudents)
+      setSearchStudent("");
+    } else {
+      swal("Sorry", "no matches found", "warning", {
+        buttons: {
+          confirm: {
+            text: "Try Again",
+            className: "custom-swal-button",
+          }
+        },
+        timer: 4000,
+      });
+      setSearchStudent("")
+    }
+  }
 
   // FUNCIÓN PARA AGREGAR ESTUDIANTES
 
@@ -224,21 +200,17 @@ export const Students = () => {
           required=""
           value={searchStudent}
           onChange={(e) => handleInputChange(e)}
-          onFocus={handleSearchShow}
-          onBlur={handleSearchShow}
-        // onChange={() => { setSearchStudent(e.target.value) }}
-        // onKeyDown={handleEnterKeyPress}
-        />
-        <FontAwesomeIcon
-          icon={faMagnifyingGlass}
-          size="sm"
-          className={`${iconSearch ? 'search-icon-visible' : 'search-icon-hidden'}`}
-          style={{ "--fa-primary-opacity": "0.3", "--fa-secondary-opacity": "0.3" }}
-        />
+          onKeyPress={(e) => {
+            if (e.key === 'Enter') {
+              handleEnterKeyPress(e);
+            }
+          }}
 
+        />
+        
         {/* FIN FUNCIÓN SEARCH  */}
 
-        <button className="student-button-refresh" onClick={() => {actions.getAllStudents(); setSearchResults([])}}>Refresh</button>
+        <button className="student-button-refresh" onClick={() => { actions.getAllStudents(); setSearchResults([]) }}>Refresh</button>
       </div>
       {store.allStudents && store.allStudents.length > 0 ? (
         <>
