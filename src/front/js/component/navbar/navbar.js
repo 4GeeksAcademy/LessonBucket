@@ -48,8 +48,8 @@ export const Navbar = () => {
 					<Link to="/About Us">
 						<p className="nav-links mx-4 nav-p">About us</p>
 					</Link>
-					<Link to="/Pricing">
-						<p className="nav-links mx-4 nav-p">Pricing</p>
+					<Link to="/donations">
+						<p className="nav-links mx-4 nav-p">Donate</p>
 					</Link>
 				</div>
 			</div>
