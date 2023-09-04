@@ -717,7 +717,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// } catch (error) {
 			// 	console.error(error);
 			// }
-					getJobsNearby: async () => {
+					getJobsNearby: async (subject) => {
 					
 						
 						const axios = require('axios');
@@ -726,7 +726,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						  method: 'GET',
 						  url: 'https://jsearch.p.rapidapi.com/search',
 						  params: {
-							query: 'English teacher, Madrid',
+							query: `'${subject} teacher, Madrid'`,
 							page: '1',
 							num_pages: '1',
 							radius: '100'

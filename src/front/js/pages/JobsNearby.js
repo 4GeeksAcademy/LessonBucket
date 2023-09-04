@@ -4,13 +4,33 @@ import { JobsCard } from "../component/jobscard/jobscard";
 
 export const JobsNearby = () => {
   const { store, actions } = useContext(Context);
-  const [subjects, setSubjects] = useState([]);
-  const [subjectLoaded, setSubjectLoaded] = useState(false);
+  const subject =  store.allSubjects
+  const [classSubject, setClassSubject] = useState([])
+  const [loaded, setLoaded] = useState("loadedEmpty")
 
   useEffect(() => {
     actions.getAllSubjects();
-    setSubjectLoaded(true);
+    setLoaded("fullLoaded")
   }, [store.token]);
+
+
+  useEffect(() => {
+    console.log(classSubject)
+  }, [classSubject]);
+
+
+
+  
+if ( (store.allSubjects) && (store.allSubjects !== "") && (store.allSubjects !== undefined))
+{
+   if ((loaded === "fullLoaded")) {
+    const llegado = subject.map(item => item.Subject)
+    setClassSubject(llegado)
+    console.log(classSubject)
+    setLoaded('loadedEmpty')
+  }
+}
+
 
   const handleJobTitleData = (job) => {
     if (job.job_title !== null) {
@@ -60,7 +80,7 @@ const handleEmployerData= (job) => {
 
   const loadJobs = async () => {
     try {
-      await actions.getJobsNearby();
+      await actions.getJobsNearby('English');
     } catch (error) {
       console.error(error);
     }
@@ -68,7 +88,7 @@ const handleEmployerData= (job) => {
 
   return (
     <div className="mx-auto d-flex flex-column justify-content-center w-80 mt-3">
-      <p>{subjects}</p>
+      {/* <p>{subject}</p> */}
       <p className="text-white bg-danger">Trabajos cerca de ti basados en tus clases</p>
       <button onClick={loadJobs}>CARGAR DATOS DE TRABAJOS</button>
       <div className="container mx-auto mt-3">
