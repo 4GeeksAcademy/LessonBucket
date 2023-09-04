@@ -24,9 +24,16 @@ export const Dashboard = () => {
 
 	useEffect(() => {
 		actions.fetchClasses();
-		classesByDate.sort(sortBySoonestDate);
+		
 		console.log(classesByDate)
 	}, []);
+
+	useEffect(() => {
+		classesByDate.sort(sortBySoonestDate);
+		console.log(classesByDate)
+	}, [store.classes]);
+
+
 
 
 

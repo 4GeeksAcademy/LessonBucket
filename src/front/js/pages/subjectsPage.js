@@ -29,7 +29,7 @@ export const SubjectsPage = props => {
 
 
 	return (
-		<div className="min-vh-100">
+		<div className="min-vh-100" style={{marginLeft:'200'}}>
 			<CreateSubject />
 			{store.allSubjects && store.allSubjects !== "" && store.allSubjects !== undefined ? (
 				<>
