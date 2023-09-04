@@ -4,9 +4,10 @@ import { JobsCard } from "../component/jobscard/jobscard";
 
 export const JobsNearby = () => {
   const { store, actions } = useContext(Context);
-  const subject =  store.allSubjects
+  const subject = store.allSubjects
   const [classSubject, setClassSubject] = useState([])
   const [loaded, setLoaded] = useState("loadedEmpty")
+ 
 
   useEffect(() => {
     actions.getAllSubjects();
@@ -20,16 +21,15 @@ export const JobsNearby = () => {
 
 
 
-  
-if ( (store.allSubjects) && (store.allSubjects !== "") && (store.allSubjects !== undefined))
-{
-   if ((loaded === "fullLoaded")) {
-    const llegado = subject.map(item => item.Subject)
-    setClassSubject(llegado)
-    console.log(classSubject)
-    setLoaded('loadedEmpty')
+
+  if ((store.allSubjects) && (store.allSubjects !== "") && (store.allSubjects !== undefined)) {
+    if ((loaded === "fullLoaded")) {
+      const llegado = subject.map(item => item.Subject)
+      setClassSubject(llegado)
+      console.log(classSubject)
+      setLoaded('loadedEmpty')
+    }
   }
-}
 
 
   const handleJobTitleData = (job) => {
@@ -40,45 +40,46 @@ if ( (store.allSubjects) && (store.allSubjects !== "") && (store.allSubjects !==
     }
   };
 
-const handleTypeData = (job) => {
+  const handleTypeData = (job) => {
 
     if (job.job_employment_type !== null) {
-        return job.job_employment_type
+      return job.job_employment_type
     }
     else return "not available"
-}
+  }
 
-const handleCityData= (job) => {
+  const handleCityData = (job) => {
 
     if (job.job_city !== null) {
-        return job.job_city
+      return job.job_city
     }
     else return "not available"
-}
+  }
 
-const handleRemoteData= (job) => {
+  const handleRemoteData = (job) => {
 
     if (job.job_is_remote === true) {
-        return "Yes"
+      return "Yes"
     }
     else return "No"
-}
-const handleLinkData= (job) => {
+  }
+  const handleLinkData = (job) => {
 
     if (job.job_apply_link !== null) {
-        return job.job_apply_link
+      return job.job_apply_link
     }
     else return "Not available"
-}
-const handleEmployerData= (job) => {
+  }
+  const handleEmployerData = (job) => {
 
     if (job.employer_name !== null) {
-        return job.employer_name
+      return job.employer_name
     }
     else return "Not available"
-}
+  }
 
   const loadJobs = async () => {
+    
     try {
       await actions.getJobsNearby('English');
     } catch (error) {
@@ -86,38 +87,62 @@ const handleEmployerData= (job) => {
     }
   };
 
+  const handleSubjectSelect = () => {
+    
+    if (classSubject) {
+
+      return (
+
+        classSubject.map((subject) => (
+          <>
+          
+            
+            <h4 key={subject} className="text-white justify-content-center text-center py-3">{subject} Jobs</h4>
+            <div className="container mx-auto mt-3">
+              <div className="row d-flex flex-wrap justify-content-center gap-3">
+                {store.jobs && store.jobs.length > 0 && (
+                  store.jobs.map((job) => (
+                    <div className="col md-auto" key={job.id}>
+                      <JobsCard
+                        jobTitle={handleJobTitleData(job)}
+                        city={handleCityData(job)}
+                        remote={handleRemoteData(job)}
+                        link={handleLinkData(job)}
+                        type={handleTypeData(job)}
+                        employer={handleEmployerData(job)}
+                      />
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
+          </>
+
+        ))
+
+      )
+    }
+  }
+
+ 
+
   return (
     <div className="mx-auto d-flex flex-column justify-content-center w-80 mt-3">
       {/* <p>{subject}</p> */}
       <p className="text-white bg-danger">Trabajos cerca de ti basados en tus clases</p>
       <button onClick={loadJobs}>CARGAR DATOS DE TRABAJOS</button>
-      <div className="container mx-auto mt-3">
-        <div className="row d-flex flex-wrap justify-content-center gap-3">
-          {store.jobs && store.jobs.length > 0 && (
-            store.jobs.map((job) => (
-              <div className="col md-auto" key={job.id}>
-                <JobsCard
-                  jobTitle={handleJobTitleData(job)}
-                  city={handleCityData(job)}
-                  remote={handleRemoteData(job)}
-                  link={handleLinkData(job)}
-                  type={handleTypeData(job)}
-                  employer={handleEmployerData(job)}
-                />
-              </div>
-            ))
-          )}
-        </div>
-      </div>
+      {handleSubjectSelect()}
+      {/* {handleCard()} */}
+
     </div>
   );
 };
-                                 
-                    
-     {/* <JobsCard jobTitle={handleJobTitleData} city={handleCityData} remote={handleRemoteData} link={handleLinkData} type={handleTypeData}/> */}
-                    
-                   
-    
+
+
+
+
+
+
 
 
 
