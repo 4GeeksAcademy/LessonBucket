@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import { Context } from "../store/appContext";
+import { Context } from "../../store/appContext";
 import Calendar from "@ericz1803/react-google-calendar";
 
-import "../../styles/calendar.css";
+import "./calendar.css";
 
 export const CalendarAux = (props) => {
 	const API_KEY = "AIzaSyBrpMc_llCg1YH1cR1sMqDTM_eeY7E2HwY";
@@ -19,7 +19,7 @@ export const CalendarAux = (props) => {
 			borderRadius: "20px",
 			color: "white"
 		},
-		eventText :{
+		eventText: {
 			color: "white",
 			fontSize: "1.1rem"
 		}
@@ -27,7 +27,7 @@ export const CalendarAux = (props) => {
 
 	const language = "ES";
 	return (
-		<div style={{color:"white"}}>
+		<div style={{ color: "white" }}>
 			<Calendar
 				apiKey={API_KEY}
 				calendars={calendars}

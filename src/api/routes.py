@@ -671,6 +671,7 @@ def get_all_class(user_id):
         raise APIException('The list of class is empty', 404)
 
     results = list(map(lambda item: item.serialize(), class_query))
+    
 
     try:
         response_body = {

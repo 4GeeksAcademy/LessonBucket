@@ -1,23 +1,23 @@
 import React, { useContext, useEffect } from "react";
-import { Context } from "../store/appContext";
-import "../../styles/pagosPendientes.css";
+import { Context } from "../../store/appContext";
+import "./pagosPendientes.css";
 
 export const PagosPendientes = (props) => {
 	const { store, actions } = useContext(Context);
-	useEffect(() => {
-		actions.fetchStudentsPendingPayment();
-	}, []);
+	const paymentFiltrados = store.classes && store.classes.filter((payment, index) => payment.paid == false)
+	console.log(paymentFiltrados)
+					
 	return (
 		<div className="row">
 			<div className="col">
 				<div className="overflow-hidden">
 					<div className="overflow-auto">
 						<h5 className="pill-title">Pagos Pendientes</h5>
-						{store.studentsPendingPayment.results && store.studentsPendingPayment.results.map((payment, index) => (
+						{paymentFiltrados.length >0? paymentFiltrados.map((item, index) => (
 							<div className="pill" key={index}>
-								<p className="pill-font">{payment.name}</p>
+								<p className="pill-font">{item.student?.name}-{item.date}</p>
 							</div>
-						))}
+						)): "No hay pagos pendientes"}
 					</div>
 				</div>
 			</div>

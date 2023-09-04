@@ -509,7 +509,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const response = await axios.get(`${process.env.BACKEND_URL}/api/user/${userId}/class`);
 					console.log(response.data);
 					setStore({
-						classes: response.data
+						classes: response.data.results
 					});
 					return true;
 				} catch (error) {
@@ -519,14 +519,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			fetchStudentsPendingPayment: async () => {
+				const user_id= getStore().user.id
 				try {
 
 
-					const response = await axios.get(`${process.env.BACKEND_URL}/api/user/${getStore().user.id}/students`);
-					console.log(response.data);
-					setStore({
-						studentsPendingPayment: response.data
-					});
+					const response = await axios.get(`${process.env.BACKEND_URL}/api/user/${user_id}/class`);
+					console.log(response);
+					// setStore({
+					// 	studentsPendingPayment: response.data
+					// });
 					return true;
 				} catch (error) {
 					console.error("An error occurred while fetching classes", error);

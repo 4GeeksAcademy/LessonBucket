@@ -110,10 +110,12 @@ class Class(db.Model):
         return f'<User {self.id}>'
 
     def serialize(self):
+        subject = Subjects.query.filter_by(id=self.subjects_id).first()
+        student = Students.query.filter_by(id=self.student_id).first()
         return {
             "id": self.id,
-            "subjects_id": self.subjects_id,
-            "student_id": self.student_id,
+            "subjects": None if subject is None else subject.serialize(),
+            "student": None if student is None else student.serialize(),
             "comments_id": self.comments_id,
             "date": self.date,
             "price": self.price,
