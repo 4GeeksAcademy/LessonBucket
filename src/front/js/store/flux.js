@@ -16,6 +16,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			logged: false,
 			// ALMACEN DE ESTUDIANTES
 			allStudents: [],
+			//ALMACEN DE TRABAJOS
+			jobs:[],
 
 
 			demo: [
@@ -787,7 +789,68 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// 	}
 			// },
 
+
+								
+
+			// const axios = require('axios');
+
+			// const options = {
+			//   method: 'GET',
+			//   url: 'https://jsearch.p.rapidapi.com/search',
+			//   params: {
+			// 	query: 'English teacher, Madrid',
+			// 	page: '1',
+			// 	num_pages: '1',
+			// 	radius: '100'
+			//   },
+			//   headers: {
+			// 	'X-RapidAPI-Key': '19b84f07b9msh08a479272b6bd97p13dfbejsnc7c8cbd54776',
+			// 	'X-RapidAPI-Host': 'jsearch.p.rapidapi.com'
+			//   }
+			// };
+			
+			// try {
+			// 	const response = await axios.request(options);
+			// 	console.log(response.data);
+			// } catch (error) {
+			// 	console.error(error);
+			// }
+					getJobsNearby: async (subject) => {
+					
+						
+						const axios = require('axios');
+
+						const options = {
+						  method: 'GET',
+						  url: 'https://jsearch.p.rapidapi.com/search',
+						  params: {
+							query: `'${subject} teacher, Madrid'`,
+							page: '1',
+							num_pages: '1',
+							radius: '100'
+						  },
+						  headers: {
+							'X-RapidAPI-Key': '19b84f07b9msh08a479272b6bd97p13dfbejsnc7c8cbd54776',
+							'X-RapidAPI-Host': 'jsearch.p.rapidapi.com'
+						  }
+						};
+						
+						try {
+							const response = await axios.request(options);
+							
+							const jobsNear = response.data.data
+							console.log(jobsNear)
+
+							setStore({
+								jobs: jobsNear,
+						});
+
+						} catch (error) {
+							console.error(error);
+						}
+
 		}
+	}
 	};
 };
 
