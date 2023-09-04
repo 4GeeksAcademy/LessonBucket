@@ -712,13 +712,13 @@ def create_one_class(user_id):
     request_body = request.get_json(force=True)		
     print(request_body)	
 						
-    required_fields = ["subjects_id", "student_id","comments", "date","hour", "price",]
+    required_fields = ["subjects_id", "student_id","comments", "date","hour", "price", "paid"]
     for field in required_fields:
         if field not in request_body or not request_body[field]:
             raise APIException(f'The "{field}" field cannot be empty', 400)
 
     newClass = Class(subjects_id=request_body["subjects_id"], student_id=request_body["student_id"], hour=request_body["hour"], comments=request_body["comments"],
-                date=request_body["date"], price=request_body["price"], user_id=user_id)
+                date=request_body["date"], price=request_body["price"], paid=request_body["paid"], user_id=user_id ,)
     
     print(newClass)
 

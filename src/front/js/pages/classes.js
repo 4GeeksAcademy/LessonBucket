@@ -11,10 +11,6 @@ export const Classes = (props) => {
     const { store, actions } = useContext(Context);
     const [showModal, setShowModal] = useState(false); // State to control modal visibility
     const [loaded, setLoaded] = useState("loadedEmpty")
-
-
-    // const [createClass, setCreateClass] = useState()
-    // const [classSubject, setClassSubject] = useState()
     const Subjects = store.allSubjects
     const Students = store.allStudents
 
@@ -41,6 +37,7 @@ export const Classes = (props) => {
         date: "",
         hour: "",
         price: "",
+        paid: false,
     });
 
 
@@ -179,7 +176,17 @@ export const Classes = (props) => {
                             />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>Comments</Form.Label>
+                            <Form.Label>¿Pagado?</Form.Label>
+                            <Form.Check
+                                type="checkbox"
+                                name="paid"
+                                checked={newClassInfo.paid}
+                                onChange={handleInputChange}
+                                label="¿Está Pagado?"
+                            />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Comment</Form.Label>
                             <Form.Control
                                 type="text"
                                 name="comments"

@@ -548,6 +548,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						date: newClassInfo.date,
 						hour: newClassInfo.hour,
 						price: parseFloat(newClassInfo.price),
+						paid: newClassInfo.paid
 					};
 
 					const response = await axios.post(`${process.env.BACKEND_URL}/api/user/${user_id}/class`, newSubjectClass, {
