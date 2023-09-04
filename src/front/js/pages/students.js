@@ -66,7 +66,35 @@ export const Students = () => {
     setSearchStudent("")
     setSearchResults("")
   };
-  
+
+  // FUNCIÓN PARA MANEJAR EL INPUT DE BUSQUEDA
+
+  // const handleEnterKeyPress = (e) => {
+  //   e.preventDefault()
+  //   if (e.key === 'Enter') {
+  //     const searchStudent = searchStudent.toUpperCase();
+
+  //       filteredStudents = students.filter(student => {
+  //       return student.name.toUpperCase().includes(searchStudentUpperCase);
+
+  //     })
+
+  //     setIconSearch(!iconSearch);
+  //     setSearchStudent("");
+
+
+  //   } else {
+  //     swal("Sorry", "No matches found", "warning", {
+  //       buttons: {
+  //         confirm: {
+  //           text: "Try Again",
+  //           className: "custom-swal-button",
+  //         }
+  //       },
+  //       timer: 4000,
+  //     });
+  //   };
+  // }
 
 
   // FUNCIÓN PARA AGREGAR ESTUDIANTES
@@ -122,7 +150,7 @@ export const Students = () => {
 
       actions.getAllStudents()
 
-    } else if (response.response.request.status === 402) {
+    } else if (response.request.status === 402) {
       swal("Sorry", "An account with this email already exists", "error", {
         buttons: {
           confirm: {
@@ -198,7 +226,8 @@ export const Students = () => {
           onChange={(e) => handleInputChange(e)}
           onFocus={handleSearchShow}
           onBlur={handleSearchShow}
-          
+        // onChange={() => { setSearchStudent(e.target.value) }}
+        // onKeyDown={handleEnterKeyPress}
         />
         <FontAwesomeIcon
           icon={faMagnifyingGlass}

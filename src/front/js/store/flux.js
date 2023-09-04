@@ -32,7 +32,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			],
 			classes: [],
 			allSubjects: [],
-			studentsPendingPayment: []
+			studentsPendingPayment: [],
+			studentsPerSubject: [],
 		},
 		actions: {
 
@@ -175,8 +176,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 
 					const students = response.data.results
-		
-						
+
+
 
 					setStore({
 						allStudents: students
@@ -269,7 +270,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			modifyOneStudent: async (editedName, editedEmail, editedPhone, editedAddress, editedGoal, student_id) => {
 
 				const user_id = getStore().user.id;
-    			const token = getStore().token	
+				const token = getStore().token
 
 				const requestData = {
 					name: editedName,
@@ -278,9 +279,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					address: editedAddress,
 					goal: editedGoal,
 				};
-				
+
 				try {
-					
+
 					let response = await axios.patch(process.env.BACKEND_URL + `/api/user/${user_id}/students/${student_id}`, requestData, {
 						headers: {
 							"Authorization": `Bearer ${token}`,
@@ -289,11 +290,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 
 					const modifyStudent = response.data.results
-					
-					
+
+
 					setStore({
 						allStudents: modifyStudent
-					  });
+					});
 
 					console.log(response.data)
 					return true;
@@ -303,9 +304,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			},
-			
 
-			
+
+
 
 
 			logout: () => {
@@ -325,109 +326,109 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			},
 
-			
+
 
 			editProfileName: async (newName) => {
 				const user_id = getStore().user.id;
-				
-					try {
-						const response = await axios.patch(process.env.BACKEND_URL + `/api/user/${user_id}`, {
-							name: newName,	
+
+				try {
+					const response = await axios.patch(process.env.BACKEND_URL + `/api/user/${user_id}`, {
+						name: newName,
 					});
-						setStore({
-							user:{
-								name:newName,
-								email: getStore().user.email,
-								address: getStore().user.address,
-								birth_date: getStore().user.birth_date,
-								id:user_id,
-							} ,
-						});
-						return true;
-					}
-					catch (error) {
-						console.error("An error occurred during user creation", error);
-						return false;
-					}
-				},
-
-				editProfileEmail: async (newEmail) => {
-					const user_id = getStore().user.id;
-					
-						try {
-							const response = await axios.patch(process.env.BACKEND_URL + `/api/user/${user_id}`, {
-								email: newEmail,	
-						});
-							setStore({
-								user:{
-									name:getStore().user.name,
-									email: newEmail,
-									address: getStore().user.address,
-									birth_date: getStore().user.birth_date,
-									id:user_id,
-								} ,
-							});
-						return true;
-						}
-						catch (error) {
-							console.error("An error occurred during user creation", error);
-							return false;
-						}
-					},
-
-					editProfileAddress: async (newAddress) => {
-						const user_id = getStore().user.id;
-						
-							try {
-								const response = await axios.patch(process.env.BACKEND_URL + `/api/user/${user_id}`, {
-									address: newAddress,	
-							});
-								setStore({
-									user:{
-										name:getStore().user.name,
-										email: getStore().user.email,
-										address: newAddress,
-										birth_date: getStore().user.birth_date,
-										id:user_id,
-									} ,
-								});
-							return true;
-							}
-							catch (error) {
-								console.error("An error occurred during user creation", error);
-								return false;
-							}
+					setStore({
+						user: {
+							name: newName,
+							email: getStore().user.email,
+							address: getStore().user.address,
+							birth_date: getStore().user.birth_date,
+							id: user_id,
 						},
+					});
+					return true;
+				}
+				catch (error) {
+					console.error("An error occurred during user creation", error);
+					return false;
+				}
+			},
 
-						editProfileBirth: async (newBirth) => {
-							const user_id = getStore().user.id;
-							
-								try {
-									const response = await axios.patch(process.env.BACKEND_URL + `/api/user/${user_id}`, {
-										birth_date: newBirth,	
-								});
-									setStore({
-										user:{
-											name:getStore().user.name,
-											email: getStore().user.email,
-											address: getStore().user.address,
-											birth_date: newBirth,
-											id:user_id,
-										} ,
-									});
-								return true;
-								}
-								catch (error) {
-									console.error("An error occurred during user creation", error);
-									return false;
-								}
-							},
+			editProfileEmail: async (newEmail) => {
+				const user_id = getStore().user.id;
+
+				try {
+					const response = await axios.patch(process.env.BACKEND_URL + `/api/user/${user_id}`, {
+						email: newEmail,
+					});
+					setStore({
+						user: {
+							name: getStore().user.name,
+							email: newEmail,
+							address: getStore().user.address,
+							birth_date: getStore().user.birth_date,
+							id: user_id,
+						},
+					});
+					return true;
+				}
+				catch (error) {
+					console.error("An error occurred during user creation", error);
+					return false;
+				}
+			},
+
+			editProfileAddress: async (newAddress) => {
+				const user_id = getStore().user.id;
+
+				try {
+					const response = await axios.patch(process.env.BACKEND_URL + `/api/user/${user_id}`, {
+						address: newAddress,
+					});
+					setStore({
+						user: {
+							name: getStore().user.name,
+							email: getStore().user.email,
+							address: newAddress,
+							birth_date: getStore().user.birth_date,
+							id: user_id,
+						},
+					});
+					return true;
+				}
+				catch (error) {
+					console.error("An error occurred during user creation", error);
+					return false;
+				}
+			},
+
+			editProfileBirth: async (newBirth) => {
+				const user_id = getStore().user.id;
+
+				try {
+					const response = await axios.patch(process.env.BACKEND_URL + `/api/user/${user_id}`, {
+						birth_date: newBirth,
+					});
+					setStore({
+						user: {
+							name: getStore().user.name,
+							email: getStore().user.email,
+							address: getStore().user.address,
+							birth_date: newBirth,
+							id: user_id,
+						},
+					});
+					return true;
+				}
+				catch (error) {
+					console.error("An error occurred during user creation", error);
+					return false;
+				}
+			},
 
 
 
 
-				
-			
+
+
 
 
 
@@ -441,7 +442,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				try {
 					const response = await axios.patch(process.env.BACKEND_URL + `/api/user/${user_id}`, {
 						password: newPassword,
-				});
+					});
 					const data = response.data;
 					console.log(response.data)
 					console.log(data)
@@ -459,7 +460,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				try {
 					const response = await axios.patch(process.env.BACKEND_URL + `/api/user/${user_id}`, {
 						password: newPassword,
-				});
+					});
 					const data = response.data;
 					console.log(response.data)
 					console.log(data)
@@ -523,7 +524,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			fetchStudentsPendingPayment: async () => {
 				try {
-					
+
 
 					const response = await axios.get(`${process.env.BACKEND_URL}/api/user/${getStore().user.id}/students`);
 					console.log(response.data);
@@ -609,7 +610,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				console.log(allSubjects)
 
 				try {
-					let response = await axios.get(process.env.BACKEND_URL + `/api/user/${user_id}/subjects`, {
+					let response = await axios.get(process.env.BACKEND_URL + `/api/user/${user_id}/subjects/`, {
 						headers: {
 							"Authorization": `Bearer ${token}`,
 						}
@@ -694,6 +695,96 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			},
+			//FUNCION PARA ELIMINAR MATERIA
+			deleteSubject: async (subject_id) => {
+				const user_id = getStore().user.id;
+				const token = getStore().token;
+
+
+				try {
+
+					let response = await axios.delete(process.env.BACKEND_URL + `/api/user/${user_id}/subjects/${subject_id}`, {
+					});
+					console.log(response)
+					const newAllSubjects = response.data.results
+					if (response.status == 200) {
+						getActions().getAllSubjects();
+					}
+
+					setStore({
+						allSubjects: newAllSubjects
+					});
+
+					console.log(response.data)
+					return true;
+
+				} catch (error) {
+					console.error("An error occurred during subject removal", error);
+					return false;
+				}
+			},
+			modifyOneSubject: async (subject_id, editedSubject) => {
+
+				const user_id = getStore().user.id;
+				const token = getStore().token
+
+				const requestData = {
+					Subject: editedSubject
+				};
+
+				try {
+
+					let response = await axios.patch(process.env.BACKEND_URL + `/api/user/${user_id}/subjects/${subject_id}`, requestData, {
+						headers: {
+							"Authorization": `Bearer ${token}`,
+						},
+					});
+
+
+					const modifySubject = response.data.results
+					if (response.status == 200) {
+						getActions().getAllSubjects();
+					}
+
+
+					setStore({
+						allSubjects: modifySubject
+					});
+
+					console.log(response.data)
+					return true;
+
+				} catch (error) {
+					console.error("An error occurred during subject modification", error);
+					return false;
+				}
+			},
+			// getAllStudentsPerSubject: async (subject_id) => {
+			// 	const user_id = getStore().user.id;
+			// 	const token = getStore().token
+
+			// 	try {
+			// 		let response = await axios.get(process.env.BACKEND_URL + `/api/user/${user_id}/students/${subject_id}`, {
+			// 			headers: {
+			// 				"Authorization": `Bearer ${token}`,
+			// 			}
+			// 		});
+
+			// 		const studentsPerSubject = response.data.results
+
+
+
+			// 		setStore({
+			// 			AllStudents: studentsPerSubject
+			// 		});
+
+			// 		return true;
+
+			// 	} catch (error) {
+			// 		console.error("An error occurred during student retrieval", error);
+			// 		return false;
+			// 	}
+			// },
 
 		}
 	};
