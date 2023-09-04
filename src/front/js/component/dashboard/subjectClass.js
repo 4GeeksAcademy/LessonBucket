@@ -1,21 +1,22 @@
 import React, { useContext, useState } from "react";
-import { Context } from "../store/appContext";
+import { Context } from "../../store/appContext";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import "../../styles/subjectClass.css";
+import "./subjectClass.css";
 
 export const SubjectClass = (props) => {
-	const { store, actions } = useContext(Context);
+    const { store, actions } = useContext(Context);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [updatedClassInfo, setUpdatedClassInfo] = useState({
-        subjects_id: props.subjectClass.subjects_id,
+        subjects: props.subjectClass.subject,
         student_id: props.subjectClass.student_id,
         comments_id: props.subjectClass.comments_id,
         date: props.subjectClass.date,
         price: props.subjectClass.price,
         paid: props.subjectClass.paid
     });
+    
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -39,26 +40,18 @@ export const SubjectClass = (props) => {
     };
 
 
-	let image;
-	let britishImage = "https://upload.wikimedia.org/wikipedia/commons/f/f2/Flag_of_Great_Britain_%281707%E2%80%931800%29.svg";
-	let frenchImage = "https://upload.wikimedia.org/wikipedia/commons/c/c3/Flag_of_France.svg"
-	let germanImage = "https://upload.wikimedia.org/wikipedia/commons/b/ba/Flag_of_Germany.svg"
-	if (props.subjectClass.Subject = 'Inglés') {
-		image = britishImage;
-	}
 
-	return (
-		<div className="card-subject">
-			<div className="card-img-top" style={{ backgroundImage: `url(${image})` }}></div>
-			<div className="card-body subject-text">
-				<p className="card-title">Clase: {props.subjectClass.Subject}</p>
-				<p className="card-text">Fecha: {props.subjectClass.date}</p>
-			</div>
-			<button className="subject-button" onClick={openModal}>Ver Clase</button>
+    return (
+        <div className="card-subject">
+            
+            <div className="card-body subject-text">
+                <p className="card-title">Clase: {props.subjectClass.subjects?.Subject}</p>
+                <p className="card-text">Fecha: {props.subjectClass.date}</p>
+            </div>
+            <button className="subject-button" onClick={openModal}>Ver Clase</button>
 
             <Modal show={isModalOpen} onHide={closeModal} centered>
                 <Modal.Header>
-                    <Modal.Title className="card-img-top" style={{ backgroundImage: `url(${image})` }}></Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
@@ -72,7 +65,7 @@ export const SubjectClass = (props) => {
                                 placeholder="Ingrese el ID de la asignatura"
                             />
                         </Form.Group>
-						<Form.Group>
+                        <Form.Group>
                             <Form.Label>ID del Alumno</Form.Label>
                             <Form.Control
                                 type="text"
@@ -102,7 +95,7 @@ export const SubjectClass = (props) => {
                             />
                         </Form.Group>
                         <Form.Group>
-						<Form.Label>¿Pagado?</Form.Label>
+                            <Form.Label>¿Pagado?</Form.Label>
                             <Form.Check
                                 type="checkbox"
                                 name="paid"
@@ -112,7 +105,7 @@ export const SubjectClass = (props) => {
                             />
                         </Form.Group>
                         <Form.Group>
-						<Form.Label>Comentarios</Form.Label>
+                            <Form.Label>Comentarios</Form.Label>
                             <Form.Control
                                 type="text"
                                 name="comments_id"
@@ -120,8 +113,8 @@ export const SubjectClass = (props) => {
                                 onChange={handleInputChange}
                                 placeholder="Comentarios"
                             />
-                        </Form.Group>                    
-						</Form>
+                        </Form.Group>
+                    </Form>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={closeModal}>

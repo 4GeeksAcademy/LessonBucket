@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { SubjectClass } from "./subjectClass";
+import { SubjectClass } from "../component/dashboard/subjectClass";
 import "../../styles/dashboard.css";
 import { Context } from "../store/appContext";
 import Dropdown from 'react-bootstrap/Dropdown';
