@@ -216,7 +216,8 @@ def login():
 @api.route('/user/<int:user_id>/subjects', methods=['GET'])
 def get_all_subjects(user_id):
 
-    subjects_query = Subjects.query.all()
+
+    subjects_query = Subjects.query.filter_by(user_id=user_id).all()
 
     if not subjects_query:
         raise APIException('The list of users is empty', 404)
@@ -241,7 +242,7 @@ def get_all_subjects(user_id):
 def get_one_subject(user_id, subjects_id):
 
     try:
-        subject_information = Subjects.query.filter_by(id=subjects_id).first()
+        subject_information = Subjects.query.filter_by(user_id=user_id, id=subjects_id).first()
 
         response_body = {
             "msg": "Subject obtained",
@@ -272,7 +273,7 @@ def create_one_subject(user_id):
     if verify_subjects:
         raise APIException("This subject already exists", 400)
 
-    subjects = Subjects(Subject=request_body["Subject"])
+    subjects = Subjects(user_id=user_id, Subject=request_body["Subject"])
 
     db.session.add(subjects)
 
@@ -295,7 +296,7 @@ def create_one_subject(user_id):
 @api.route('/user/<int:user_id>/subjects/<int:subjects_id>', methods=['DELETE'])
 def del_subjects(user_id, subjects_id):
 
-    subjects_query = Subjects.query.filter_by(id=subjects_id).first()
+    subjects_query = Subjects.query.filter_by(id=subjects_id, user_id=user_id).first()
 
     if not subjects_query:
         raise APIException('User not found', 404)
@@ -316,32 +317,30 @@ def del_subjects(user_id, subjects_id):
 
 # ENDPOINT MODIFY A SUBJECT
 
-@api.route('/user/<int:user_id>/subjects/<int:subjects_id>', methods=['PUT'])
-def modify_subject(user_id, subjects_id):
-
-    body = request.get_json(force=True)
-    subjects = Subjects.query.get(subjects_id)
-
-    if not subjects:
-        raise APIException('Subjet not found', 404)
-
-    required_fields = ["Subject"]
-    for field in required_fields:
-        if field not in body or not body[field]:
-            raise APIException(f'The "{field}" field cannot be empty', 400)
-
-    subjects.Subject = body["Subject"]
-
+@api.route('/user/<int:user_id>/subjects/<int:subject_id>', methods=['PATCH'])
+def update_subject(user_id, subject_id):
     try:
-        db.session.commit()
-    except:
-        raise APIException('Internal error', 500)
+        subject = Subjects.query.filter_by(user_id=user_id, id=subject_id).first()
 
-    response_body = {
-        "msg": "Subject successfully modified",
-        "subject": subjects.serialize()
-    }
-    return jsonify(response_body), 200
+        if not subject:
+            return jsonify({'message': 'SUbject not found'}), 404
+
+        data = request.get_json()
+        if 'Subject' in data:
+            subject.Subject = data['Subject']
+
+        db.session.commit()
+
+        response_body = {
+            "msg": "Subject updated successfully",
+            "student": subject.serialize()
+        }
+
+        return jsonify(response_body), 200
+
+    except:
+
+        raise APIException('Internal error', 500)
 
 
 
@@ -790,4 +789,26 @@ def del_class(user_id, class_id):
     except:
         raise APIException('Internal error', 500)
 
-    return jsonify(response_body), 200            
+    return jsonify(response_body), 200      
+
+# ENDPOINT GET STUDENTS ASIGNED TO A SUBJECT
+@api.route('/user/<int:user_id>/students/<int:subject_id>', methods=['GET'])
+def get_all_students_per_subject(user_id, subject_id):
+    
+    students_query = Students.query.filter_by(user_id=user_id, id=subject_id).all()
+
+    if not students_query:
+        raise APIException('The list of students is empty', 404)
+
+    results = list(map(lambda item: item.serialize(), students_query))
+
+    try:
+        response_body = {
+            "msg": "List of students obtained",
+            "results": results
+         }
+
+    except:
+        raise APIException('Internal error', 500)
+
+    return jsonify(response_body), 200      
