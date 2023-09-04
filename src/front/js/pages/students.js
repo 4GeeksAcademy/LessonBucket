@@ -49,7 +49,7 @@ export const Students = () => {
       setSearchResults(filteredStudents)
       
     }
-  , [searchStudent]);
+  ,[searchStudent]);
 
 
   // FUNCIÓN PARA MANEJAR EL INPUT DEL SEARCH

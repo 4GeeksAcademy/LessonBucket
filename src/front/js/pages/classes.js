@@ -18,6 +18,7 @@ export const Classes = () => {
         actions.fetchClasses();
     }, [store.token]);
 
+    
     const [newClassInfo, setNewClassInfo] = useState({
         subjects_id: "1",
         student_id: "1",
