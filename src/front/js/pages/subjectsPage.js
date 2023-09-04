@@ -52,7 +52,7 @@ export const SubjectsPage = props => {
 				</>
 			) : (
 				<div className="text-center">
-					<h1>Usuario no regitrado, por favor, pulse el botón para volver a login.</h1>
+					<h1>Usuario no logueado, por favor, pulse el botón para volver a login.</h1>
 					<button
 						className="recover-button-return"
 						type="button"

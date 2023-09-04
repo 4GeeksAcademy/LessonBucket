@@ -7,12 +7,28 @@ import { Context } from "../store/appContext";
 
 export const Dashboard = () => {
 	const { store, actions } = useContext(Context);
-	useEffect(() => {
-		if (store.logged === false) {
-			window.location = '/login';
+	const classesByDate = store.classes;
+
+	const sortBySoonestDate = (a,b) => {
+	
+		const dateA = new Date(a.date);
+		const dateB = new Date(b.date);
+		if (a.date > b.date) {
+			return 1;
 		}
+		if (a.date < b.date) {
+			return -1;
+		}
+		return 0;
+	}
+
+	useEffect(() => {
 		actions.fetchClasses();
+		classesByDate.sort(sortBySoonestDate);
+		console.log(classesByDate)
 	}, []);
+
+
 
 	const idCalendar = "bdb86c31dd1521191e7d1a472d3e5bf9cf0e5d6fc30f63eabf3630227d053506@group.calendar.google.com";
 	
@@ -22,7 +38,7 @@ export const Dashboard = () => {
 			<div className="row">
 				<div className="col">
 					<div className="d-flex flex-nowrap overflow-auto">
-						{store.classes && store.classes.slice(0, 3).map((subjectClass, index) => (
+						{classesByDate && classesByDate.slice(0, 3).map((subjectClass, index) => (
 							<div key={index}>
 								<SubjectClass subjectClass={subjectClass} />
 							</div>
