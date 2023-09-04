@@ -3,18 +3,18 @@ import { Context } from "../../store/appContext";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import "./subjectClass.css";
+import "../privateClass/privateClass.css"
 
-export const SubjectClass = (props) => {
+export const PrivateClass = (props) => {
     const { store, actions } = useContext(Context);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [updatedClassInfo, setUpdatedClassInfo] = useState({
-        subjects: props.subjectClass.subject,
-        student_id: props.subjectClass.student_id,
-        comments_id: props.subjectClass.comments_id,
-        date: props.subjectClass.date,
-        price: props.subjectClass.price,
-        paid: props.subjectClass.paid
+        // subjects: props.subjectClass.subject,
+        // student_id: props.subjectClass.student_id,
+        // comments_id: props.subjectClass.comments_id,
+        // date: props.subjectClass.date,
+        // price: props.subjectClass.price,
+        // paid: props.subjectClass.paid
     });
     
 
@@ -45,8 +45,8 @@ export const SubjectClass = (props) => {
         <div className="card-subject">
             
             <div className="card-body subject-text">
-                <p className="card-title">Clase: {props.subjectClass.subjects?.Subject}</p>
-                <p className="card-text">Fecha: {props.subjectClass.date}</p>
+                    {/* <p className="card-title">Clase: {props.subjectClass.subjects?.Subject}</p>
+                    <p className="card-text">Fecha: {props.subjectClass.date}</p> */}
             </div>
             <button className="subject-button" onClick={openModal}>Ver Clase</button>
 

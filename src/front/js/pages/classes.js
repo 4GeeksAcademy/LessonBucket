@@ -1,42 +1,61 @@
 import React, { useContext, useEffect, useState } from "react";
-import { SubjectClass } from "../component/dashboard/subjectClass";
+import { PrivateClass } from "../component/privateClass/privateClass";
 import "../../styles/dashboard.css";
 import { Context } from "../store/appContext";
-import Dropdown from 'react-bootstrap/Dropdown';
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-export const Classes = () => {
+
+export const Classes = (props) => {
     const { store, actions } = useContext(Context);
     const [showModal, setShowModal] = useState(false); // State to control modal visibility
+    const [loaded, setLoaded] = useState("loadedEmpty")
+
+
+    // const [createClass, setCreateClass] = useState()
+    // const [classSubject, setClassSubject] = useState()
+    const Subjects = store.allSubjects
+    const Students = store.allStudents
+
 
     useEffect(() => {
-        if (store.logged === false) {
-            window.location = '/login';
-        }
-        actions.fetchClasses();
+        actions.fetchClasses()
+        actions.getAllSubjects()
+        actions.getAllStudents()
+        setLoaded("fullLoaded")
     }, [store.token]);
 
-    
+
+    useEffect(() => {
+        console.log(Subjects)
+    }, [Subjects]);
+
+
+
+
     const [newClassInfo, setNewClassInfo] = useState({
-        subjects_id: "1",
-        student_id: "1",
-        comments_id: null,
+        subjects_name: "",
+        student_name: "",
+        comments: "",
         date: "",
+        hour: "",
         price: "",
-        paid: false
     });
-    let sortedClases;
-    if (store.classes.results) {
-        sortedClases = store.classes.results.sort((a, b) =>
-            a.date.split('/').reverse().join().localeCompare(b.date.split('/').reverse().join()));
-    }
+
+
+
+    // let sortedClases;
+    // if (store.classes.results) {
+    //     sortedClases = store.classes.results.sort((a, b) =>
+    //         a.date.split('/').reverse().join().localeCompare(b.date.split('/').reverse().join()));
+    // }
+
     const handleInputChange = event => {
         const { name, value, type, checked } = event.target;
         setNewClassInfo(prevInfo => ({
             ...prevInfo,
-            [name]: type === "checkbox" ? checked : value
+            [name]: value
         }));
     };
 
@@ -55,9 +74,9 @@ export const Classes = () => {
             <div className="row">
                 <div className="col">
                     <div className="d-flex flex-nowrap overflow-auto">
-                        {sortedClases && sortedClases.slice(0, 3).map((subjectClass, index) => (
+                        {store.classes && store.classes.slice(0, 3).map((privateClass, index) => (
                             <div key={index}>
-                                <SubjectClass subjectClass={subjectClass} />
+                                <PrivateClass privateClass={privateClass} />
                             </div>
                         ))}
                     </div>
@@ -67,16 +86,7 @@ export const Classes = () => {
             <div className="separator">
                 <div className="d-flex">
                     <div>Todas las Clases</div>
-                    <Dropdown style={{ marginLeft: "1rem", backgroundColor: "linear-gradient(271deg, #801480 0%, #0C2FA8 100%);" }}>
-                        <Dropdown.Toggle variant="success" id="dropdown-basic">
-                            <img src="https://d5xydlzdo08s0.cloudfront.net/images/io/filter_icon_big.png" width={"15px"} />
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                            <Dropdown.Item as="button">Inglés</Dropdown.Item>
-                            <Dropdown.Item as="button">Francés</Dropdown.Item>
-                            <Dropdown.Item as="button">Alemán</Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
+
                     <div>
                         <button className="add-button" onClick={handleShow}>
                             +
@@ -84,17 +94,20 @@ export const Classes = () => {
                     </div>
                 </div>
             </div>
-            <div className="row">
+
+            {/* NO SE QUE ES ESO */}
+            {/* <div className="row">
                 <div className="col">
                     <div className="d-flex flex-nowrap overflow-auto">
-                        {sortedClases && sortedClases.map((subjectClass, index) => (
+                        {/* {sortedClases && sortedClases.map((privateClass, index) => (
                             <div key={index}>
-                                <SubjectClass subjectClass={subjectClass} />
+                                <PrivateClass privateClass={privateClass} />
                             </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
+                        ))} */}
+            {/* </div> */}
+            {/* </div> */}
+            {/* // </div> */}
+
             <Modal show={showModal} onHide={handleClose} centered>
                 <Modal.Header closeButton>
                     <Modal.Title>Crear Nueva Clase</Modal.Title>
@@ -102,17 +115,43 @@ export const Classes = () => {
                 <Modal.Body>
                     <Form>
                         <Form.Group>
-                            <Form.Label>ID de Asignatura</Form.Label>
-                            <Form.Control
-                                type="text"
-                                name="subjects_id"
-                                value={newClassInfo.subjects_id}
-                                onChange={handleInputChange}
-                                placeholder="Ingrese el ID de la asignatura"
-                            />
+                            <Form.Label>Subject</Form.Label>
+                            {loaded === "fullLoaded" && Subjects && Subjects.length > 0 && (
+                                <Form.Control
+                                    as="select"
+                                    name="subjects_name"
+                                    value={newClassInfo.subjects_name}
+                                    onChange={handleInputChange}
+                                >
+                                    <option value="">Select a subject</option>
+                                    {Subjects.map( subject => (
+                                       <option key={subject.id} value={subject.id}>
+                                       {subject.Subject}
+                                   </option> 
+                                    ))}
+                                </Form.Control>
+                            )}
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>Fecha</Form.Label>
+                            <Form.Label>Student</Form.Label>
+                            {loaded === "fullLoaded" && Students && Students.length > 0 && (
+                                <Form.Control
+                                    as="select"
+                                    name="student_name"
+                                    value={newClassInfo.student_id}
+                                    onChange={handleInputChange}
+                                >
+                                    <option value="">Select a student</option>
+                                    {Students.map(student => (
+                                        <option key={student.id} value={student.id}>
+                                            {student.name}
+                                        </option>
+                                    ))}
+                                </Form.Control>
+                            )}
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Date</Form.Label>
                             <Form.Control
                                 type="date"
                                 name="date"
@@ -121,33 +160,32 @@ export const Classes = () => {
                             />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>Precio</Form.Label>
+                            <Form.Label>hour</Form.Label>
+                            <Form.Control
+                                type="time"
+                                name="hour"
+                                value={newClassInfo.hour}
+                                onChange={handleInputChange}
+                            />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Price</Form.Label>
                             <Form.Control
                                 type="number"
                                 name="price"
                                 value={newClassInfo.price}
                                 onChange={handleInputChange}
-                                placeholder="Ingrese el precio"
+                                placeholder="class price"
                             />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>¿Pagado?</Form.Label>
-                            <Form.Check
-                                type="checkbox"
-                                name="paid"
-                                checked={newClassInfo.paid}
-                                onChange={handleInputChange}
-                                label="¿Pagado?"
-                            />
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Comentarios</Form.Label>
+                            <Form.Label>Comments</Form.Label>
                             <Form.Control
                                 type="text"
-                                name="comments_id"
-                                value={newClassInfo.comments_id}
+                                name="comments"
+                                value={newClassInfo.comments}
                                 onChange={handleInputChange}
-                                placeholder="Comentarios"
+                                placeholder="Comments"
                             />
                         </Form.Group>
                     </Form>

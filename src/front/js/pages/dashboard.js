@@ -7,12 +7,7 @@ import { Context } from "../store/appContext";
 
 export const Dashboard = () => {
 	const { store, actions } = useContext(Context);
-	useEffect(() => {
-		if (store.logged === false) {
-			window.location = '/login';
-		}
-		actions.fetchClasses();
-	}, []);
+	
 
 	const idCalendar = "bdb86c31dd1521191e7d1a472d3e5bf9cf0e5d6fc30f63eabf3630227d053506@group.calendar.google.com";
 	

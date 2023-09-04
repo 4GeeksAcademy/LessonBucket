@@ -709,24 +709,23 @@ def get_one_class(user_id, class_id):
 @api.route("/user/<int:user_id>/class", methods=["POST"])
 def create_one_class(user_id):
 
-    request_body = request.get_json(force=True)
-
-    required_fields = ["subjects_id", "student_id", "date", "price", "paid"]
+    request_body = request.get_json(force=True)		
+    print(request_body)	
+						
+    required_fields = ["subjects_id", "student_id","comments", "date","hour", "price",]
     for field in required_fields:
         if field not in request_body or not request_body[field]:
             raise APIException(f'The "{field}" field cannot be empty', 400)
 
-    newClass = Class(subjects_id=request_body["subjects_id"], student_id=request_body["student_id"], comments_id=request_body["comments_id"],
-                date=request_body["date"], price=request_body["price"], paid=request_body["paid"], user_id=user_id)
-    print(request_body, user_id)
+    newClass = Class(subjects_id=request_body["subjects_id"], student_id=request_body["student_id"], hour=request_body["hour"], comments=request_body["comments"],
+                date=request_body["date"], price=request_body["price"], user_id=user_id)
+    
+    print(newClass)
+
     db.session.add(newClass)
-    print (newClass)
 
-    # try:
     db.session.commit()
-    # except:
-    #     raise APIException('Internal error', 500)
-
+    
     response_body = {
         "msg": "Class created",
         "student": newClass.serialize()

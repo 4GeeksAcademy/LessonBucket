@@ -17,7 +17,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// ALMACEN DE ESTUDIANTES
 			allStudents: [],
 			//ALMACEN DE TRABAJOS
-			jobs:[],
+			jobs: [],
 
 
 			demo: [
@@ -319,10 +319,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({
 					logged: false,
 					token: "",
-					allStudents: [],
-					classes: [],
-					allSubjects: [],
-					studentsPendingPayment: []
 				});
 
 
@@ -428,17 +424,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 			editPassword: async (newPassword) => {
 				const user_id = getStore().user.id;
 				try {
@@ -507,16 +492,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ demo: demo });
 			},
 			fetchClasses: async () => {
-				let userId = getStore().user.id;
-				if (userId === undefined) {
-					userId = 1;
-				}
+				const user_id = getStore().user.id;
+				const token = getStore().token
+
 				try {
-					const response = await axios.get(`${process.env.BACKEND_URL}/api/user/${userId}/class`);
-					console.log(response.data);
+					const response = await axios.get(`${process.env.BACKEND_URL}/api/user/${user_id}/class`, {
+						headers: {
+							"Authorization": `Bearer ${token}`,
+						}
+					});
+
 					setStore({
 						classes: response.data.results
 					});
+
 					return true;
 				} catch (error) {
 					console.error("An error occurred while fetching classes", error);
@@ -524,8 +513,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
+
 			fetchStudentsPendingPayment: async () => {
-				const user_id= getStore().user.id
+				const user_id = getStore().user.id
 				try {
 
 
@@ -540,22 +530,33 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			},
+
+
+
 			createSubjectClass: async (newClassInfo, closeModal) => {
+				console.log(newClassInfo)
 
 				const user_id = getStore().user.id;
+				const token = getStore().token
+
 				try {
-					// Create the new class object using the provided parameters
+
 					const newSubjectClass = {
-						subjects_id: newClassInfo.subjects_id,
-						student_id: newClassInfo.student_id,
-						comments_id: newClassInfo.comments_id,
+						subjects_id: newClassInfo.subjects_name,
+						student_id: newClassInfo.student_name,
+						comments: newClassInfo.comments,
 						date: newClassInfo.date,
+						hour: newClassInfo.hour,
 						price: parseFloat(newClassInfo.price),
-						paid: newClassInfo.paid
 					};
 
-					// Make a POST request to create the new class
-					const response = await axios.post(`${process.env.BACKEND_URL}/api/user/${user_id}/class`, newSubjectClass);
+					const response = await axios.post(`${process.env.BACKEND_URL}/api/user/${user_id}/class`, newSubjectClass, {
+						headers: {
+							"Authorization": `Bearer ${token}`,
+						}
+					});
+
+					console.log(response)
 
 					if (response.status === 200) {
 						// Update the classes in the store with the new data
@@ -576,6 +577,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			},
+
+			
 			updateSubjectClassInStore: async (classId, updatedInfo) => {
 				try {
 					const response = await axios.put(`${process.env.BACKEND_URL}/api/user/${getStore().user.id}/class/${classId}`, updatedInfo);
@@ -606,11 +609,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			getAllSubjects: async () => {
 				const user_id = getStore().user.id;
 				const token = getStore().token
-				const allSubjects = getStore().allSubjects
 
-				console.log(user_id)
-				console.log(token)
-				console.log(allSubjects)
 
 				try {
 					let response = await axios.get(process.env.BACKEND_URL + `/api/user/${user_id}/subjects/`, {
@@ -619,7 +618,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}
 					});
 					const subjects = response.data.results
-					console.log(subjects);
+
 					setStore({
 						allSubjects: subjects
 					});
@@ -790,7 +789,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// },
 
 
-								
+
 
 			// const axios = require('axios');
 
@@ -808,49 +807,49 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// 	'X-RapidAPI-Host': 'jsearch.p.rapidapi.com'
 			//   }
 			// };
-			
+
 			// try {
 			// 	const response = await axios.request(options);
 			// 	console.log(response.data);
 			// } catch (error) {
 			// 	console.error(error);
 			// }
-					getJobsNearby: async (subject) => {
-					
-						
-						const axios = require('axios');
+			getJobsNearby: async (subject) => {
 
-						const options = {
-						  method: 'GET',
-						  url: 'https://jsearch.p.rapidapi.com/search',
-						  params: {
-							query: `'${subject} teacher, Madrid'`,
-							page: '1',
-							num_pages: '1',
-							radius: '100'
-						  },
-						  headers: {
-							'X-RapidAPI-Key': '19b84f07b9msh08a479272b6bd97p13dfbejsnc7c8cbd54776',
-							'X-RapidAPI-Host': 'jsearch.p.rapidapi.com'
-						  }
-						};
-						
-						try {
-							const response = await axios.request(options);
-							
-							const jobsNear = response.data.data
-							console.log(jobsNear)
 
-							setStore({
-								jobs: jobsNear,
-						});
+				const axios = require('axios');
 
-						} catch (error) {
-							console.error(error);
-						}
+				const options = {
+					method: 'GET',
+					url: 'https://jsearch.p.rapidapi.com/search',
+					params: {
+						query: `'${subject} teacher, Madrid'`,
+						page: '1',
+						num_pages: '1',
+						radius: '100'
+					},
+					headers: {
+						'X-RapidAPI-Key': '19b84f07b9msh08a479272b6bd97p13dfbejsnc7c8cbd54776',
+						'X-RapidAPI-Host': 'jsearch.p.rapidapi.com'
+					}
+				};
 
+				try {
+					const response = await axios.request(options);
+
+					const jobsNear = response.data.data
+					console.log(jobsNear)
+
+					setStore({
+						jobs: jobsNear,
+					});
+
+				} catch (error) {
+					console.error(error);
+				}
+
+			}
 		}
-	}
 	};
 };
 

@@ -5,8 +5,7 @@ import "./pagosPendientes.css";
 export const PagosPendientes = (props) => {
 	const { store, actions } = useContext(Context);
 	const paymentFiltrados = store.classes && store.classes.filter((payment, index) => payment.paid == false)
-	console.log(paymentFiltrados)
-					
+
 	return (
 		<div className="row">
 			<div className="col">
