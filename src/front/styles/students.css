@@ -243,11 +243,6 @@
   width: 75px;
 }
 
-/* DISEÑO DE PAGINACIÓN */
-
-.pagination {
-  display: flex;
-  justify-content: end;
-  margin-top: 35px;
-  padding-left: 0;
+.gap-3 {
+  gap:0 !important;
 }

@@ -316,7 +316,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 				sessionStorage.removeItem("token");
 				setStore({
 					logged: false,
-					token: ""
+					token: "",
+					allStudents: [],
+					classes: [],
+					allSubjects: [],
+					studentsPendingPayment: []
 				});
 
 
