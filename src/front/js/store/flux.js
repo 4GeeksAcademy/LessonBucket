@@ -739,8 +739,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 						
 						try {
 							const response = await axios.request(options);
-							console.log(response.data);
+							
 							const jobsNear = response.data.data
+							console.log(jobsNear)
 
 							setStore({
 								jobs: jobsNear,
