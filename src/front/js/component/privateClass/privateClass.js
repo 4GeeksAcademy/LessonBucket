@@ -1,22 +1,40 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../../store/appContext";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import swal from 'sweetalert'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import "../privateClass/privateClass.css"
 
 export const PrivateClass = (props) => {
     const { store, actions } = useContext(Context);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [loaded, setLoaded] = useState("loadedEmpty")
     const [updatedClassInfo, setUpdatedClassInfo] = useState({
-        // subjects: props.subjectClass.subject,
-        // student_id: props.subjectClass.student_id,
-        // comments_id: props.subjectClass.comments_id,
-        // date: props.subjectClass.date,
-        // price: props.subjectClass.price,
-        // paid: props.subjectClass.paid
+        subjects_id: props.privateClass.subjects.id,
+        student_id: props.privateClass.student.id,
+        comments: props.privateClass.comments,
+        date: props.privateClass.date,
+        hour: props.privateClass.hour,
+        price: props.privateClass.price,
+        paid: props.privateClass.paid
     });
-    
+    const Subjects = store.allSubjects
+    const Students = store.allStudents
+
+    // console.log(updatedClassInfo)
+
+
+
+
+    useEffect(() => {
+        actions.fetchClasses()
+        actions.getAllSubjects()
+        actions.getAllStudents()
+        setLoaded("fullLoaded")
+    }, [store.token]);
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -34,19 +52,102 @@ export const PrivateClass = (props) => {
         }));
     };
 
-    const handleUpdateClass = () => {
-        actions.updateSubjectClassInStore(props.subjectClass.id, updatedClassInfo);
-        closeModal();
+
+    const handleDeleteClass = async () => {
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this class!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then(async (willDelete) => {
+            if (willDelete) {
+                let response = await actions.deleteOneClass(props.privateClass.id);
+
+                if (response) {
+                    swal("Good job!", "Class successfully deleted.", "success", {
+                        buttons: {
+                            confirm: {
+                                text: "OK",
+                                className: "custom-swal-button",
+                            }
+                        },
+                        timer: 4000,
+                    });
+
+                    actions.fetchClasses()
+                    closeModal();
+
+                } else {
+                    swal("Sorry", "An unexpected error has occurred", "error", {
+                        buttons: {
+                            confirm: {
+                                text: "Please, Try Again Later",
+                                className: "custom-swal-button",
+                            }
+                        },
+                        timer: 4000,
+                    });
+                }
+            }
+        });
     };
 
+
+    const handleUpdateClass = async (e) => {
+        e.preventDefault()
+        // if (!updatedClassInfo.subjects || !updatedClassInfo.student_id || updatedClassInfo.date || !updatedClassInfo.price || !updatedClassInfo.hour || updatedClassInfo.paid || updatedClassInfo.comments) {
+        //     swal("Please", "Fields cannot be empty", "warning", {
+        //         buttons: {
+        //             confirm: {
+        //                 text: "Try Again",
+        //                 className: "custom-swal-button",
+        //             }
+        //         },
+        //         timer: 4000,
+        //     });
+
+        let response = await actions.updateSubjectClassInStore(props.privateClass.id, updatedClassInfo);
+
+
+        if (response === true) {
+
+            swal("Good job!", "successfully modify class.", "success", {
+                buttons: {
+                    confirm: {
+                        text: "OK",
+                        className: "custom-swal-button",
+                    }
+                },
+                timer: 4000,
+            });
+
+            actions.fetchClasses()
+            closeModal();
+
+        } else {
+            swal("Sorry", "An unexpected error has occurred", "error", {
+                buttons: {
+                    confirm: {
+                        text: "Try Again",
+                        className: "custom-swal-button",
+                    }
+                },
+                timer: 4000,
+            });
+        }
+    }
 
 
     return (
         <div className="card-subject">
-            
+
             <div className="card-body subject-text">
-                    {/* <p className="card-title">Clase: {props.subjectClass.subjects?.Subject}</p>
-                    <p className="card-text">Fecha: {props.subjectClass.date}</p> */}
+                <p className="card-title" title={props.privateClass.subjects.Subject}> Class: {props.privateClass.subjects.Subject}</p>
+                <p className="card-text" title={props.privateClass.student.name}> Student: {props.privateClass.student.name}</p>
+                <p className="card-text" title={props.privateClass.date}> Date: {props.privateClass.date}</p>
+                <p className="card-text" title={props.privateClass.hour}> Hour: {props.privateClass.hour}</p>
+                <p className="card-text" title={props.privateClass.comments}> Comment: {props.privateClass.comments}</p>
             </div>
             <button className="subject-button" onClick={openModal}>Ver Clase</button>
 
@@ -56,27 +157,41 @@ export const PrivateClass = (props) => {
                 <Modal.Body>
                     <Form>
                         <Form.Group>
-                            <Form.Label>ID de Asignatura</Form.Label>
-                            <Form.Control
-                                type="text"
-                                name="subjects_id"
-                                value={updatedClassInfo.subjects}
-                                onChange={handleInputChange}
-                                placeholder="Ingrese el ID de la asignatura"
-                            />
+                            <Form.Label>Subject</Form.Label>
+                            {loaded === "fullLoaded" && Subjects && Subjects.length > 0 && (
+                                <Form.Control
+                                    as="select"
+                                    name="subjects_id"
+                                    value={updatedClassInfo.subjects_id}
+                                    onChange={handleInputChange}
+                                >
+                                    {Subjects.map(subject => (
+                                        <option key={subject.id} value={subject.id}>
+                                            {subject.Subject}
+                                        </option>
+                                    ))}
+                                </Form.Control>
+                            )}
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>ID del Alumno</Form.Label>
-                            <Form.Control
-                                type="text"
-                                name="subjects_id"
-                                value={updatedClassInfo.student_id}
-                                onChange={handleInputChange}
-                                placeholder="Ingrese el ID del Alumno"
-                            />
+                            <Form.Label>Student</Form.Label>
+                            {loaded === "fullLoaded" && Students && Students.length > 0 && (
+                                <Form.Control
+                                    as="select"
+                                    name="student_name"
+                                    value={updatedClassInfo.student_id}
+                                    onChange={handleInputChange}
+                                >
+                                    {Students.map(student => (
+                                        <option key={student.id} value={student.id}>
+                                            {student.name}
+                                        </option>
+                                    ))}
+                                </Form.Control>
+                            )}
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>Fecha</Form.Label>
+                            <Form.Label>Date</Form.Label>
                             <Form.Control
                                 type="date"
                                 name="date"
@@ -85,33 +200,42 @@ export const PrivateClass = (props) => {
                             />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>Precio</Form.Label>
+                            <Form.Label>Price</Form.Label>
                             <Form.Control
                                 type="number"
                                 name="price"
                                 value={updatedClassInfo.price}
                                 onChange={handleInputChange}
-                                placeholder="Ingrese el precio"
+                                placeholder="class price"
                             />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>¿Pagado?</Form.Label>
+                            <Form.Label>hour</Form.Label>
+                            <Form.Control
+                                type="time"
+                                name="hour"
+                                value={updatedClassInfo.hour}
+                                onChange={handleInputChange}
+                            />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>¿Paid?</Form.Label>
                             <Form.Check
                                 type="checkbox"
                                 name="paid"
                                 checked={updatedClassInfo.paid}
                                 onChange={handleInputChange}
-                                label="¿Pagado?"
+                                label="Is it paid?"
                             />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>Comentarios</Form.Label>
+                            <Form.Label>Comments</Form.Label>
                             <Form.Control
                                 type="text"
-                                name="comments_id"
-                                checked={updatedClassInfo.comments_id}
+                                name="comments"
+                                value={updatedClassInfo.comments}
                                 onChange={handleInputChange}
-                                placeholder="Comentarios"
+                                placeholder="Comments"
                             />
                         </Form.Group>
                     </Form>
@@ -123,6 +247,9 @@ export const PrivateClass = (props) => {
                     <Button variant="primary" onClick={handleUpdateClass}>
                         Guardar Cambios
                     </Button>
+                    <button className="modal-delete-icon">
+                        <FontAwesomeIcon icon={faTrash} onClick={handleDeleteClass} />
+                    </button>
                 </Modal.Footer>
             </Modal>
         </div>

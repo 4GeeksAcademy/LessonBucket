@@ -117,7 +117,7 @@ class Class(db.Model):
             "user_id": self.user_id,
             "subjects": None if subject is None else subject.serialize(),
             "student": None if student is None else student.serialize(),
-            "comments_id": self.comments_id,
+            "comments": self.comments,
             "date": self.date,
             "hour": self.hour.strftime("%H:%M"),
             "price": self.price, 

@@ -185,6 +185,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 						allStudents: students
 					});
 
+					sessionStorage.setItem("allStudents", JSON.stringify(students));
+
 					return true;
 
 				} catch (error) {
@@ -251,11 +253,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						},
 					});
 
-					const newAllStudent = response.data.results
-
-					setStore({
-						allStudents: newAllStudent
-					});
+					
 
 					console.log(response.data)
 					return true;
@@ -502,9 +500,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}
 					});
 
+					
 					setStore({
 						classes: response.data.results
 					});
+
+					sessionStorage.setItem("classes", JSON.stringify(response.data.results));
 
 					return true;
 				} catch (error) {
@@ -534,7 +535,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 
 			createSubjectClass: async (newClassInfo, closeModal) => {
-				console.log(newClassInfo)
+				// console.log(newClassInfo)
 
 				const user_id = getStore().user.id;
 				const token = getStore().token
@@ -560,11 +561,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(response)
 
 					if (response.status === 200) {
-						// Update the classes in the store with the new data
-						const updatedClasses = [...getStore().classes.results, response.data.student];
+
+						const createClass = [...getStore().classes, response.data.student];
+
 						setStore({
-							classes: { ...getStore().classes, results: updatedClasses }
+							classes: createClass
 						});
+
+						sessionStorage.setItem("classes", response.data.student);
+
+
 
 						closeModal(); // Close the modal
 
@@ -579,29 +585,66 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			
-			updateSubjectClassInStore: async (classId, updatedInfo) => {
-				try {
-					const response = await axios.put(`${process.env.BACKEND_URL}/api/user/${getStore().user.id}/class/${classId}`, updatedInfo);
 
-					if (response.status === 200) {
-						// Update the class in the store with the updated data
-						const updatedClasses = getStore().classes.results.map((subjectClass) => {
-							if (subjectClass.id === classId) {
-								return { ...subjectClass, ...updatedInfo };
-							}
-							return subjectClass;
-						});
-						setStore({
-							classes: { ...getStore().classes, results: updatedClasses }
-						});
-						return true;
-					} else {
-						console.error("Failed to update class");
-						return false;
-					}
+			updateSubjectClassInStore: async (class_id, updatedInfo) => {
+				console.log(class_id);
+				console.log(updatedInfo);
+
+				const user_id = getStore().user.id;
+				const token = getStore().token;
+
+				try {
+					const response = await axios.put(
+						`${process.env.BACKEND_URL}/api/user/${user_id}/class/${class_id}`,
+						updatedInfo,
+						{
+							headers: {
+								Authorization: `Bearer ${token}`,
+							},
+						}
+					);
+
+					const modifyClass = [...getStore().classes, response.data];
+
+					console.log(response);
+					console.log(modifyClass);
+
+					setStore({
+						classes: modifyClass,
+					});
+
+					sessionStorage.setItem("classes", JSON.stringify(response.data));
+
+					return true;
+
 				} catch (error) {
-					console.error("An error occurred while updating the class", error);
+					console.error("An error occurred during user creation", error);
+					return false;
+				}
+			},
+
+			//   DELETE ONE CLASS
+
+			deleteOneClass: async (class_id) => {
+
+				const user_id = getStore().user.id;
+				const token = getStore().token
+
+				console.log(class_id)
+
+				try {
+
+					let response = await axios.delete(process.env.BACKEND_URL + `/api/user/${user_id}/class/${class_id}`, {
+						headers: {
+							"Authorization": `Bearer ${token}`,
+						},
+					});
+
+					console.log(response.data)
+					return true;
+
+				} catch (error) {
+					console.error("An error occurred during user creation", error);
 					return false;
 				}
 			},
@@ -623,6 +666,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					setStore({
 						allSubjects: subjects
 					});
+
+					sessionStorage.setItem("allSubjects", JSON.stringify(subjects));
+
 					return true;
 				} catch (error) {
 					console.error("An error occurred during subject retrieval", error);

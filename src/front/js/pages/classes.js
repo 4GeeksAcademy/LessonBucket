@@ -7,7 +7,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
 
-export const Classes = (props) => {
+export const Classes = () => {
     const { store, actions } = useContext(Context);
     const [showModal, setShowModal] = useState(false); // State to control modal visibility
     const [loaded, setLoaded] = useState("loadedEmpty")
@@ -23,13 +23,6 @@ export const Classes = (props) => {
     }, [store.token]);
 
 
-    useEffect(() => {
-        console.log(Subjects)
-    }, [Subjects]);
-
-
-
-
     const [newClassInfo, setNewClassInfo] = useState({
         subjects_name: "",
         student_name: "",
@@ -42,17 +35,11 @@ export const Classes = (props) => {
 
 
 
-    // let sortedClases;
-    // if (store.classes.results) {
-    //     sortedClases = store.classes.results.sort((a, b) =>
-    //         a.date.split('/').reverse().join().localeCompare(b.date.split('/').reverse().join()));
-    // }
-
     const handleInputChange = event => {
         const { name, value, type, checked } = event.target;
         setNewClassInfo(prevInfo => ({
             ...prevInfo,
-            [name]: value
+            [name]: type === "checkbox" ? checked : value
         }));
     };
 
@@ -80,6 +67,8 @@ export const Classes = (props) => {
                 </div>
             </div>
 
+
+                            
             <div className="separator">
                 <div className="d-flex">
                     <div>Todas las Clases</div>
@@ -92,22 +81,29 @@ export const Classes = (props) => {
                 </div>
             </div>
 
-            {/* NO SE QUE ES ESO */}
-            {/* <div className="row">
+
+            <div className="row">
                 <div className="col">
                     <div className="d-flex flex-nowrap overflow-auto">
-                        {/* {sortedClases && sortedClases.map((privateClass, index) => (
+                        {store.classes && store.classes.map((privateClass, index) => (
                             <div key={index}>
+                       
                                 <PrivateClass privateClass={privateClass} />
                             </div>
-                        ))} */}
-            {/* </div> */}
-            {/* </div> */}
-            {/* // </div> */}
+                        ))}
+                    </div>
+                </div>
+            </div>
+
+            console.log(privateClass)
+
+
+            {/* MODAL PARA CREAR UNA CLASE */}
+
 
             <Modal show={showModal} onHide={handleClose} centered>
                 <Modal.Header closeButton>
-                    <Modal.Title>Crear Nueva Clase</Modal.Title>
+                    <Modal.Title>Create a new class</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
@@ -121,10 +117,10 @@ export const Classes = (props) => {
                                     onChange={handleInputChange}
                                 >
                                     <option value="">Select a subject</option>
-                                    {Subjects.map( subject => (
-                                       <option key={subject.id} value={subject.id}>
-                                       {subject.Subject}
-                                   </option> 
+                                    {Subjects.map(subject => (
+                                        <option key={subject.id} value={subject.id}>
+                                            {subject.Subject}
+                                        </option>
                                     ))}
                                 </Form.Control>
                             )}
@@ -182,7 +178,7 @@ export const Classes = (props) => {
                                 name="paid"
                                 checked={newClassInfo.paid}
                                 onChange={handleInputChange}
-                                label="¿Está Pagado?"
+                                label="Is it paid?"
                             />
                         </Form.Group>
                         <Form.Group>
@@ -199,13 +195,16 @@ export const Classes = (props) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        Cerrar
+                        Close
                     </Button>
                     <Button variant="primary" onClick={() => actions.createSubjectClass(newClassInfo, handleClose)}>
-                        Crear Clase
+                        Create a new Class
                     </Button>
                 </Modal.Footer>
             </Modal>
+
+            {/* FIN DE MODAL PARA CREAR UNA CLASE */}
+
         </div>
     );
 };
