@@ -42,6 +42,7 @@ export const SubjectsPage = props => {
 										subject={subject.Subject}
 										id={subject.id}
 										key={subject.id}
+										students={subject.students}
 									/>
 								</div>
 

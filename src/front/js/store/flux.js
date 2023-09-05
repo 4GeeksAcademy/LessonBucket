@@ -99,7 +99,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 					sessionStorage.setItem("token", data.token);
 					sessionStorage.setItem("userID", data.user.id);
-
+					getActions().fetchClasses();
 					return true;
 
 				} catch (error) {

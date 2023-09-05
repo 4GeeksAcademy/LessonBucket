@@ -44,6 +44,7 @@ class Subjects(db.Model):
         return {
             "id": self.id,
             "Subject":  self.Subject,
+            "students": list(map(lambda x: x.serialize(), self.Students)),
         
         }
 
