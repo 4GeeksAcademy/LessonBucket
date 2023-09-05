@@ -489,8 +489,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				//reset the global store
 				setStore({ demo: demo });
 			},
+
+
 			fetchClasses: async () => {
-				const user_id = getStore().user.id;
+				const user_id = sessionStorage.getItem("userID")
 				const token = getStore().token
 
 				try {
@@ -589,6 +591,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			updateSubjectClassInStore: async (class_id, updatedInfo) => {
 				console.log(class_id);
 				console.log(updatedInfo);
+				console.log("Entrando...")
 
 				const user_id = getStore().user.id;
 				const token = getStore().token;
@@ -604,16 +607,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}
 					);
 
+						
 					const modifyClass = [...getStore().classes, response.data];
 
 					console.log(response);
 					console.log(modifyClass);
+					
 
 					setStore({
 						classes: modifyClass,
 					});
 
 					sessionStorage.setItem("classes", JSON.stringify(response.data));
+
 
 					return true;
 

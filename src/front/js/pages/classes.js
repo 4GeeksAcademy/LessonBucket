@@ -9,10 +9,13 @@ import Form from "react-bootstrap/Form";
 
 export const Classes = () => {
     const { store, actions } = useContext(Context);
-    const [showModal, setShowModal] = useState(false); // State to control modal visibility
+    const [showModal, setShowModal] = useState(false);
     const [loaded, setLoaded] = useState("loadedEmpty")
-    const Subjects = store.allSubjects
-    const Students = store.allStudents
+    const [classes, setClasses] = useState([])
+    const Subjects = store.allSubjects || []
+    const Students = store.allStudents || []
+
+    // LLAMADA INICIAL PARA OBTENER TODAS LAS LISTAS
 
 
     useEffect(() => {
@@ -21,6 +24,13 @@ export const Classes = () => {
         actions.getAllStudents()
         setLoaded("fullLoaded")
     }, [store.token]);
+
+
+    useEffect(() => {
+        setClasses(store.classes)
+    }, [store.classes]);
+    
+    
 
 
     const [newClassInfo, setNewClassInfo] = useState({
@@ -34,6 +44,7 @@ export const Classes = () => {
     });
 
 
+    // FUNCION PARA MANEJAR CAMBIOS DEL INPUT
 
     const handleInputChange = event => {
         const { name, value, type, checked } = event.target;
@@ -43,6 +54,7 @@ export const Classes = () => {
         }));
     };
 
+    // FUNCIONES PARA CONTROLAR DEL MODAL
 
     const handleClose = () => {
         setShowModal(false);
@@ -53,14 +65,17 @@ export const Classes = () => {
     };
 
     return (
+
+        // VISTA PARA PRÓXIMAS LAS CLASES     
+
         <div className="dashboard-wrapper">
             <div className="separator">Próximas Clases</div>
             <div className="row">
                 <div className="col">
                     <div className="d-flex flex-nowrap overflow-auto">
-                        {store.classes && store.classes.slice(0, 3).map((privateClass, index) => (
+                        {store.classes.slice(0, 3).map((privateClass, index) => (
                             <div key={index}>
-                                <PrivateClass privateClass={privateClass} />
+                                {(store.classes && store.classes.length > 0) && <PrivateClass privateClass={privateClass} />}         
                             </div>
                         ))}
                     </div>
@@ -68,7 +83,7 @@ export const Classes = () => {
             </div>
 
 
-                            
+
             <div className="separator">
                 <div className="d-flex">
                     <div>Todas las Clases</div>
@@ -81,13 +96,13 @@ export const Classes = () => {
                 </div>
             </div>
 
+            {/* VISTA PARA TODAS LAS CLASES                 */}
 
             <div className="row">
                 <div className="col">
                     <div className="d-flex flex-nowrap overflow-auto">
                         {store.classes && store.classes.map((privateClass, index) => (
                             <div key={index}>
-                       
                                 <PrivateClass privateClass={privateClass} />
                             </div>
                         ))}
@@ -95,10 +110,10 @@ export const Classes = () => {
                 </div>
             </div>
 
-            console.log(privateClass)
 
 
-            {/* MODAL PARA CREAR UNA CLASE */}
+
+            {/* MODAL PARA CREAR UNA CLASE  */}
 
 
             <Modal show={showModal} onHide={handleClose} centered>

@@ -21,12 +21,10 @@ export const PrivateClass = (props) => {
         price: props.privateClass.price,
         paid: props.privateClass.paid
     });
-    const Subjects = store.allSubjects
-    const Students = store.allStudents
+    const [classes, setClasses] = useState([])
 
-    // console.log(updatedClassInfo)
-
-
+    const Subjects = store.allSubjects || [];
+    const Students = store.allStudents || [];
 
 
     useEffect(() => {
@@ -36,6 +34,11 @@ export const PrivateClass = (props) => {
         setLoaded("fullLoaded")
     }, [store.token]);
 
+    useEffect(() => {
+        setClasses(store.classes)
+    }, [store.classes]);
+
+
     const openModal = () => {
         setIsModalOpen(true);
     };
@@ -43,6 +46,8 @@ export const PrivateClass = (props) => {
     const closeModal = () => {
         setIsModalOpen(false);
     };
+
+    // FUNCION PARA MANEJAR CAMBIOS DEL INPUT
 
     const handleInputChange = (event) => {
         const { name, value, type, checked } = event.target;
@@ -52,6 +57,8 @@ export const PrivateClass = (props) => {
         }));
     };
 
+
+    // FUNCION PARA ELIMINAR UNA CLASE
 
     const handleDeleteClass = async () => {
         swal({
@@ -93,55 +100,60 @@ export const PrivateClass = (props) => {
         });
     };
 
+    // FUNCION PARA MANEJAR CAMBIOS EN LA CLASE
 
     const handleUpdateClass = async (e) => {
         e.preventDefault()
-        // if (!updatedClassInfo.subjects || !updatedClassInfo.student_id || updatedClassInfo.date || !updatedClassInfo.price || !updatedClassInfo.hour || updatedClassInfo.paid || updatedClassInfo.comments) {
-        //     swal("Please", "Fields cannot be empty", "warning", {
-        //         buttons: {
-        //             confirm: {
-        //                 text: "Try Again",
-        //                 className: "custom-swal-button",
-        //             }
-        //         },
-        //         timer: 4000,
-        //     });
-
-        let response = await actions.updateSubjectClassInStore(props.privateClass.id, updatedClassInfo);
-
-
-        if (response === true) {
-
-            swal("Good job!", "successfully modify class.", "success", {
-                buttons: {
-                    confirm: {
-                        text: "OK",
-                        className: "custom-swal-button",
-                    }
-                },
-                timer: 4000,
-            });
-
-            actions.fetchClasses()
-            closeModal();
-
-        } else {
-            swal("Sorry", "An unexpected error has occurred", "error", {
+        if ((updatedClassInfo.subjects_id === "") || (updatedClassInfo.student_id === "") || !updatedClassInfo.date || !updatedClassInfo.price || !updatedClassInfo.hour || !updatedClassInfo.paid || (updatedClassInfo.comments === "")) {
+            swal("Please", "Fields cannot be empty", "warning", {
                 buttons: {
                     confirm: {
                         text: "Try Again",
                         className: "custom-swal-button",
                     }
+
                 },
                 timer: 4000,
             });
+            return
+        } else {
+            let response = await actions.updateSubjectClassInStore(props.privateClass.id, updatedClassInfo);
+            console.log(response)
+
+            if (response) {
+
+                swal("Good job!", "successfully modify class.", "success", {
+                    buttons: {
+                        confirm: {
+                            text: "OK",
+                            className: "custom-swal-button",
+                        }
+                    },
+                    timer: 4000,
+                });
+
+                actions.fetchClasses()
+                closeModal();
+
+            } else {
+                swal("Sorry", "An unexpected error has occurred", "error", {
+                    buttons: {
+                        confirm: {
+                            text: "Try Again",
+                            className: "custom-swal-button",
+                        }
+                    },
+                    timer: 4000,
+                });
+            }
         }
     }
 
 
     return (
-        <div className="card-subject">
+        // VISTA RESUMIDA TARJETAS CLASE
 
+        <div className="card-subject">
             <div className="card-body subject-text">
                 <p className="card-title" title={props.privateClass.subjects.Subject}> Class: {props.privateClass.subjects.Subject}</p>
                 <p className="card-text" title={props.privateClass.student.name}> Student: {props.privateClass.student.name}</p>
@@ -150,6 +162,9 @@ export const PrivateClass = (props) => {
                 <p className="card-text" title={props.privateClass.comments}> Comment: {props.privateClass.comments}</p>
             </div>
             <button className="subject-button" onClick={openModal}>Ver Clase</button>
+
+
+            {/* INICIO MODAL MODIFICAR CLASE */}
 
             <Modal show={isModalOpen} onHide={closeModal} centered>
                 <Modal.Header>
@@ -252,6 +267,8 @@ export const PrivateClass = (props) => {
                     </button>
                 </Modal.Footer>
             </Modal>
+
+            {/* FIN DE MODAL MODIFICAR CLASE */}
         </div>
     );
 };
