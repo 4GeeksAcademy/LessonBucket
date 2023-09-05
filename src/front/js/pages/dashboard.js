@@ -9,6 +9,9 @@ export const Dashboard = () => {
 	const { store, actions } = useContext(Context);
 	const classesByDate = store.classes;
 
+	let today = new Date().toLocaleDateString("es-ES");
+	
+
 	const sortBySoonestDate = (a,b) => {
 	
 		const dateA = new Date(a.date);
@@ -30,7 +33,8 @@ export const Dashboard = () => {
 
 	useEffect(() => {
 		classesByDate.sort(sortBySoonestDate);
-		console.log(classesByDate)
+		console.log(classesByDate);
+		console.log(today);
 	}, [store.classes]);
 
 
