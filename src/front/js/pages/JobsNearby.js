@@ -1,6 +1,7 @@
 import { Context } from "../store/appContext";
 import React, { useContext, useEffect, useState } from "react";
 import { JobsCard } from "../component/jobscard/jobscard";
+import '../../styles/index.scss'
 
 export const JobsNearby = () => {
   const { store, actions } = useContext(Context);
@@ -85,7 +86,7 @@ export const JobsNearby = () => {
   };
 
 
-  const jobsDesplegable =    (<select value={select} class="form-select" aria-label="Default select example" onChange={(e) => handleChange(e)}>
+  const jobsDesplegable =    (<select value={select} className="form-select w-25 mx-auto my-4" aria-label="Default select example" onChange={(e) => handleChange(e)}>
                              <option selected>Open this select menu</option>
                              {store.allSubjects?.length>0? store.allSubjects.map((item) => <option value={item.Subject} >{item.Subject}</option>) : 'Cargando...'}
                              </select>)
@@ -99,14 +100,14 @@ export const JobsNearby = () => {
   return (
     <div className="mx-auto d-flex flex-column justify-content-center w-80 mt-3">
   
-      <p className="text-white bg-danger">Trabajos cerca de ti basados en tus clases</p>
-      <button onClick={() => loadJobs('English')}>CARGAR DATOS DE TRABAJOS</button>
+      <p className="text-white  text-center">Select a subject to find jobs near you based in your classes</p>
+    
       {jobsDesplegable}
-      {/* {handleSubjectSelect()} */}
+      <div className="row d-flex flex-wrap justify-content-center gap-3 mx-auto">
       {store.jobs && store.jobs.length > 0 && (
     store.jobs.map((job) => (
       
-      <div className="col md-auto" key={job.id}>
+      <div className="jobsCardContainer col-4  p-0 my-3 mx-3 " key={job.id}>
        
         <JobsCard
           jobTitle={handleJobTitleData(job)}
@@ -115,12 +116,14 @@ export const JobsNearby = () => {
           link={handleLinkData(job)}
           type={handleTypeData(job)}
           employer={handleEmployerData(job)}
+          
         />
       </div>
+      
     ))
   )}
      
-
+     </div>
     </div>
   );
 };
