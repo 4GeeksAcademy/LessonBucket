@@ -7,29 +7,19 @@ export const JobsNearby = () => {
   const subject = store.allSubjects
   const [classSubject, setClassSubject] = useState([])
   const [loaded, setLoaded] = useState("loadedEmpty")
+  const [select, setSelect] = useState('')
  
 
   useEffect(() => {
     actions.getAllSubjects();
     setLoaded("fullLoaded")
-  }, [store.token]);
+  }, []);
 
 
   useEffect(() => {
     console.log(classSubject)
   }, [classSubject]);
 
-
-
-
-  if ((store.allSubjects) && (store.allSubjects !== "") && (store.allSubjects !== undefined)) {
-    if ((loaded === "fullLoaded")) {
-      const llegado = subject.map(item => item.Subject)
-      setClassSubject(llegado)
-      console.log(classSubject)
-      setLoaded('loadedEmpty')
-    }
-  }
 
 
   const handleJobTitleData = (job) => {
@@ -78,61 +68,58 @@ export const JobsNearby = () => {
     else return "Not available"
   }
 
-  const loadJobs = async () => {
+  const loadJobs = async (subj) => {
     
     try {
-      await actions.getJobsNearby('English');
+      await actions.getJobsNearby(subj);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const handleSubjectSelect = () => {
+
+  const handleChange = event => {
+    console.log(event.target.value);
+    setSelect(event.target.value);
+    loadJobs(event.target.value)
+  };
+
+
+  const jobsDesplegable =    (<select value={select} class="form-select" aria-label="Default select example" onChange={(e) => handleChange(e)}>
+                             <option selected>Open this select menu</option>
+                             {store.allSubjects?.length>0? store.allSubjects.map((item) => <option value={item.Subject} >{item.Subject}</option>) : 'Cargando...'}
+                             </select>)
     
-    if (classSubject) {
+   
+     console.log(classSubject)
+  
 
-      return (
 
-        classSubject.map((subject) => (
-          <>
-          
-            
-            <h4 key={subject} className="text-white justify-content-center text-center py-3">{subject} Jobs</h4>
-            <div className="container mx-auto mt-3">
-              <div className="row d-flex flex-wrap justify-content-center gap-3">
-                {store.jobs && store.jobs.length > 0 && (
-                  store.jobs.map((job) => (
-                    <div className="col md-auto" key={job.id}>
-                      <JobsCard
-                        jobTitle={handleJobTitleData(job)}
-                        city={handleCityData(job)}
-                        remote={handleRemoteData(job)}
-                        link={handleLinkData(job)}
-                        type={handleTypeData(job)}
-                        employer={handleEmployerData(job)}
-                      />
-                    </div>
-                  ))
-                )}
-              </div>
-            </div>
-          </>
-
-        ))
-
-      )
-    }
-  }
-
- 
 
   return (
     <div className="mx-auto d-flex flex-column justify-content-center w-80 mt-3">
-      {/* <p>{subject}</p> */}
+  
       <p className="text-white bg-danger">Trabajos cerca de ti basados en tus clases</p>
-      <button onClick={loadJobs}>CARGAR DATOS DE TRABAJOS</button>
-      {handleSubjectSelect()}
-      {/* {handleCard()} */}
+      <button onClick={() => loadJobs('English')}>CARGAR DATOS DE TRABAJOS</button>
+      {jobsDesplegable}
+      {/* {handleSubjectSelect()} */}
+      {store.jobs && store.jobs.length > 0 && (
+    store.jobs.map((job) => (
+      
+      <div className="col md-auto" key={job.id}>
+       
+        <JobsCard
+          jobTitle={handleJobTitleData(job)}
+          city={handleCityData(job)}
+          remote={handleRemoteData(job)}
+          link={handleLinkData(job)}
+          type={handleTypeData(job)}
+          employer={handleEmployerData(job)}
+        />
+      </div>
+    ))
+  )}
+     
 
     </div>
   );

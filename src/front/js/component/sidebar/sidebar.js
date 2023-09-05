@@ -70,16 +70,11 @@ export const Sidebar = () => {
 
                             <Link to="/settings" className="link-logo">
                                 <li className="settings">
-                                    <i className="fa-solid fa-gear m-3 "></i>
-                                    <a className="">Settings</a>
+                                <i className="fa-solid fa-user-doctor m-3"></i>
+                                    <a className="">Jobs Near</a>
                                 </li>
                             </Link>
-                            <Link to="/documents" className="link-logo">
-                                <li className="documents">
-                                    <i className="fa-regular fa-folder-open m-3"></i>
-                                    <a className="">Documents</a>
-                                </li>
-                            </Link>
+                           
                         </ul>
 
                     </nav >
@@ -130,14 +125,10 @@ export const Sidebar = () => {
                             </Link>
                             <Link to="/settings" className="link-logo">
                                 <li className="settings">
-                                    <i className="fa-solid fa-gear m-3 "></i>
+                                <i className="fa-solid fa-user-doctor m-3"></i>
                                 </li>
                             </Link>
-                            <Link to="/documents" className="link-logo">
-                                <li className="documents">
-                                    <i className="fa-regular fa-folder-open m-3"></i>
-                                </li>
-                            </Link>
+                           
                         </ul>
 
                     </nav >
