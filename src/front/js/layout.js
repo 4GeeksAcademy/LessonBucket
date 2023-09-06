@@ -20,7 +20,7 @@ import { Sidebar } from "./component/sidebar/sidebar";
 import { Dashboard } from "./pages/dashboard"
 import { Classes } from "./pages/classes"
 import { Profile } from "./pages/Profile";
-import {JobsNearby} from "./pages/JobsNearby"
+import { JobsNearby } from "./pages/JobsNearby"
 
 
 //create your first component
@@ -31,32 +31,43 @@ const Layout = () => {
 
     if (!process.env.BACKEND_URL || process.env.BACKEND_URL == "") return <BackendURL />;
 
-    
+
 
     return (
         <div>
             <BrowserRouter basename={basename}>
                 <ScrollToTop>
-                    <Navbar />
-                    {/* <div > */}
-                    <Sidebar />
-                    <Routes>
-                        <Route element={<Home />} path="/" />
-                        <Route element={<Login />} path="/login" />
-                        <Route element={<RecoverPass />} path="/recoverPass" />
-                        <Route element={<Students />} path="/students" />
-                        <Route element={<Donations />} path="/donations" />
-                        <Route element={<LearnMore />} path="/demo" />
-                        <Route element={<Dashboard />} path="/dashboard" />
-                        <Route element={<Classes />} path="/classes" />
-                        <Route element={<SubjectsPage />} path="/subjects" />
-                        <Route element={<Single />} path="/single/:theid" />
-                        <Route element={<Profile />} path="/profile" />
-                        <Route element={<JobsNearby />} path="/jobsnearby" />
-                        <Route element={<h1>Not found!</h1>} />
-                    </Routes>
-                    {/* </div> */}
-                    <Footer />
+                <Navbar />
+                    <div class="container-fluid p-0">
+                        <div class="row">
+                            <div className="col-2 p-0">
+                            <Sidebar />                               
+                            </div>
+                       
+                            <div className="col-10 p-0">  
+                            
+                        <div className="min-vh-100 pt-4">
+                            <Routes>
+                                <Route element={<Home />} path="/" />
+                                <Route element={<Login />} path="/login" />
+                                <Route element={<RecoverPass />} path="/recoverPass" />
+                                <Route element={<Students />} path="/students" />
+                                <Route element={<Donations />} path="/donations" />
+                                <Route element={<LearnMore />} path="/demo" />
+                                <Route element={<Dashboard />} path="/dashboard" />
+                                <Route element={<Classes />} path="/classes" />
+                                <Route element={<SubjectsPage />} path="/subjects" />
+                                <Route element={<Single />} path="/single/:theid" />
+                                <Route element={<Profile />} path="/profile" />
+                                <Route element={<JobsNearby />} path="/jobsnearby" />
+                                <Route element={<h1>Not found!</h1>} />
+                            </Routes>
+                        </div>
+                                                    
+                            </div>
+                         </div>
+                    </div>
+                    <Footer /> 
                 </ScrollToTop>
             </BrowserRouter>
         </div>
