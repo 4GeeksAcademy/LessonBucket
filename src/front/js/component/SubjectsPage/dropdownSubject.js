@@ -5,6 +5,7 @@ import { Context } from "../../store/appContext.js";
 import { StudentPerSubject } from "./studentPerSubject";
 import PropTypes from "prop-types";
 import { Modal, Button, Form } from "react-bootstrap";
+import { StudentList } from "./studentList";
 
 
 
@@ -20,7 +21,11 @@ export const DropdownSubject = (props) => {
     const handleModifyClose = () => { setShowModify(false) }
     const HandleConfirmationModal = () => { setShow(true)}
     const handleConfirmationClose = () => { setShow(false) }
+    const handleAddStudentClose = () => { setShowAddStudent(false) }
+    const [showAddStudent, setShowAddStudent] = useState(false)
     const UserID = store.user.id
+    const [loaded, setLoaded] = useState("loadedEmpty")
+    
 
     const onConfirmationAccept = () => {
         actions.deleteSubject(props.id)
@@ -33,8 +38,13 @@ export const DropdownSubject = (props) => {
         actions.modifyOneSubject(props.id, Subject);
         handleModifyClose();
     }
+    const HandleAddStudentModal = () => { 
+        setShowAddStudent(true);
+        console.log("hola")
+    }
         useEffect(() => {
             actions.getAllStudents()
+            setLoaded("fullLoaded")
             }, [store.token]);
 
     return (
@@ -50,6 +60,7 @@ export const DropdownSubject = (props) => {
                     <div className="accordion-body">
                         <div className="row row-cols-auto">
                     <button type="button" className="btn btn-outline-info col me-1" onClick={() => {HandleModifyModal()}}>Modify the subject</button>
+                    <button type="button" class="btn btn-secondary me-2" onClick={()=>{HandleAddStudentModal()}}>Add a student</button>
                     <button type="button" className="btn btn-outline-danger col" onClick={() => {HandleConfirmationModal()}}>Delete the subject</button>
                     </div>
                     <hr/>
@@ -98,8 +109,8 @@ export const DropdownSubject = (props) => {
                         </Button>
                     </Form>
                 </Modal.Body>
-            </Modal>
-
+             </Modal>
+            {/* MODAL DE CONFIRMACION DE ELIMINAR MATERIA */}
             <Modal className="modal" show={show} onHide={handleConfirmationClose} id="modalConfirmDelete">
                 <Modal.Header closeButton>
                     <Modal.Title>Delete the subject</Modal.Title>
@@ -111,6 +122,42 @@ export const DropdownSubject = (props) => {
                     <button type="button" class="btn btn-danger" onClick={()=>{handleModifyClose()}}>No!</button>
                 </Modal.Body>
             </Modal>
+{/* MODAL DE ASIGNAR ESTUDIANTE A MATERIA */}
+            <Modal className="modal" show={showAddStudent} onHide={handleAddStudentClose} id="modalAddStudent">
+                <Modal.Header closeButton>
+                    <Modal.Title>Add a student</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                {students && students !== "" && students !== undefined ? (
+				<>
+                <div className="overflow-auto" id="StudentsBox" style={{ maxHeight: "300px", maxWidth: "100%" }}>
+                        {(
+                            students.map(student => (
+                                <div className="col md-auto" key={student.id}>
+                                    <StudentList
+                                        id={student.id}
+                                        name={student.name}
+                                        phone={student.phone}
+                                        email={student.email}
+                                        address={student.address}
+                                        goal={student.goal}
+                                        subject_id={props.id}
+                                    />
+                                </div>
+                            ))
+                        )}
+                    </div>
+                    </>) : (
+				<div className="text-center">
+					<h1>Cargando alumnos</h1>
+				</div>
+			)}
+                </Modal.Body>
+            </Modal>
+
+            
+
+            
         </div>
     );
 }

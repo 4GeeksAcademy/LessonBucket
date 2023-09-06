@@ -818,6 +818,43 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			},
+			addOneStudentToSubject: async (subject_id, student_id) => {
+
+				const user_id = getStore().user.id;
+				const token = getStore().token
+
+				const requestData = {
+					student_id: student_id
+				};
+				console.log(requestData)
+
+				try {
+
+					let response = await axios.patch(process.env.BACKEND_URL + `/api/user/${user_id}/subjects/${subject_id}`, requestData, {
+						headers: {
+							"Authorization": `Bearer ${token}`,
+						},
+					});
+
+
+					const modifySubject = response.data.results
+					if (response.status == 200) {
+						getActions().getAllSubjects();
+					}
+
+
+					setStore({
+						allSubjects: modifySubject
+					});
+
+					console.log(response.data)
+					return true;
+
+				} catch (error) {
+					console.error("An error occurred during subject modification", error);
+					return false;
+				}
+			},
 			// getAllStudentsPerSubject: async (subject_id) => {
 			// 	const user_id = getStore().user.id;
 			// 	const token = getStore().token
