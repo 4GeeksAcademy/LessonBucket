@@ -118,7 +118,7 @@ export const PrivateClass = (props) => {
             return
         } else {
             let response = await actions.updateSubjectClassInStore(props.privateClass.id, updatedClassInfo);
-            console.log(response)
+            
 
             if (response) {
 
