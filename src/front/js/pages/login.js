@@ -179,11 +179,11 @@ export const Login = () => {
             <input type="checkbox" id="chk" aria-hidden="true" />
             <div className="login">
                 <form className="form">
-                    <label htmlFor="chk" aria-hidden="true">Log in</label>
+                    <label htmlFor="chk" aria-hidden="true">Login</label>
                     <input className="input" autoFocus type="email" placeholder="Email" value={email} required="" onChange={(e) => setEmail(e.target.value)} />
                     <input className="input" type="password" placeholder="Password" value={password} required="" onChange={(e) => setPassword(e.target.value)} />
                     {loader && <Loader view="login" />}
-                    <button className="login-button" onClick={handleLogin}>Log in</button>
+                    <button className="login-button" onClick={handleLogin}>Login</button>
                     <a className="link-recoverPass" onClick={handleRecoverPassNavigate}>¿Has olvidado tu contraseña?</a>
                 </form>
             </div>

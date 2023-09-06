@@ -2,8 +2,14 @@
 @import "/src/front/js/component/footer/footer.scss";
 @import "/src/front/js/component/sidebar/sidebar.scss";
 @import "/src/front/js/component/loader/loader.scss";
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap');
 
 
+
+
+* {
+  font-family: 'Ubuntu', sans-serif;
+}
 
 html {
     height: 100%;
@@ -16,7 +22,7 @@ body {
     animation: gradientAnimation 10s ease infinite; /* EFECTO FONDO DE PANTALLA */
     height: 100%;
     margin: 0;
-    overflow-x: hidden;
+    overflow-x: hidden; 
 }
 
 /* EFECTO FONDO DE PANTALLA */
@@ -31,6 +37,7 @@ body {
       background-position: 0% 50%;
     }
   }
+
 
 
 .container {

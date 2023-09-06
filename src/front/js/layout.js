@@ -38,8 +38,8 @@ const Layout = () => {
             <BrowserRouter basename={basename}>
                 <ScrollToTop>
                 <Navbar />
-                    <div class="container-fluid p-0">
-                        <div class="row">
+                    <div className="container-fluid p-0">
+                        <div className="row">
                             <div className="col-2 p-0">
                             <Sidebar />                               
                             </div>

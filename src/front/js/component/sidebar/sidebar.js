@@ -37,38 +37,38 @@ export const Sidebar = () => {
                             <Link to="/dashboard" className="link-logo mb-4">
                                 <li className="pt-0 dashboard mx-auto">
                                     <i className="sideIcons fa-solid fa-table-cells-large me-2 my-auto "></i>
-                                    <a className="sideText">Dashboard</a>
+                                    <span className="sideText">Dashboard</span>
                                 </li>
                             </Link>
                             <Link to="/students" className="link-logo mb-4">
                                 <li className="students">
                                     <i className="sideIcons fa-solid fa-graduation-cap me-2 my-auto"></i>
-                                    <a className="sideText">Students</a>
+                                    <span className="sideText">Students</span>
                                 </li>
                             </Link>
                             <Link to="/subjects" className="link-logo mb-4">
                                 <li className="subjects">
                                     <i className="sideIcons fa-solid fa-book me-2 my-auto"></i>
-                                    <a className="sideText">Subjects</a>
+                                    <span className="sideText">Subjects</span>
                                 </li>
                             </Link>
                             <Link to="/classes" className="link-logo mb-4">
                                 <li className="classes">
                                     <i className="sideIcons fa-solid fa-person-chalkboard me-2 my-auto"></i>
-                                    <a className="sideText">Classes</a>
+                                    <span className="sideText">Classes</span>
                                 </li>
                             </Link>
                             <Link to="/profile" className="link-logo mb-4">
                                 <li className="sideProfile">
                                     <i className="sideIcons fa-solid fa-user me-2 my-auto"></i>
-                                    <a className="sideText">Profile</a>
+                                    <span className="sideText">Profile</span>
                                 </li>
                             </Link>
 
                             <Link to="/jobsnearby" className="link-logo ">
                                 <li className="jobsNearby">
                                 <i className="sideIcons fa-solid fa-user-doctor me-2 my-auto"></i>
-                                    <a className="sideText">Jobs Near</a>
+                                    <span className="sideText">Jobs Near</span>
                                 </li>
                             </Link>
                             

@@ -162,7 +162,7 @@ export const Students = () => {
   return (
     <div className="student-main-container">
       <div className="student-navbar">
-        <h5 className="student-headboard">Alumnos <FontAwesomeIcon className="add-icon" icon={faPlus} onClick={() => setShow(!show)} /></h5>
+        <h5 className="student-headboard d-flex gap-2"> Alumnos <FontAwesomeIcon className="add-icon" icon={faPlus} onClick={() => setShow(!show)} /></h5>
 
         {/* INICIO DEL MODAL */}
 
@@ -204,7 +204,7 @@ export const Students = () => {
         )}
         <input
           className="student-search-input"
-          placeholder="    Search..."
+          placeholder="Search..."
           required=""
           value={searchStudent}
           onChange={(e) => handleInputChange(e)}
@@ -218,7 +218,7 @@ export const Students = () => {
         
         {/* FIN FUNCIÓN SEARCH  */}
 
-        <button className="student-button" onClick={() => { actions.getAllStudents(); setSearchResults([]) }}>Refresh</button>
+        <button className="student-button-refresh px-4 py-1" onClick={() => { actions.getAllStudents(); setSearchResults([]) }}>Refresh</button>
       </div>
       {store.allStudents && store.allStudents.length > 0 ? (
         <>
@@ -244,7 +244,6 @@ export const Students = () => {
           {store.logged ? (
             <div>
               <h1 className="loading-screen">The student list is empty. Please include your students in the + icon to get started.</h1>
-              <button className="student-button-refresh student-button-refresh-loadding-screen " onClick={() => actions.getAllStudents()}>Refresh</button>
             </div>
           ) : (
             <div className="recover-login">
@@ -280,7 +279,7 @@ export const Students = () => {
 
           )}
         </div>
-      )};
+      )}
     </div>
   )
 };
