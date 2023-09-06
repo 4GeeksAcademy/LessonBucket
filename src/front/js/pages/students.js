@@ -3,8 +3,6 @@ import { Context } from "../store/appContext";
 import { useNavigate } from 'react-router-dom';
 import { StudentCard } from "../component/studentCard/studentCard"
 import { Loader } from "../component/loader/loader";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Modal } from "react-bootstrap";
 import swal from 'sweetalert'
 import "../../styles/students.css"
@@ -34,7 +32,7 @@ export const Students = () => {
     setLoaded("fullLoaded")
   }, [store.token]);
 
- 
+
 
 
   // FUNCIÓN PARA MANEJAR EL INPUT DEL SEARCH
@@ -45,18 +43,18 @@ export const Students = () => {
     setSearchStudent(inputValue)
   }
 
-  
+
   // FUNCIÓN PARA MANEJAR EL INPUT DE BUSQUEDA
 
   const handleEnterKeyPress = (e) => {
     e.preventDefault();
-    const searchStudentUpperCase = searchStudent.toUpperCase(); 
+    const searchStudentUpperCase = searchStudent.toUpperCase();
     const filteredStudents = students.filter(student => {
       return student.name.toUpperCase().includes(searchStudentUpperCase);
     });
-  
 
-    if (filteredStudents.length > 0) { 
+
+    if (filteredStudents.length > 0) {
       setSearchResults(filteredStudents)
       setSearchStudent("");
     } else {
@@ -149,12 +147,12 @@ export const Students = () => {
   }
 
   const resetReturnData = () => {
-      setShow(false)
-      setName("");
-      setEmail("");
-      setAddress("");
-      setPhone("");
-      setGoal("");
+    setShow(false)
+    setName("");
+    setEmail("");
+    setAddress("");
+    setPhone("");
+    setGoal("");
   }
 
   // SE RENDERIZAN TARJETAS Y SE INCLUYE MODAL
@@ -162,7 +160,12 @@ export const Students = () => {
   return (
     <div className="student-main-container">
       <div className="student-navbar">
-        <h5 className="student-headboard d-flex gap-2"> Alumnos <FontAwesomeIcon className="add-icon" icon={faPlus} onClick={() => setShow(!show)} /></h5>
+        <h5 className="student-headboard d-flex gap-2"> Alumnos
+          <button className="add-button-student" onClick={() => setShow(!show)}>
+            +
+          </button>
+
+        </h5>
 
         {/* INICIO DEL MODAL */}
 
@@ -215,7 +218,7 @@ export const Students = () => {
           }}
 
         />
-        
+
         {/* FIN FUNCIÓN SEARCH  */}
 
         <button className="student-button-refresh px-4 py-1" onClick={() => { actions.getAllStudents(); setSearchResults([]) }}>Refresh</button>
