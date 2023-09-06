@@ -253,7 +253,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						},
 					});
 
-					
+
 
 					console.log(response.data)
 					return true;
@@ -502,7 +502,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}
 					});
 
-					
+
 					setStore({
 						classes: response.data.results
 					});
@@ -553,7 +553,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 						price: parseFloat(newClassInfo.price),
 						paid: newClassInfo.paid
 					};
-
+					console.log('newSubjectClass');
+					console.log(newSubjectClass);
 					const response = await axios.post(`${process.env.BACKEND_URL}/api/user/${user_id}/class`, newSubjectClass, {
 						headers: {
 							"Authorization": `Bearer ${token}`,
@@ -564,12 +565,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					if (response.status === 200) {
 
-						const createClass = [...getStore().classes, response.data.student];
+						const modifyClass = [...getStore().classes, response.data.student];
+
+						console.log(response);
+						console.log(modifyClass);
+
 
 						setStore({
-							classes: createClass
+							classes: modifyClass,
 						});
-
 						sessionStorage.setItem("classes", response.data.student);
 
 
@@ -607,12 +611,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}
 					);
 
-						
-					const modifyClass = [...getStore().classes, response.data];
+					console.log(response.data);
+					const modifyClass = [...getStore().classes, response.data.user];
 
 					console.log(response);
 					console.log(modifyClass);
-					
+
 
 					setStore({
 						classes: modifyClass,

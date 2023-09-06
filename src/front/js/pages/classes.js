@@ -5,6 +5,8 @@ import { Context } from "../store/appContext";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import Dropdown from "react-bootstrap/Dropdown";
+
 
 
 export const Classes = () => {
@@ -12,6 +14,7 @@ export const Classes = () => {
     const [showModal, setShowModal] = useState(false);
     const [loaded, setLoaded] = useState("loadedEmpty")
     const [classes, setClasses] = useState([])
+    const [selectedFilter, setSelectedFilter] = useState("");
     const Subjects = store.allSubjects || []
     const Students = store.allStudents || []
 
@@ -20,8 +23,8 @@ export const Classes = () => {
 
     useEffect(() => {
         actions.fetchClasses()
-        actions.getAllSubjects()
-        actions.getAllStudents()
+		actions.getAllSubjects();
+		actions.getAllStudents();
         setLoaded("fullLoaded")
     }, [store.token]);
 
@@ -44,8 +47,20 @@ export const Classes = () => {
     });
 
 
-    // FUNCION PARA MANEJAR CAMBIOS DEL INPUT
+    let sortedClasses;
 
+    if (store.classes) {
+        sortedClasses = store.classes.sort((a, b) =>
+            a.date.split('/').reverse().join().localeCompare(b.date.split('/').reverse().join())
+        );
+    }
+
+    sortedClasses = store.classes.filter(subjectClass => {
+        if (!selectedFilter) {
+            return true;
+        }
+        return subjectClass.subjects.Subject === selectedFilter;
+    });
     const handleInputChange = event => {
         const { name, value, type, checked } = event.target;
         setNewClassInfo(prevInfo => ({
@@ -73,9 +88,9 @@ export const Classes = () => {
             <div className="row">
                 <div className="col">
                     <div className="d-flex flex-nowrap overflow-auto">
-                        {store.classes.slice(0, 3).map((privateClass, index) => (
+                        {sortedClasses.slice(0, 3).map((privateClass, index) => (
                             <div key={index}>
-                                {(store.classes && store.classes.length > 0) && <PrivateClass privateClass={privateClass} />}         
+                                {(sortedClasses && sortedClasses.length > 0) && <PrivateClass privateClass={privateClass} />}         
                             </div>
                         ))}
                     </div>
@@ -87,7 +102,22 @@ export const Classes = () => {
             <div className="separator">
                 <div className="d-flex">
                     <div>Todas las Clases</div>
-
+                    <Dropdown style={{ marginLeft: "1rem", backgroundColor: "linear-gradient(271deg, #801480 0%, #0C2FA8 100%);" }}>
+                        <Dropdown.Toggle variant="success" id="dropdown-basic">
+                            <img src="https://d5xydlzdo08s0.cloudfront.net/images/io/filter_icon_big.png" width={"15px"} alt="Filter" />
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                            {loaded === "fullLoaded" && store.allSubjects && store.allSubjects.map((subject, index) => (
+                                <Dropdown.Item
+                                    key={index}
+                                    as="button"
+                                    onClick={() => setSelectedFilter(subject.Subject)}
+                                >
+                                    {subject.Subject}
+                                </Dropdown.Item>
+                            ))}
+                        </Dropdown.Menu>
+                    </Dropdown>
                     <div>
                         <button className="add-button" onClick={handleShow}>
                             +
@@ -101,7 +131,7 @@ export const Classes = () => {
             <div className="row">
                 <div className="col">
                     <div className="d-flex flex-nowrap overflow-auto">
-                        {store.classes && store.classes.map((privateClass, index) => (
+                        {sortedClasses && sortedClasses.map((privateClass, index) => (
                             <div key={index}>
                                 <PrivateClass privateClass={privateClass} />
                             </div>
