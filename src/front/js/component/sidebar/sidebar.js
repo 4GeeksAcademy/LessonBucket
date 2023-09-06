@@ -68,18 +68,13 @@ export const Sidebar = () => {
                                 </li>
                             </Link>
 
-                            <Link to="/settings" className="link-logo">
-                                <li className="settings">
-                                    <i className="fa-solid fa-gear m-3 "></i>
-                                    <a className="">Settings</a>
+                            <Link to="/jobsnearby" className="link-logo">
+                                <li className="jobsNearby">
+                                <i className="fa-solid fa-user-doctor m-3"></i>
+                                    <a className="">Jobs Near</a>
                                 </li>
                             </Link>
-                            <Link to="/documents" className="link-logo">
-                                <li className="documents">
-                                    <i className="fa-regular fa-folder-open m-3"></i>
-                                    <a className="">Documents</a>
-                                </li>
-                            </Link>
+                           
                         </ul>
 
                     </nav >
@@ -128,16 +123,12 @@ export const Sidebar = () => {
                                     <i className="fa-solid fa-user m-3"></i>
                                 </li>
                             </Link>
-                            <Link to="/settings" className="link-logo">
-                                <li className="settings">
-                                    <i className="fa-solid fa-gear m-3 "></i>
+                            <Link to="/jobsnearby" className="link-logo">
+                                <li className="jobsNearby">
+                                <i className="fa-solid fa-user-doctor m-3"></i>
                                 </li>
                             </Link>
-                            <Link to="/documents" className="link-logo">
-                                <li className="documents">
-                                    <i className="fa-regular fa-folder-open m-3"></i>
-                                </li>
-                            </Link>
+                           
                         </ul>
 
                     </nav >
