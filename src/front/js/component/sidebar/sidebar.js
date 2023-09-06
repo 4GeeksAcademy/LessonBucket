@@ -79,7 +79,7 @@ export const Sidebar = () => {
                                     <i className="fa-regular fa-folder-open m-3"></i>
                                     <a className="">Documents</a>
                                 </li>
-                            </Link> */}
+                            </Link>
                         </ul>
 
                     </nav >
