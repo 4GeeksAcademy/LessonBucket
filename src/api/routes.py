@@ -711,29 +711,27 @@ def get_one_class(user_id, class_id):
 @api.route("/user/<int:user_id>/class", methods=["POST"])
 def create_one_class(user_id):
 
-    request_body = request.get_json(force=True)
-
-    required_fields = ["subjects_id", "student_id", "date", "price", "paid"]
+    request_body = request.get_json(force=True)		
+    
+						
+    required_fields = ["subjects_id", "student_id","comments", "date","hour", "price",]
     for field in required_fields:
         if field not in request_body or not request_body[field]:
             raise APIException(f'The "{field}" field cannot be empty', 400)
 
-    newClass = Class(subjects_id=request_body["subjects_id"], student_id=request_body["student_id"], comments_id=request_body["comments_id"],
-                date=request_body["date"], price=request_body["price"], paid=request_body["paid"], user_id=user_id)
-    print(request_body, user_id)
+    newClass = Class(subjects_id=request_body["subjects_id"], student_id=request_body["student_id"], hour=request_body["hour"], comments=request_body["comments"],
+                date=request_body["date"], price=request_body["price"], paid=request_body["paid"], user_id=user_id ,)
+
     db.session.add(newClass)
-    print (newClass)
 
-    # try:
     db.session.commit()
-    # except:
-    #     raise APIException('Internal error', 500)
-
+    
     response_body = {
         "msg": "Class created",
         "student": newClass.serialize()
     }
 
+    print(response_body)
     return jsonify(response_body), 200
 
  # ENDPOINT MODIFY A CLASS
@@ -746,21 +744,25 @@ def modify_class(user_id, class_id):
 
     if not newClass:
         raise APIException('Class not found', 404)
+    
+    if newClass.user_id != user_id:
+            raise APIException('Class does not belong to the specified user', 400)
 
-    required_fields = ["subjects_id", "student_id", "comments_id", "date", "price"]
+    required_fields = ["subjects_id", "student_id", "comments", "date", "hour", "price",]
     for field in required_fields:
         if field not in body or not body[field]:
             raise APIException(f'The "{field}" field cannot be empty', 400)
 
     newClass.subjects_id = body["subjects_id"]
     newClass.student_id = body["student_id"]
-    newClass.comments_id = body["comments_id"]
+    newClass.comments = body["comments"]
     newClass.date = body["date"]
     newClass.price = body["price"]
     newClass.paid = body["paid"]
 
     try:
         db.session.commit()
+
     except:
         raise APIException('Internal error', 500)
 
@@ -771,12 +773,12 @@ def modify_class(user_id, class_id):
     return jsonify(response_body), 200
 
 
-# ENDPOINT DELETE COMMENT
+# ENDPOINT DELETE CLASS
 
 @api.route('/user/<int:user_id>/class/<int:class_id>', methods=['DELETE'])
 def del_class(user_id, class_id):
 
-    class_query = Class.query.filter_by(id=class_id).first()
+    class_query = Class.query.filter_by(id=class_id, user_id=user_id).first()
 
     if not class_query:
         raise APIException('Class not found', 404)
