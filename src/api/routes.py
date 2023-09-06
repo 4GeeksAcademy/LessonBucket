@@ -10,6 +10,7 @@ from flask_jwt_extended import jwt_required
 import random
 import string
 from flask_mail import Message
+import datetime
 
 api = Blueprint('api', __name__)
 
@@ -200,7 +201,8 @@ def login():
     if not user:
         return jsonify("Credenciales incorrectas"), 401
 
-    access_token = create_access_token(identity=email)
+    access_token = create_access_token(identity=email, expires_delta=datetime.timedelta(hours=6))
+    # print(access_token)
 
     response_body = {
         "msg": "logged",

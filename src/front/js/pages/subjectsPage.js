@@ -20,7 +20,7 @@ export const SubjectsPage = props => {
 
 	
 	return (
-		<div className="min-vh-100">
+		<div className="min-vh-100" style={{marginLeft:'200'}}>
 			<CreateSubject />
 			{store.allSubjects && store.allSubjects !== "" && store.allSubjects !== undefined ? (
 				<>
@@ -33,6 +33,7 @@ export const SubjectsPage = props => {
 										subject={subject.Subject}
 										id={subject.id}
 										key={subject.id}
+										students={subject.students}
 									/>
 								</div>
 
@@ -43,7 +44,7 @@ export const SubjectsPage = props => {
 				</>
 			) : (
 				<div className="text-center">
-					<h1>Usuario no regitrado, por favor, pulse el botón para volver a login.</h1>
+					<h1>Usuario no logueado, por favor, pulse el botón para volver a login.</h1>
 					<button
 						className="recover-button-return"
 						type="button"

@@ -30,7 +30,7 @@ export const Navbar = () => {
 	
 
 	return (
-		<nav className="navtop d-flex align-items-center my-4">
+		<nav className="navtop d-flex align-items-center">
 			<div className="container-fluid d-flex flex-row justify-content-between align-items-center mx-4 ">
 				<div>
 				<Link to="/" className="link-logo">
@@ -48,8 +48,8 @@ export const Navbar = () => {
 					<Link to="/About Us">
 						<p className="nav-links mx-4 nav-p">About us</p>
 					</Link>
-					<Link to="/Pricing">
-						<p className="nav-links mx-4 nav-p">Pricing</p>
+					<Link to="/donations">
+						<p className="nav-links mx-4 nav-p">Donate</p>
 					</Link>
 				</div>
 			</div>

@@ -9,6 +9,7 @@ import { Login } from "./pages/login";
 import { RecoverPass } from "./pages/recoverPass";
 import { Students } from "./pages/students";
 import { LearnMore } from "./pages/LearnMore";
+import { Donations } from "./pages/donations";
 import { Single } from "./pages/single";
 import { SubjectsPage } from "./pages/subjectsPage";
 import injectContext from "./store/appContext";
@@ -37,13 +38,14 @@ const Layout = () => {
             <BrowserRouter basename={basename}>
                 <ScrollToTop>
                     <Navbar />
-                    {/* <div className="wrapper"> */}
+                    {/* <div > */}
                     <Sidebar />
                     <Routes>
                         <Route element={<Home />} path="/" />
                         <Route element={<Login />} path="/login" />
                         <Route element={<RecoverPass />} path="/recoverPass" />
                         <Route element={<Students />} path="/students" />
+                        <Route element={<Donations />} path="/donations" />
                         <Route element={<LearnMore />} path="/demo" />
                         <Route element={<Dashboard />} path="/dashboard" />
                         <Route element={<Classes />} path="/classes" />

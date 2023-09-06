@@ -16,6 +16,33 @@ export const CreateSubject = () => {
     const handleModal = () => { setShow(true), console.log("hola") }
     const handleClose = () => { setShow(false) }
     const UserID = store.user.id
+    let studentLength = null
+
+    const [checkedState, setCheckedState] = useState(
+        new Array(studentLength).fill(false)
+      );
+
+      const handleOnChange = (position) => {
+        const updatedCheckedState = checkedState.map((item, index) =>
+          index === position ? !item : item
+        );
+    
+        setCheckedState(updatedCheckedState);
+    
+        // const totalPrice = updatedCheckedState.reduce(
+        //   (sum, currentState, index) => {
+        //     if (currentState === true) {
+        //       return sum + toppings[index].price;
+        //     }
+        //     return sum;
+        //   },
+        //   0
+        // );
+    
+        // setTotal(totalPrice);
+      };
+      console.log(checkedState);
+      console.log(store.allStudents.length);
 
     const onSubjectFormSubmit = (e) => {
 
@@ -24,6 +51,11 @@ export const CreateSubject = () => {
         handleClose();
 
     };
+    useEffect(() => {
+        studentLength = store.allStudents.length
+    }, [store.allStudents]);
+
+    
     return (
         <div>
             <div className="container subjectsHeader">
@@ -59,7 +91,7 @@ export const CreateSubject = () => {
                     <p>You can choose students from your list to add to this subject!</p>
                     <div class="overflow-auto" id="StudentsBox" style={{ maxHeight: "300px", maxWidth: "100%" }}>
                         {(
-                            store.allStudents.map(student => (
+                            store.allStudents.map((student, index) => (
                                 <div className="col md-auto" key={student.id}>
                                     <StudentList
                                         id={student.id}
@@ -68,6 +100,10 @@ export const CreateSubject = () => {
                                         email={student.email}
                                         address={student.address}
                                         goal={student.goal}
+                                        lengthStudents={store.allStudents.length}
+                                        index={index}
+                                        checkedState={checkedState}
+                                        handleOnChange={handleOnChange}
                                     />
                                 </div>
                             ))

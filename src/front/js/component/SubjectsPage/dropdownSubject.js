@@ -12,7 +12,7 @@ export const DropdownSubject = (props) => {
 
     const { store, actions } = useContext(Context);
     const students = store.allStudents;
-    const accordionID = `#${props.subject}`
+    const accordionID = `#${props.subject.replace(/\s+/g, '')}`
     const [show, setShow] = useState(false)
     const [showModify, setShowModify] = useState(false)
     const [Subject, setSubject] = useState("")
@@ -46,7 +46,7 @@ export const DropdownSubject = (props) => {
                         
                     </button>
                 </h2>
-                <div id={props.subject} className="accordion-collapse collapse" data-bs-parent="#accordionSubjects">
+                <div id={props.subject.replace(/\s+/g, '')} className="accordion-collapse collapse" data-bs-parent="#accordionSubjects">
                     <div className="accordion-body">
                         <div className="row row-cols-auto">
                     <button type="button" className="btn btn-outline-info col me-1" onClick={() => {HandleModifyModal()}}>Modify the subject</button>
@@ -54,7 +54,7 @@ export const DropdownSubject = (props) => {
                     </div>
                     <hr/>
                         {(
-                            students.map(student => (
+                            props.students.map(student => (
                                 <div className="col md-auto" key={student.id}>
                                     <StudentPerSubject
                                         id={student.id}
