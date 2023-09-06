@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./subjects.css";
 import { Context } from "../../store/appContext.js";
 import { Modal, Button, Form } from "react-bootstrap";
-import { StudentList } from "./studentList";
+
 
 
 
@@ -55,24 +55,6 @@ export const ModifySubject = () => {
                             Create
                         </Button>
                     </Form>
-                    <h1>Students</h1>
-                    <p>You can choose students from your list to add to this subject!</p>
-                    <div class="overflow-auto" id="StudentsBox" style={{ maxHeight: "300px", maxWidth: "100%" }}>
-                        {(
-                            store.allStudents.map(student => (
-                                <div className="col md-auto" key={student.id}>
-                                    <StudentList
-                                        id={student.id}
-                                        name={student.name}
-                                        phone={student.phone}
-                                        email={student.email}
-                                        address={student.address}
-                                        goal={student.goal}
-                                    />
-                                </div>
-                            ))
-                        )}
-                    </div>
                 </Modal.Body>
             </Modal>
         </div >

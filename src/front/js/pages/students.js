@@ -148,6 +148,15 @@ export const Students = () => {
     };
   }
 
+  const resetReturnData = () => {
+      setShow(false)
+      setName("");
+      setEmail("");
+      setAddress("");
+      setPhone("");
+      setGoal("");
+  }
+
   // SE RENDERIZAN TARJETAS Y SE INCLUYE MODAL
 
   return (
@@ -183,7 +192,7 @@ export const Students = () => {
               </div>
               <div className="student-modal-button-container" >
                 <button type="button" className="student-modal-button student-modal-button-create" onClick={handleCreateStudent}>Create new student</button>
-                <button type="button" className="student-modal-button student-modal-button-return" onClick={() => { setShow(false) }}>return</button>
+                <button type="button" className="student-modal-button student-modal-button-return" onClick={() => { resetReturnData() }}>return</button>
               </div>
             </form>
           </Modal>

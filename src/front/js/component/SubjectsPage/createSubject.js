@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./subjects.css";
 import { Context } from "../../store/appContext.js";
 import { Modal, Button, Form } from "react-bootstrap";
-import { StudentList } from "./studentList";
+
 
 
 
@@ -16,18 +16,18 @@ export const CreateSubject = () => {
     const handleModal = () => { setShow(true), console.log("hola") }
     const handleClose = () => { setShow(false) }
     const UserID = store.user.id
-    let studentLength = null
+    // let studentLength = null
 
-    const [checkedState, setCheckedState] = useState(
-        new Array(studentLength).fill(false)
-      );
+    // const [checkedState, setCheckedState] = useState(
+    //     new Array(studentLength).fill(false)
+    //   );
 
-      const handleOnChange = (position) => {
-        const updatedCheckedState = checkedState.map((item, index) =>
-          index === position ? !item : item
-        );
+    //   const handleOnChange = (position) => {
+    //     const updatedCheckedState = checkedState.map((item, index) =>
+    //       index === position ? !item : item
+    //     );
     
-        setCheckedState(updatedCheckedState);
+    //     setCheckedState(updatedCheckedState);
     
         // const totalPrice = updatedCheckedState.reduce(
         //   (sum, currentState, index) => {
@@ -40,9 +40,9 @@ export const CreateSubject = () => {
         // );
     
         // setTotal(totalPrice);
-      };
-      console.log(checkedState);
-      console.log(store.allStudents.length);
+    //   };
+    //   console.log(checkedState);
+    //   console.log(store.allStudents.length);
 
     const onSubjectFormSubmit = (e) => {
 
@@ -51,9 +51,7 @@ export const CreateSubject = () => {
         handleClose();
 
     };
-    useEffect(() => {
-        studentLength = store.allStudents.length
-    }, [store.allStudents]);
+    
 
     
     return (
@@ -87,28 +85,6 @@ export const CreateSubject = () => {
                             Create
                         </Button>
                     </Form>
-                    <h1>Students</h1>
-                    <p>You can choose students from your list to add to this subject!</p>
-                    <div class="overflow-auto" id="StudentsBox" style={{ maxHeight: "300px", maxWidth: "100%" }}>
-                        {(
-                            store.allStudents.map((student, index) => (
-                                <div className="col md-auto" key={student.id}>
-                                    <StudentList
-                                        id={student.id}
-                                        name={student.name}
-                                        phone={student.phone}
-                                        email={student.email}
-                                        address={student.address}
-                                        goal={student.goal}
-                                        lengthStudents={store.allStudents.length}
-                                        index={index}
-                                        checkedState={checkedState}
-                                        handleOnChange={handleOnChange}
-                                    />
-                                </div>
-                            ))
-                        )}
-                    </div>
                 </Modal.Body>
             </Modal>
         </div >
