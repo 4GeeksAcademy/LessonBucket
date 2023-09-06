@@ -256,10 +256,10 @@ export const PrivateClass = (props) => {
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={closeModal}>
+                    <Button  onClick={closeModal}>
                         Cancelar
                     </Button>
-                    <Button variant="primary" onClick={handleUpdateClass}>
+                    <Button  onClick={handleUpdateClass}>
                         Guardar Cambios
                     </Button>
                     <button className="modal-delete-icon">

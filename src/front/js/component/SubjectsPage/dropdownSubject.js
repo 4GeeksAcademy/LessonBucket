@@ -104,7 +104,7 @@ export const DropdownSubject = (props) => {
 
                             </div>
                         </Form.Group>
-                        <Button className="mt-3" variant="primary" onSubmit={onSubjectFormSubmit} type="submit" block>
+                        <Button className="mt-3"  onSubmit={onSubjectFormSubmit} type="submit" block>
                             Create
                         </Button>
                     </Form>

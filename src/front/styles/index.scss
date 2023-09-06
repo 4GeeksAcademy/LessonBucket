@@ -14,31 +14,13 @@
 html {
     height: 100%;
 }
-    /* EFECTO FONDO DE PANTALLA */
+    
 body {
     background-color: #282833;
-    background: linear-gradient(45deg, rgba(7, 5, 25, 0.8), rgba(104, 9, 104, 0.8)); /* EFECTO FONDO DE PANTALLA */
-    background-size: 200% 200%; /* EFECTO FONDO DE PANTALLA */
-    animation: gradientAnimation 10s ease infinite; /* EFECTO FONDO DE PANTALLA */
     height: 100%;
     margin: 0;
     overflow-x: hidden; 
 }
-
-/* EFECTO FONDO DE PANTALLA */
-@keyframes gradientAnimation {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
-  }
-
-
 
 .container {
     margin: 0 206.77px;

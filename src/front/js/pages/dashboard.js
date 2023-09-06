@@ -68,7 +68,7 @@ export const Dashboard = () => {
 				
 				<div className="main-calendar">
 					{/* <CalendarAux email={idCalendar} /> */}
-					<iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%23B39DDB&ctz=UTC&showTabs=0&showPrint=0&showTitle=1&showNav=1&showDate=1&showCalendars=0&showTz=0&src=ODEyYzRhZTEzMjdmMWZiNGE0YWU3MTViZGIwMWYxZDc4YWI2YzIyNTRkNjdiN2UwYjUyYjBlZjc5MGRiODI3ZUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23D50000" style={{border: "0"}} width="350" height="400" frameborder="0" ></iframe>
+					<iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%23B39DDB&ctz=UTC&showTabs=0&showPrint=0&showTitle=1&showNav=1&showDate=1&showCalendars=0&showTz=0&src=ODEyYzRhZTEzMjdmMWZiNGE0YWU3MTViZGIwMWYxZDc4YWI2YzIyNTRkNjdiN2UwYjUyYjBlZjc5MGRiODI3ZUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23D50000" style={{border: "0"}} width="550" height="400" frameborder="0" ></iframe>
 				</div>
 			</div>
 		</div>

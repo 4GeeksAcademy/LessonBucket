@@ -103,8 +103,8 @@ export const Classes = () => {
             <div className="separator">
                 <div className="d-flex">
                     <div>Todas las Clases</div>
-                    <Dropdown style={{ marginLeft: "1rem", backgroundColor: "linear-gradient(271deg, #801480 0%, #0C2FA8 100%);" }}>
-                        <Dropdown.Toggle variant="success" id="dropdown-basic">
+                    <Dropdown style={{ marginLeft: "1rem"}}>
+                        <Dropdown.Toggle className="btn-addClasses" id="dropdown-basic">
                             <img src="https://d5xydlzdo08s0.cloudfront.net/images/io/filter_icon_big.png" width={"15px"} alt="Filter" />
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
@@ -240,10 +240,10 @@ export const Classes = () => {
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
+                    <Button  onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={() => actions.createSubjectClass(newClassInfo, handleClose)}>
+                    <Button  onClick={() => actions.createSubjectClass(newClassInfo, handleClose)}>
                         Create a new Class
                     </Button>
                 </Modal.Footer>
