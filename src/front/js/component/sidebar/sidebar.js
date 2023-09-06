@@ -21,7 +21,7 @@ export const Sidebar = () => {
 
 
 
-    if (store.logged === false || (useLocation().pathname === "/")) return null
+    if (store.logged === false || (store.token === "")) return null
 
     else {
 

@@ -273,9 +273,12 @@ export const Profile = () => {
    
 
     // LOGIN OUTPUT
-  
 
-    return (
+    
+    
+    if (store.token != ""){
+        
+        return (
 
         <>  
         
@@ -312,7 +315,11 @@ export const Profile = () => {
 
 
         </>
-    )
+    )}
+
+    else { return (<p className="text-white text-center">Please login to see your profile</p>)}
+
+    
 
 
 
