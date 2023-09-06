@@ -43,7 +43,7 @@ export const Dashboard = () => {
 
 
 
-	const idCalendar = "bdb86c31dd1521191e7d1a472d3e5bf9cf0e5d6fc30f63eabf3630227d053506@group.calendar.google.com";
+	const idCalendar = "812c4ae1327f1fb4a4ae715bdb01f1d78ab6c2254d67b7e0b52b0ef790db827e@group.calendar.google.com";
 
 	return (
 		<div className="dashboard-wrapper">
@@ -60,16 +60,15 @@ export const Dashboard = () => {
 				</div>
 			</div>
 
-			<div className="separator"></div>
-			<div className="row justify-content-start">
+			
+			<div className="d-flex justify-content gap-3">
 				<div className="main-pagos col-md-4 mb-2 overflow-auto">
-
 					<PagosPendientes />
 				</div>
-				<div className="col-md-1 mb-1">
-				</div>
-				<div className="main-pagos col-md-7 mb-5">
-					<CalendarAux email={idCalendar} />
+				
+				<div className="main-calendar">
+					{/* <CalendarAux email={idCalendar} /> */}
+					<iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%23B39DDB&ctz=UTC&showTabs=0&showPrint=0&showTitle=1&showNav=1&showDate=1&showCalendars=0&showTz=0&src=ODEyYzRhZTEzMjdmMWZiNGE0YWU3MTViZGIwMWYxZDc4YWI2YzIyNTRkNjdiN2UwYjUyYjBlZjc5MGRiODI3ZUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23D50000" style={{border: "0"}} width="350" height="400" frameborder="0" ></iframe>
 				</div>
 			</div>
 		</div>

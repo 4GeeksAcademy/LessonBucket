@@ -14,7 +14,7 @@ export const CalendarAux = (props) => {
 	];
 	let styles = {
 		calendar: {
-			borderWidth: "1px",
+			borderWidth: "5px",
 			borderColor: "white",
 			borderRadius: "20px",
 			color: "white"

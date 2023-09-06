@@ -222,7 +222,7 @@ export const Students = () => {
       </div>
       {store.allStudents && store.allStudents.length > 0 ? (
         <>
-          <div className="row d-flex flex-wrap justify-content-start gap-3">
+          <div className="row d-flex flex-wrap justify-content-start gap-0">
             {loaded === "fullLoaded" && (
               (searchResult.length > 0 ? searchResult : students).map(student => (
                 <div className="col-3" key={student.id}>
