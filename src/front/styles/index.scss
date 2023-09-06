@@ -5,34 +5,51 @@
 
 
 
-html{
-    height:100%;
+html {
+    height: 100%;
 }
-
-body{
-    background-color: #282833 ;
-    height:100%;
-    margin:0;
+    /* EFECTO FONDO DE PANTALLA */
+body {
+    background-color: #282833;
+    background: linear-gradient(45deg, rgba(7, 5, 25, 0.8), rgba(104, 9, 104, 0.8)); /* EFECTO FONDO DE PANTALLA */
+    background-size: 200% 200%; /* EFECTO FONDO DE PANTALLA */
+    animation: gradientAnimation 10s ease infinite; /* EFECTO FONDO DE PANTALLA */
+    height: 100%;
+    margin: 0;
     overflow-x: hidden;
 }
 
-.container{
-    margin:0 206.77px;
-    
+/* EFECTO FONDO DE PANTALLA */
+@keyframes gradientAnimation {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+
+.container {
+    margin: 0 206.77px;
+
 }
 
-.card-job{
-    height:312px;
-    width:289px;
-   border-radius: 20px;
-   background: linear-gradient(90deg, rgba(43, 18, 40) 0%, rgba(69, 15, 63) 35%, rgba(113, 5, 97) 100%);
-  padding: 5px;
-  overflow: hidden;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
+.card-job {
+    height: 312px;
+    width: 289px;
+    border-radius: 20px;
+    background: linear-gradient(90deg, rgba(43, 18, 40) 0%, rgba(69, 15, 63) 35%, rgba(113, 5, 97) 100%);
+    padding: 5px;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
 }
 
-.jobsCardContainer{
-    width:fit-content;
+.jobsCardContainer {
+    width: fit-content;
 }
