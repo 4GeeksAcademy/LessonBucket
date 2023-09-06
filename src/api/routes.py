@@ -317,32 +317,44 @@ def del_subjects(user_id, subjects_id):
     return jsonify(response_body), 200
 
 
-# ENDPOINT MODIFY A SUBJECT
+# ENDPOINT MODIFY A SUBJECT AND ADD STUDENT TO IT
 
 @api.route('/user/<int:user_id>/subjects/<int:subject_id>', methods=['PATCH'])
-def update_subject(user_id, subject_id):
-    try:
-        subject = Subjects.query.filter_by(user_id=user_id, id=subject_id).first()
+def add_student_to_subject(user_id, subject_id):
+    
+    data = request.get_json()
+    if 'student_id' in data:
+        student_id = data['student_id']
+        student = Students.query.get(student_id)
+        if not student :
+            return jsonify({"message": "Student not found"}), 404
+        if student.user_id != user_id:
+            return jsonify({"message": "El usuario no tiene permisos para realizar esta acción"}), 403
+        
+        subject = Subjects.query.get(subject_id)
+        if not subject :
+            return jsonify({"message": "Subject not found"}), 404
+        
+        subject.Students.append(student)
+        db.session.commit()
 
-        if not subject:
-            return jsonify({'message': 'SUbject not found'}), 404
+        return jsonify({"message": "Estudiante agregado al tema exitosamente"}), 200
+    
+    elif 'Subject' in data:
+        subject = Subjects.query.get(subject_id)
 
-        data = request.get_json()
-        if 'Subject' in data:
-            subject.Subject = data['Subject']
+        subject.Subject = data['Subject']
 
         db.session.commit()
 
         response_body = {
-            "msg": "Subject updated successfully",
-            "student": subject.serialize()
-        }
-
+             "msg": "Subject updated successfully",
+             "student": subject.serialize()
+         }
+        
         return jsonify(response_body), 200
-
-    except:
-
-        raise APIException('Internal error', 500)
+    else:
+        return jsonify("Not a valid request"), 400
 
 
 
