@@ -60,7 +60,7 @@ export const SubjectClass = (props) => {
                             <Form.Control
                                 type="text"
                                 name="subjects_id"
-                                value={updatedClassInfo.subjects_id}
+                                value={updatedClassInfo.subjects}
                                 onChange={handleInputChange}
                                 placeholder="Ingrese el ID de la asignatura"
                             />

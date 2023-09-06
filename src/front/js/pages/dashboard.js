@@ -12,10 +12,12 @@ export const Dashboard = () => {
 			window.location = '/login';
 		}
 		actions.fetchClasses();
+		actions.getAllSubjects();
+		actions.getAllStudents();
 	}, []);
 
 	const idCalendar = "bdb86c31dd1521191e7d1a472d3e5bf9cf0e5d6fc30f63eabf3630227d053506@group.calendar.google.com";
-	
+
 	return (
 		<div className="dashboard-wrapper">
 			<div className="separator">Próximas Clases</div>
@@ -34,7 +36,7 @@ export const Dashboard = () => {
 			<div className="separator"></div>
 			<div className="row justify-content-start">
 				<div className="main-pagos col-md-4 mb-2 overflow-auto">
-					
+
 					<PagosPendientes />
 				</div>
 				<div className="col-md-1 mb-1">

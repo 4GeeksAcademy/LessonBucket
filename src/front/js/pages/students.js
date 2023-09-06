@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { StudentCard } from "../component/studentCard/studentCard"
 import { Loader } from "../component/loader/loader";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Modal } from "react-bootstrap";
 import swal from 'sweetalert'
 import "../../styles/students.css"
@@ -102,7 +102,6 @@ export const Students = () => {
     }
 
     let response = await actions.createOneStudent(name, email, address, phone, goal);
-    console.log(response)
 
     if (response === true) {
 
@@ -210,7 +209,7 @@ export const Students = () => {
         
         {/* FIN FUNCIÓN SEARCH  */}
 
-        <button className="student-button-refresh" onClick={() => { actions.getAllStudents(); setSearchResults([]) }}>Refresh</button>
+        <button className="student-button" onClick={() => { actions.getAllStudents(); setSearchResults([]) }}>Refresh</button>
       </div>
       {store.allStudents && store.allStudents.length > 0 ? (
         <>

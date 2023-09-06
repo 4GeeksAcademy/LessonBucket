@@ -82,7 +82,7 @@ class Comments(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     comments_id = db.Column(db.Integer, db.ForeignKey("students.id"))
     text_content = db.Column(db.String(200), unique=False, nullable=False)
-    Class = db.relationship("Class", backref="comments", lazy=True)
+    
         
         
     def serialize(self):
@@ -99,12 +99,11 @@ class Class(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     subjects_id = db.Column(db.Integer, db.ForeignKey("subjects.id"))
     student_id = db.Column(db.Integer, db.ForeignKey("students.id"))
-    comments_id = db.Column(db.Integer, db.ForeignKey("comments.id"), nullable=True)
+    comments = db.Column(db.String(240), nullable=True)
     date = db.Column(db.String(120), unique=False, nullable=False)
+    hour = db.Column(db.Time(), unique=False, nullable=False)
     price = db.Column(db.Float, unique=False, nullable=False)
     paid = db.Column(db.Boolean, unique=False, nullable=False)
-
-    
 
     def __repr__(self):
         return f'<User {self.id}>'
@@ -112,15 +111,17 @@ class Class(db.Model):
     def serialize(self):
         subject = Subjects.query.filter_by(id=self.subjects_id).first()
         student = Students.query.filter_by(id=self.student_id).first()
+        
         return {
             "id": self.id,
+            "user_id": self.user_id,
             "subjects": None if subject is None else subject.serialize(),
             "student": None if student is None else student.serialize(),
-            "comments_id": self.comments_id,
+            "comments": self.comments,
             "date": self.date,
-            "price": self.price,
+            "hour": self.hour.strftime("%H:%M"),
+            "price": self.price, 
             "paid": self.paid,
-            
         }        
     
 # class RefArchivos(db.Model):
