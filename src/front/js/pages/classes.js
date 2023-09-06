@@ -73,6 +73,7 @@ export const Classes = () => {
 
     const handleClose = () => {
         setShowModal(false);
+        setNewClassInfo("")
     };
 
     const handleShow = () => {
