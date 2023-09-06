@@ -661,9 +661,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			//FUNCION PARA VER TODAS LAS MATERIAS
 			getAllSubjects: async () => {
-				const user_id = getStore().user.id;
+				const user_id = sessionStorage.getItem("userID");
 				const token = getStore().token
-
 
 				try {
 					let response = await axios.get(process.env.BACKEND_URL + `/api/user/${user_id}/subjects/`, {
@@ -671,6 +670,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							"Authorization": `Bearer ${token}`,
 						}
 					});
+					console.log(response)
 					const subjects = response.data.results
 
 					setStore({
@@ -873,39 +873,35 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// }
 			getJobsNearby: async (subject) => {
 
-
 				const axios = require('axios');
-
-				const options = {
-					method: 'GET',
-					url: 'https://jsearch.p.rapidapi.com/search',
-					params: {
-						query: `'${subject} teacher, Madrid'`,
-						page: '1',
-						num_pages: '1',
-						radius: '100'
-					},
-					headers: {
-						'X-RapidAPI-Key': '19b84f07b9msh08a479272b6bd97p13dfbejsnc7c8cbd54776',
-						'X-RapidAPI-Host': 'jsearch.p.rapidapi.com'
-					}
-				};
-
-				try {
-					const response = await axios.request(options);
-
-					const jobsNear = response.data.data
-					console.log(jobsNear)
-
-					setStore({
-						jobs: jobsNear,
-					});
-
-				} catch (error) {
-					console.error(error);
-				}
-
+						const options = {
+						  method: 'GET',
+						  url: 'https://jsearch.p.rapidapi.com/search',
+						  params: {
+							query: `'${subject} teacher, Madrid'`,
+							page: '1',
+							num_pages: '1',
+							radius: '100'
+						  },
+						  headers: {
+							'X-RapidAPI-Key': '3dc3799804msh2912cb6e44dc3c1p13e983jsn1ab6d0e37a3a',
+							'X-RapidAPI-Host': 'jsearch.p.rapidapi.com'
+						  }
+						};
+						
+						try {
+							const response = await axios.request(options);
+							
+							const jobsNear = response.data.data
+							console.log(response)
+							setStore({
+								jobs: jobsNear,
+						});
+						} catch (error) {
+							console.error(error);
+						}
 			}
+
 		}
 	};
 };

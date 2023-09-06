@@ -60,7 +60,7 @@ class Students(db.Model):
     address = db.Column(db.String(200), unique=False, nullable=False)
     phone = db.Column(db.String(50), unique=False, nullable=False)
     goal = db.Column(db.String(200), unique=False, nullable=False)
-    Comments = db.relationship("Comments", backref="students", lazy=True)
+    # Comments = db.relationship("Comments", backref="students", lazy=True)
     Class = db.relationship("Class", backref="students", lazy=True)
 
 
@@ -81,7 +81,7 @@ class Comments(db.Model):
     __tablename__ = 'comments'
 
     id = db.Column(db.Integer, primary_key=True)
-    comments_id = db.Column(db.Integer, db.ForeignKey("students.id"))
+    # comments_id = db.Column(db.Integer, db.ForeignKey("students.id"))
     text_content = db.Column(db.String(200), unique=False, nullable=False)
     
         
