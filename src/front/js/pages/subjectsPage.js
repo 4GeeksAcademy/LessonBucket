@@ -18,16 +18,7 @@ export const SubjectsPage = props => {
 		setLoaded("fullLoaded")
 	}, [store.token]);
 
-	useEffect(() => {
-		console.log(subjects)
-	}, [store.allSubjects]);
-
-	useEffect(() => {
-		console.log(subjects)
-	}, [store.allSubjects]);
-
-
-
+	
 	return (
 		<div className="min-vh-100">
 			<CreateSubject />
