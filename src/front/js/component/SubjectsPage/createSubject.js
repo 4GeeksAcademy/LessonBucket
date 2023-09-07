@@ -56,8 +56,18 @@ export const CreateSubject = () => {
     
     return (
         <div>
-            <div className="container subjectsHeader">
-                <h1 className="col-11">Subjects <i class="fa-solid fa-plus fa-2xs" onClick={() => handleModal()}></i></h1>
+            {/* <div className="subjectsHeader" style={{alignContent:"center"}}>
+                <div style={{fontSize:"25px"}}className="d-flex gap-2 my-1 align-middle">Subjects<button className="buttonAddSubject" onClick={() => handleModal()}>
+            +
+          </button></div> */}
+            {/* </div> */}
+            <div className="student-navbar">
+                <h5 className="student-headboard d-flex gap-2"> Subjects
+                <button className="add-button-student" onClick={() => handleModal()}>
+                +
+                </button>
+
+                </h5>
             </div>
 
             {/* modal */}
@@ -65,7 +75,7 @@ export const CreateSubject = () => {
                 <Modal.Header closeButton>
                     <Modal.Title>Create a new subject</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body id="createSubject">
                     <Form onSubmit={onSubjectFormSubmit}>
                         <Form.Group controlId="formBasicSubject">
                             <Form.Label>Subject name</Form.Label>
