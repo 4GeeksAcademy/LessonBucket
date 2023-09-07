@@ -16,7 +16,6 @@
 .components{
      display: flex; 
     flex-direction: column; 
-    margin-left: 1.7rem;
     gap: 10px;
 }
 
@@ -47,4 +46,7 @@
 
 
 
-
+.link-logo{
+    display: flex;
+    justify-content: center
+}
