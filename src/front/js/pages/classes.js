@@ -106,7 +106,7 @@ export const Classes = () => {
             <div className="separator">
                 <div className="d-flex flex-row justify-content-between">
                     <div className="d-flex">
-                        <div>Todas las Clases</div>
+                        <div>All Classes</div>
                         <Dropdown style={{ marginLeft: "1rem" }}>
                             <Dropdown.Toggle className="btn-addClasses" id="dropdown-basic">
                                 <img src="https://d5xydlzdo08s0.cloudfront.net/images/io/filter_icon_big.png" width={"15px"} alt="Filter" />

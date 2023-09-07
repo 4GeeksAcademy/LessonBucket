@@ -160,7 +160,7 @@ export const Students = () => {
   return (
     <div className="student-main-container">
       <div className="student-navbar">
-        <h5 className="student-headboard d-flex gap-2  justify-content-start"> Alumnos
+        <h5 className="student-headboard d-flex gap-2  justify-content-start"> Students
           <button className="add-button-student" onClick={() => setShow(!show)}>
             +
           </button>
