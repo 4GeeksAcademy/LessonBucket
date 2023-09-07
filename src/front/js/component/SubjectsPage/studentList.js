@@ -21,7 +21,10 @@ export const StudentList = (props) => {
                 <div className="col-3">Name: {props.name}</div>
                 <div className="col-4">email: {props.email}</div>
                 <div className="col-4">goal: {props.goal} </div>
-                <button className="col-1" onClick={() => addToSubject()}>Add</button>
+                {/* <button className="col-1" onClick={() => addToSubject()}>Add</button> */}
+                <button className="col-1" id="buttonToAddStudentToSubject" onClick={() => addToSubject()}>
+                Add
+                </button>
             </div>
             <hr />
         </div>

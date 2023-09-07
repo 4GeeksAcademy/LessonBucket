@@ -57,6 +57,17 @@
   margin-left: 125px;
   height: 33px;
 }
+#buttonToAddStudentToSubject{
+  padding: 0.1rem 0;
+  border: none;
+  border-radius: 6px;
+  color: #FFFFFF;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  background: linear-gradient(90deg, rgba(43, 18, 40, 1) 0%, rgba(69, 15, 63, 1) 35%, rgba(113, 5, 97, 1) 100%);
+  height: 33px;
+}
 
 .student-headboard {
   color: white;
