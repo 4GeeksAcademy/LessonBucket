@@ -1,10 +1,11 @@
 
 import React, { Component } from "react";
+import "./jobscard.scss"
 
 export const JobsCard = (props)  => (
 
 <>
-<div className="col-md-auto  card-job card-footer mx-auto" >
+<div className="col-md-auto  card-job  mx-auto" >
   <div className="card-body text-white ">
     <h5 className="card-title ">{props.jobTitle}</h5>
     <p className="my-2">Employer: {props.employer}</p>
