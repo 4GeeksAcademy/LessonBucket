@@ -48,9 +48,9 @@ export const SubjectClass = (props) => {
                 <p className="card-title">Clase: {props.subjectClass.subjects?.Subject}</p>
                 <p className="card-text">Fecha: {props.subjectClass.date}</p>
             </div>
-            <button className="subject-button" onClick={openModal}>Ver Clase</button>
+            {/* <button className="subject-button" onClick={openModal}>Ver Clase</button> */}
 
-            <Modal show={isModalOpen} onHide={closeModal} centered>
+            {/* <Modal show={isModalOpen} onHide={closeModal} centered>
                 <Modal.Header>
                 </Modal.Header>
                 <Modal.Body>
@@ -124,7 +124,7 @@ export const SubjectClass = (props) => {
                         Guardar Cambios
                     </Button>
                 </Modal.Footer>
-            </Modal>
+            </Modal> */}
         </div>
     );
 };
