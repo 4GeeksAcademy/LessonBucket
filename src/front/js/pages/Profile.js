@@ -99,7 +99,7 @@ export const Profile = () => {
                 <div className="profile-data my-1 align-items-center d-flex flex-row justify-content-between p-2 border rounded">
                     <p className="tag me-2 align-items-center">Full Name</p>
                     <form onSubmit={saveDataName}>
-                        <input type="text" id="name-input" placeholder={store.user.name} onChange={handleNameText} onBlur={() => { document.getElementById("name-input").value = ""; }} className=" name-input profile-input data mb-0 align-items-center"></input>
+                        <input  type="text" id="name-input" placeholder={store.user.name} onChange={handleNameText} onBlur={() => { document.getElementById("name-input").value = ""; }} className=" name-input profile-input data mb-0 align-items-center"></input>
                         <i className="fa-solid fa-xmark me-1 text-danger" onClick={() => { setEditName(false); }}></i>
                         <i className="fa-solid fa-floppy-disk" onClick={saveDataName}></i>
                     </form>

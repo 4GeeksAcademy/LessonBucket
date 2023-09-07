@@ -160,7 +160,7 @@ export const Students = () => {
   return (
     <div className="student-main-container">
       <div className="student-navbar">
-        <h5 className="student-headboard d-flex gap-2"> Alumnos
+        <h5 className="student-headboard d-flex gap-2  justify-content-start"> Students
           <button className="add-button-student" onClick={() => setShow(!show)}>
             +
           </button>
@@ -205,6 +205,7 @@ export const Students = () => {
           //  INICIO FUNCIÓN SEARCH
 
         )}
+        <div className="searchbarStyle ">
         <input
           className="student-search-input"
           placeholder="Search..."
@@ -222,6 +223,8 @@ export const Students = () => {
         {/* FIN FUNCIÓN SEARCH  */}
 
         <button className="student-button-refresh px-4 py-1" onClick={() => { actions.getAllStudents(); setSearchResults([]) }}>Refresh</button>
+        </div>
+        
       </div>
       {store.allStudents && store.allStudents.length > 0 ? (
         <>
