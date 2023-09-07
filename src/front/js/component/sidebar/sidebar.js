@@ -34,31 +34,31 @@ export const Sidebar = () => {
                    
                         <ul className="list-unstyled components  pt-4 mb-0 pb-0 lista ">
                            
-                            <Link to="/dashboard" className="link-logo mb-4">
-                                <li className="pt-0 dashboard mx-auto">
+                            <Link to="/dashboard" className="link-logo mb-4  ">
+                                <li className="pt-0 dashboard mx-auto d-flex">
                                     <i className="sideIcons fa-solid fa-table-cells-large me-2 my-auto "></i>
                                     <span className="sideText">Dashboard</span>
                                 </li>
                             </Link>
-                            <Link to="/students" className="link-logo mb-4">
+                            <Link to="/students" className="link-logo mb-4 ">
                                 <li className="students">
                                     <i className="sideIcons fa-solid fa-graduation-cap me-2 my-auto"></i>
                                     <span className="sideText">Students</span>
                                 </li>
                             </Link>
-                            <Link to="/subjects" className="link-logo mb-4">
+                            <Link to="/subjects" className="link-logo mb-4 ">
                                 <li className="subjects">
                                     <i className="sideIcons fa-solid fa-book me-2 my-auto"></i>
                                     <span className="sideText">Subjects</span>
                                 </li>
                             </Link>
-                            <Link to="/classes" className="link-logo mb-4">
+                            <Link to="/classes" className="link-logo mb-4 ">
                                 <li className="classes">
                                     <i className="sideIcons fa-solid fa-person-chalkboard me-2 my-auto"></i>
                                     <span className="sideText">Classes</span>
                                 </li>
                             </Link>
-                            <Link to="/profile" className="link-logo mb-4">
+                            <Link to="/profile" className="link-logo mb-4 ">
                                 <li className="sideProfile">
                                     <i className="sideIcons fa-solid fa-user me-2 my-auto"></i>
                                     <span className="sideText">Profile</span>

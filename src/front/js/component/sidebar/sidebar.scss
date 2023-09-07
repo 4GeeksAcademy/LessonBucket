@@ -1,5 +1,5 @@
 .sidebar{
-    width:200px;
+   /* width:200px; */
     height: 100%;
     background-color: #17171f;
     
@@ -14,19 +14,19 @@
     transition: all 0.6s; */
 }
 .components{
-    margin-left: 44px;
-    display: flex; 
+     display: flex; 
     flex-direction: column; 
+    margin-left: 1.7rem;
     gap: 10px;
 }
 
 .sideText{
-   font-size: 18px;
+   font-size: 16px;
    font-weight:500px;
 }
 
 .sideIcons{
-    font-size:18px;
+    font-size:16px;
     
 }
 
