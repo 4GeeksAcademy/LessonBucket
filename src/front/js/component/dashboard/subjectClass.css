@@ -35,22 +35,7 @@
     cursor: pointer;
   }
 
-  .add-button{
-    display: block;
-    padding: 0.1rem 0;
-    border: none;
-    border-radius: 6px;
-    color: #F1EEEE;
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
-    position: absolute;
-    width: 100px;
-    right: 0;
-    background: linear-gradient(271deg, #0C2FA8 0%, #801480 100%);
-    border: 1px solid #801480;
-    margin-right: 1rem;
-  }
+ 
 
   .modal-title{
     width: -webkit-fill-available;

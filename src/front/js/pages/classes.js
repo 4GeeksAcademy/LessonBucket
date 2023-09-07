@@ -23,8 +23,8 @@ export const Classes = () => {
 
     useEffect(() => {
         actions.fetchClasses()
-		actions.getAllSubjects();
-		actions.getAllStudents();
+        actions.getAllSubjects();
+        actions.getAllStudents();
         setLoaded("fullLoaded")
     }, [store.token]);
 
@@ -32,8 +32,8 @@ export const Classes = () => {
     useEffect(() => {
         setClasses(store.classes)
     }, [store.classes]);
-    
-    
+
+
 
 
     const [newClassInfo, setNewClassInfo] = useState({
@@ -63,7 +63,7 @@ export const Classes = () => {
     });
 
 
-    
+
     const handleInputChange = event => {
         const { name, value, type, checked } = event.target;
         setNewClassInfo(prevInfo => ({
@@ -94,7 +94,7 @@ export const Classes = () => {
                     <div className="d-flex flex-nowrap overflow-auto">
                         {sortedClasses.slice(0, 3).map((privateClass, index) => (
                             <div key={index}>
-                                {(sortedClasses && sortedClasses.length > 0) && <PrivateClass privateClass={privateClass} />}         
+                                {(sortedClasses && sortedClasses.length > 0) && <PrivateClass privateClass={privateClass} />}
                             </div>
                         ))}
                     </div>
@@ -104,25 +104,27 @@ export const Classes = () => {
 
 
             <div className="separator">
-                <div className="d-flex">
-                    <div>Todas las Clases</div>
-                    <Dropdown style={{ marginLeft: "1rem"}}>
-                        <Dropdown.Toggle className="btn-addClasses" id="dropdown-basic">
-                            <img src="https://d5xydlzdo08s0.cloudfront.net/images/io/filter_icon_big.png" width={"15px"} alt="Filter" />
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                            {loaded === "fullLoaded" && store.allSubjects && store.allSubjects.map((subject, index) => (
-                                <Dropdown.Item
-                                    key={index}
-                                    as="button"
-                                    onClick={() => setSelectedFilter(subject.Subject)}
-                                >
-                                    {subject.Subject}
-                                </Dropdown.Item>
-                            ))}
-                        </Dropdown.Menu>
-                    </Dropdown>
-                    <div>
+                <div className="d-flex flex-row justify-content-between">
+                    <div className="d-flex">
+                        <div>Todas las Clases</div>
+                        <Dropdown style={{ marginLeft: "1rem" }}>
+                            <Dropdown.Toggle className="btn-addClasses" id="dropdown-basic">
+                                <img src="https://d5xydlzdo08s0.cloudfront.net/images/io/filter_icon_big.png" width={"15px"} alt="Filter" />
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                                {loaded === "fullLoaded" && store.allSubjects && store.allSubjects.map((subject, index) => (
+                                    <Dropdown.Item
+                                        key={index}
+                                        as="button"
+                                        onClick={() => setSelectedFilter(subject.Subject)}
+                                    >
+                                        {subject.Subject}
+                                    </Dropdown.Item>
+                                ))}
+                            </Dropdown.Menu>
+                        </Dropdown></div>
+
+                    <div className="justify-content-end">
                         <button className="add-button" onClick={handleShow}>
                             +
                         </button>
@@ -243,10 +245,10 @@ export const Classes = () => {
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button  onClick={handleClose}>
+                    <Button onClick={handleClose}>
                         Close
                     </Button>
-                    <Button  onClick={() => actions.createSubjectClass(newClassInfo, handleClose)}>
+                    <Button onClick={() => actions.createSubjectClass(newClassInfo, handleClose)}>
                         Create a new Class
                     </Button>
                 </Modal.Footer>
