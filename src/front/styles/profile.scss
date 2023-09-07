@@ -36,6 +36,17 @@ p{
     cursor:pointer;
 }
 
+.passBtn{
+    background-color:#b60b7c;
+    cursor:pointer;
+}
+.passBtnDis{
+    background-color:#b64d93;
+    cursor:pointer;
+    color:#601447;
+    cursor:not-allowed;
+}
+
 .profile-input{
     border:none;
     background:none;
@@ -45,16 +56,18 @@ p{
         outline:none;
         border-bottom:1px;
         width:150px;
+        color:white
         
     }
 
 
 
     &::placeholder{
-        color:rgb(233, 148, 191);
+        color:rgb(180, 170, 175);
     }
 }
 
-.profile-data{
-    background:linear-gradient(90deg, rgba(43, 18, 40, 1) 0%, rgba(69, 15, 63, 1) 35%, rgba(113, 5, 97, 1) 100%)
-}
+ .profile-data{
+    height:50px;
+
+} 

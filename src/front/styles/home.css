@@ -19,3 +19,7 @@
 .whiteText {
   color: white;
 }
+
+#imagePreview{
+  border-radius: 5%;
+}
