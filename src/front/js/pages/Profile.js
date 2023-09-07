@@ -285,7 +285,7 @@ export const Profile = () => {
              
              {!editPass ?
 
-            <section className=" profile-wrapper  d-flex flex-column p-5 bg-white rounded mx-auto ">
+            <section className=" profile-wrapper  d-flex flex-column p-5 bg-white rounded-full mx-auto ">
             
                 <>
                 <h2 className="mb-4"> Profile Information</h2>
@@ -294,7 +294,7 @@ export const Profile = () => {
                 {handleEmail()}
                 {handleAddress()}
                 {handleBirth()}
-                <div className="profile-data my-2 align-items-center d-flex flex-row justify-content-center p-2 ">
+                <div className="profile-data my-2 align-items-center d-flex flex-row justify-content-center p-2 rounded-full ">
                     <i className="me-2 fa-solid fa-lock text-warning"></i>
                     <p className="password tag m justify-content-center" onClick={() => {setEditPass(true)}}>Change Password</p>
                 </div>
