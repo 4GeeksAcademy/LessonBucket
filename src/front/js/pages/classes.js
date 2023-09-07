@@ -61,6 +61,9 @@ export const Classes = () => {
         }
         return subjectClass.subjects.Subject === selectedFilter;
     });
+
+
+    
     const handleInputChange = event => {
         const { name, value, type, checked } = event.target;
         setNewClassInfo(prevInfo => ({
