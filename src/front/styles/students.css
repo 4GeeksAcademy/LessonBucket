@@ -51,8 +51,9 @@
 /* input de busqueda */
 
 .student-search-input {
-  margin-left: 600px;
+ 
   height: 31px;
+  margin-right: 2rem;
   width: fit-content;
   padding: 10px;
   margin-top: 15px;
