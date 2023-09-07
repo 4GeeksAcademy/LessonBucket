@@ -1,10 +1,12 @@
 .main-pagos {
-    background: transparent linear-gradient(270deg, #390839 0%, #030819 100%);
+    background: linear-gradient(90deg,
+      rgba(101, 42, 95, 0.626) 0%,
+      rgba(130, 29, 118, 0.61) 35%,
+      rgba(189, 7, 162, 0.621) 100%);
     box-shadow: 0px 3px 6px #00000029;
     border-radius: 20px;
     opacity: 1;
     padding: 1rem;
-    height: 832px;
 }
 
 .pill {
@@ -18,18 +20,18 @@
 
 .pill-font {
     text-align: left;
-    font: normal normal bold 18px/23px Helvetica Neue;
-    letter-spacing: 0px;
     color: #FFFFFF;
     margin-left: 1rem;
 }
 
 .pill-title {
     text-align: left;
-    font: normal normal bold 25px/30px Helvetica Neue;
-    letter-spacing: 0px;
     color: #FFFFFF;
+    font-weight: lighter;
+    font-size: 25px !important;
 }
+
+
 
 @media (max-width: 768px) {
     .main-pagos {

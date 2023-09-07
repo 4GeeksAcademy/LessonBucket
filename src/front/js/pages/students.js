@@ -3,8 +3,6 @@ import { Context } from "../store/appContext";
 import { useNavigate } from 'react-router-dom';
 import { StudentCard } from "../component/studentCard/studentCard"
 import { Loader } from "../component/loader/loader";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Modal } from "react-bootstrap";
 import swal from 'sweetalert'
 import "../../styles/students.css"
@@ -34,7 +32,7 @@ export const Students = () => {
     setLoaded("fullLoaded")
   }, [store.token]);
 
- 
+
 
 
   // FUNCIÓN PARA MANEJAR EL INPUT DEL SEARCH
@@ -45,18 +43,18 @@ export const Students = () => {
     setSearchStudent(inputValue)
   }
 
-  
+
   // FUNCIÓN PARA MANEJAR EL INPUT DE BUSQUEDA
 
   const handleEnterKeyPress = (e) => {
     e.preventDefault();
-    const searchStudentUpperCase = searchStudent.toUpperCase(); 
+    const searchStudentUpperCase = searchStudent.toUpperCase();
     const filteredStudents = students.filter(student => {
       return student.name.toUpperCase().includes(searchStudentUpperCase);
     });
-  
 
-    if (filteredStudents.length > 0) { 
+
+    if (filteredStudents.length > 0) {
       setSearchResults(filteredStudents)
       setSearchStudent("");
     } else {
@@ -149,12 +147,12 @@ export const Students = () => {
   }
 
   const resetReturnData = () => {
-      setShow(false)
-      setName("");
-      setEmail("");
-      setAddress("");
-      setPhone("");
-      setGoal("");
+    setShow(false)
+    setName("");
+    setEmail("");
+    setAddress("");
+    setPhone("");
+    setGoal("");
   }
 
   // SE RENDERIZAN TARJETAS Y SE INCLUYE MODAL
@@ -162,11 +160,19 @@ export const Students = () => {
   return (
     <div className="student-main-container">
       <div className="student-navbar">
-        <h5 className="student-headboard">Alumnos <FontAwesomeIcon className="add-icon" icon={faPlus} onClick={() => setShow(!show)} /></h5>
+        <div>
+        <h5 className="student-headboard d-flex gap-2  justify-content-start"> Students
+          <button className="add-button-student" onClick={() => setShow(!show)}>
+            +
+          </button>
+
+        </h5>
+        </div>
 
         {/* INICIO DEL MODAL */}
 
         {show && (
+          
           <Modal className="student-modal-main-container" tabIndex="-1" role="dialog" show={show} id="modalCreateSubject">
             <form action="" className="student-modal-form_main">
               <p className="modal-student-brand mb-0 h1 "><i className="fa-solid fa-bucket me-2"></i>Lesson Bucket</p>
@@ -196,15 +202,17 @@ export const Students = () => {
               </div>
             </form>
           </Modal>
+          
 
           // FIN DEL MODAL
 
           //  INICIO FUNCIÓN SEARCH
 
         )}
+        <div className="searchbarStyle ">
         <input
           className="student-search-input"
-          placeholder="    Search..."
+          placeholder="Search..."
           required=""
           value={searchStudent}
           onChange={(e) => handleInputChange(e)}
@@ -215,14 +223,16 @@ export const Students = () => {
           }}
 
         />
-        
+
         {/* FIN FUNCIÓN SEARCH  */}
 
-        <button className="student-button" onClick={() => { actions.getAllStudents(); setSearchResults([]) }}>Refresh</button>
+        <button className="student-button-refresh px-4 py-1" onClick={() => { actions.getAllStudents(); setSearchResults([]) }}>Refresh</button>
+        </div>
+        
       </div>
       {store.allStudents && store.allStudents.length > 0 ? (
         <>
-          <div className="row d-flex flex-wrap justify-content-start gap-3">
+          <div className="row d-flex flex-wrap justify-content-start gap-0">
             {loaded === "fullLoaded" && (
               (searchResult.length > 0 ? searchResult : students).map(student => (
                 <div className="col-3" key={student.id}>
@@ -244,7 +254,6 @@ export const Students = () => {
           {store.logged ? (
             <div>
               <h1 className="loading-screen">The student list is empty. Please include your students in the + icon to get started.</h1>
-              <button className="student-button-refresh student-button-refresh-loadding-screen " onClick={() => actions.getAllStudents()}>Refresh</button>
             </div>
           ) : (
             <div className="recover-login">
@@ -280,7 +289,7 @@ export const Students = () => {
 
           )}
         </div>
-      )};
+      )}
     </div>
   )
 };

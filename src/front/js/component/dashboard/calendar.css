@@ -1,6 +1,26 @@
-.title-text {
-    padding: 1rem;
-    text-align: left;
-    font: normal normal normal 18px/1.5 Helvetica Neue;
-    color: #FFFFFF;
-  }
+.rdp-day:hover {
+  color: darkmagenta !important;
+  background-color: rgb(253, 166, 245) !important;
+}
+
+.rdp-day {
+  color: white !important;
+}
+
+
+.rdp-head_cell {
+  color: white !important;
+}
+
+.rdp-caption_label { color: white !important; }
+
+.my-selected:not([disabled]) { 
+  font-weight: bold; 
+  border: 2px solid white;
+}
+
+.my-today { 
+  font-weight: bold;
+  font-size: 110%; 
+  color: white !important;
+}

@@ -60,7 +60,7 @@ export const DropdownSubject = (props) => {
                     <div className="accordion-body">
                         <div className="row row-cols-auto">
                     <button type="button" className="btn btn-outline-info col me-1" onClick={() => {HandleModifyModal()}}>Modify the subject</button>
-                    <button type="button" class="btn btn-secondary me-2" onClick={()=>{HandleAddStudentModal()}}>Add a student</button>
+                    <button type="button" class="btn btn-outline-secondary me-2" onClick={()=>{HandleAddStudentModal()}}>Add a student</button>
                     <button type="button" className="btn btn-outline-danger col" onClick={() => {HandleConfirmationModal()}}>Delete the subject</button>
                     </div>
                     <hr/>
@@ -104,7 +104,7 @@ export const DropdownSubject = (props) => {
 
                             </div>
                         </Form.Group>
-                        <Button className="mt-3" variant="primary" onSubmit={onSubjectFormSubmit} type="submit" block>
+                        <Button className="mt-3"  onSubmit={onSubjectFormSubmit} type="submit" block>
                             Create
                         </Button>
                     </Form>
@@ -123,7 +123,7 @@ export const DropdownSubject = (props) => {
                 </Modal.Body>
             </Modal>
 {/* MODAL DE ASIGNAR ESTUDIANTE A MATERIA */}
-            <Modal className="modal" show={showAddStudent} onHide={handleAddStudentClose} id="modalAddStudent">
+            <Modal className="modal" show={showAddStudent} onHide={handleAddStudentClose} id="modalAddStudent" style={{ maxWidth: '100% !important' }}>
                 <Modal.Header closeButton>
                     <Modal.Title>Add a student</Modal.Title>
                 </Modal.Header>

@@ -2,9 +2,9 @@
   width: 250px;
   border-radius: 20px;
   background: linear-gradient(90deg,
-      rgba(43, 18, 40, 0.6264706566220238) 0%,
-      rgba(69, 15, 63, 0.6096639339329482) 35%,
-      rgba(113, 5, 97, 0.6208684157256652) 100%);
+      rgba(101, 42, 95, 0.626) 0%,
+      rgba(130, 29, 118, 0.61) 35%,
+      rgba(189, 7, 162, 0.621) 100%);
   padding: 5px;
   overflow: hidden;
   cursor: pointer;
@@ -210,8 +210,8 @@
 
 .card .top-section .icons {
   position: absolute;
-  top: 3px;
-  width: 96%;
+  top: 4px;
+  width: 75%;
   height: 30px;
   display: flex;
   justify-content: space-between;
@@ -285,7 +285,7 @@
 .student-modal-upTitle {
   color: white;
   margin-left: 22px;
-  width: 179px;
+  width: 200px;
   font-size: 30px;
   position: absolute;
   top: -12px;
@@ -335,7 +335,7 @@
   right: 32px;
   bottom: 18px;
   font-size: 170px;
-  opacity: 0.5; 
+  opacity: 0.5;
 }
 
 /* INPUT DEL MODAL */
@@ -358,12 +358,13 @@
   box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
 }
 
-.modal-content {
+/* .modal-content {
   width: 450px;
   display: flex;
   justify-content: center;
   border: 0;
   margin-left: 130px;
-}
+} */
+
 
 /* FIN DISEÑO MODAL */

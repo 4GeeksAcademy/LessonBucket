@@ -16,7 +16,7 @@ export const PagosPendientes = (props) => {
 			<div className="col">
 				<div className="overflow-hidden">
 					<div className="overflow-auto">
-						<h5 className="pill-title">Pagos Pendientes</h5>
+						<h5 className="pill-title">Pending payment </h5>
 						{loaded === "fullLoaded" && paymentFiltrados ? paymentFiltrados.map((item, index) => (
 							<div className="pill" key={index}>
 								<p className="pill-font">{item.student?.name}-{item.date}</p>

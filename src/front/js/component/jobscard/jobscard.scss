@@ -1,0 +1,25 @@
+.card-job {
+    height: 312px;
+    width: 289px;
+    border-radius: 20px;
+    background: linear-gradient(90deg, rgba(43, 18, 40) 0%, rgba(69, 15, 63) 35%, rgba(113, 5, 97) 100%);
+    padding: 5px;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    flex-direction:column;
+    display: flex;
+    justify-content: space-between;
+   
+}
+
+.card-body{
+
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.jobsCardContainer {
+    width: fit-content;
+}

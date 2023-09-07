@@ -1,8 +1,18 @@
+.bot-footer{
+    background-color:#17171f;
+
+    .row{
+        margin:  2rem 0 2rem 0;
+    }
+}
+
+
+
 .footer-p{
     color: #5b6065;
     font-size:small;
     &:hover{ 
-        color:#A3A3FF;
+        color:#ab0a84;
         cursor: pointer;
 
     }
@@ -11,7 +21,7 @@
 .underline{
     width: 40px;
     height:2px;
-    background-color:#A3A3FF ;
+    background-color:#ab0a84 ;
     border-radius: 20px;
     /* position: relative; */
    /*left: -11px; */
@@ -21,9 +31,8 @@
     color: #5b6065;
     font-size:medium;
     &:hover{ 
-        color:#A3A3FF;
+        color:#ab0a84;
         cursor: pointer;
-
     }
-
 }
+

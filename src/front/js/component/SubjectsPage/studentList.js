@@ -17,11 +17,14 @@ export const StudentList = (props) => {
     return (
         <div>
 
-            <div className="row py-2 px-2">
-                <div className="col-3">Name: {props.name}</div>
-                <div className="col-4">email: {props.email}</div>
-                <div className="col-4">goal: {props.goal} </div>
-                <button className="col-1" onClick={() => addToSubject()}>Add</button>
+            <div className="row py-2 px-2 height-student-list">
+                <div className="col-6">Name: {props.name}</div>
+                <div className="col-6">goal: {props.goal} </div>
+                <div className="col">email: {props.email}</div>
+                {/* <button className="col-1" onClick={() => addToSubject()}>Add</button> */}
+                <button className="col-1" id="buttonToAddStudentToSubject" onClick={() => addToSubject()}>
+                Add
+                </button>
             </div>
             <hr />
         </div>

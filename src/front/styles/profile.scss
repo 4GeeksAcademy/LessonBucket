@@ -1,5 +1,11 @@
 .profile-wrapper{
     width:fit-content;
+    border-radius: 20px;
+    color:white;
+   background:linear-gradient(90deg,
+    rgba(78,41,78) 0%,
+      
+      rgba(131,19,119) 100%); 
 }
 
 .tag, .profile{
@@ -20,6 +26,8 @@ p{
     width:280px;
 }
 
+
+
 .fa-pen-to-square:hover, .password:hover, .fa-floppy-disk:hover{
         color: #A3A3FF;
         cursor:pointer;
@@ -28,16 +36,38 @@ p{
     cursor:pointer;
 }
 
+.passBtn{
+    background-color:#b60b7c;
+    cursor:pointer;
+}
+.passBtnDis{
+    background-color:#b64d93;
+    cursor:pointer;
+    color:#601447;
+    cursor:not-allowed;
+}
+
 .profile-input{
     border:none;
+    background:none;
+    width:80px;
     
     &:focus{
         outline:none;
         border-bottom:1px;
+        width:150px;
+        color:white
         
     }
 
+
+
     &::placeholder{
-        color:black;
+        color:rgb(180, 170, 175);
     }
 }
+
+ .profile-data{
+    height:50px;
+
+} 

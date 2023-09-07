@@ -1,39 +1,51 @@
-import React, { useContext } from "react";
-import { Context } from "../../store/appContext";
-import Calendar from "@ericz1803/react-google-calendar";
+import React, { useState } from 'react';
+import { format } from 'date-fns';
+import { DayPicker } from 'react-day-picker';
+import 'react-day-picker/dist/style.css';
+import './calendar.css'
 
-import "./calendar.css";
+export const Calendar = () => {
+    const [selected, setSelected] = useState(new Date())
 
-export const CalendarAux = (props) => {
-	const API_KEY = "AIzaSyBrpMc_llCg1YH1cR1sMqDTM_eeY7E2HwY";
-	let calendars = [
-		{
-			calendarId: props.email,
-			color: "#801480"
-		}
-	];
-	let styles = {
-		calendar: {
-			borderWidth: "1px",
-			borderColor: "white",
-			borderRadius: "20px",
-			color: "white"
-		},
-		eventText: {
-			color: "white",
-			fontSize: "1.1rem"
-		}
-	};
+    let footer = <p style={{color:'white'}}>Please pick a day.</p>;
+    if (selected) {
+        footer = <p className='text-white'>You picked {format(selected, 'PP')}.</p>;
+    }
 
-	const language = "ES";
-	return (
-		<div style={{ color: "white" }}>
-			<Calendar
-				apiKey={API_KEY}
-				calendars={calendars}
-				styles={styles}
-				language={language}
-			/>
-		</div>
-	);
-};
+    const handleDateChange = (date) => {
+        setSelected(date);
+    };
+
+
+    const css = `
+    .my-selected:not([disabled]) { 
+        font-weight: bold; 
+        border: 2px solid white;
+    }
+    .my-today { 
+        font-weight: bold;
+        font-size: 110%; 
+        color: "white" !important;
+    }
+    `;
+
+    return (
+        <div>
+            <style>{css}</style>
+            <DayPicker
+                mode="single"
+                selected={selected}
+                onSelect={setSelected}
+                footer={footer}
+                onDayClick={handleDateChange}
+                showOutsideDays
+                // styles={customStyles}
+                modifiersClassNames={{
+                    selected: 'my-selected',
+                    today: 'my-today'
+                }}
+
+            />
+        </div>
+    )
+}
