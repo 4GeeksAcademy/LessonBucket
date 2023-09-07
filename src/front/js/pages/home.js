@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import rigoImageUrl from "../../img/rigo-baby.jpg";
-import dashboardImageUrl from "../../img/dashboard.jpg";
+import dashboardImageUrl from "../../img/dashboard-preview.png";
 import placeholderImg from "../../img/placeholder1.jpg";
 import "../../styles/home.css";
 import { useNavigate } from "react-router-dom";
@@ -105,7 +105,7 @@ export const Home = () => {
       {/* <!-- Carousel wrapper --> */}
       <div
         id="carouselMultiItemExample"
-        className="carousel slide carousel-dark text-center my-5 backg"
+        className="carousel slide carousel-dark text-center my-5 backg mw-70"
         data-mdb-ride="carousel"
       >
         {/* <!-- Controls --> */}
@@ -473,7 +473,7 @@ export const Home = () => {
         </p>
         <input className="me-3" type="text" placeholder="Email" />
         <input className="me-3" type="text" placeholder="Full name" />
-        <button type="button" className="btn btn-secondary">
+        <button type="button" className="btn btn-secondary mt-2">
           Subscribe
         </button>
       </div>
