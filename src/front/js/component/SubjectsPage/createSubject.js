@@ -48,6 +48,7 @@ export const CreateSubject = () => {
 
         e.preventDefault();
         actions.createSubject(Subject, UserID);
+        setSubject('')
         handleClose();
 
     };

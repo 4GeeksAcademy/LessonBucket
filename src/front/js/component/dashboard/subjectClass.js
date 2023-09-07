@@ -45,8 +45,8 @@ export const SubjectClass = (props) => {
         <div className="card-subject">
             
             <div className="card-body subject-text">
-                <p className="card-title">Clase: {props.subjectClass.subjects?.Subject}</p>
-                <p className="card-text">Fecha: {props.subjectClass.date}</p>
+                <p className="card-title">Class: {props.subjectClass.subjects?.Subject}</p>
+                <p className="card-text">Date: {props.subjectClass.date}</p>
             </div>
             {/* <button className="subject-button" onClick={openModal}>Ver Clase</button> */}
 
