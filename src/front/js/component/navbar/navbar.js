@@ -15,7 +15,7 @@ export const Navbar = () => {
 	}
 
 	const handleUserName = () => {
-		if (store.logged === true) { return "👋 Hola " + store.user.name}
+		if (store.logged === true) { return "👋 Hi " + store.user.name}
 	}
 
 

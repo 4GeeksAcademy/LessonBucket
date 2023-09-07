@@ -88,7 +88,7 @@ export const Classes = () => {
         // VISTA PARA PRÓXIMAS LAS CLASES     
 
         <div className="dashboard-wrapper">
-            <div className="separator">Próximas Clases</div>
+            <div className="separator">Next Classes</div>
             <div className="row">
                 <div className="col">
                     <div className="d-flex flex-nowrap overflow-auto">
@@ -204,7 +204,7 @@ export const Classes = () => {
                             />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>hour</Form.Label>
+                            <Form.Label>Hour</Form.Label>
                             <Form.Control
                                 type="time"
                                 name="hour"

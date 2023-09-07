@@ -184,7 +184,7 @@ export const Login = () => {
                     <input className="input" type="password" placeholder="Password" value={password} required="" onChange={(e) => setPassword(e.target.value)} />
                     {loader && <Loader view="login" />}
                     <button className="login-button" onClick={handleLogin}>Login</button>
-                    <a className="link-recoverPass" onClick={handleRecoverPassNavigate}>¿Has olvidado tu contraseña?</a>
+                    <a className="link-recoverPass" onClick={handleRecoverPassNavigate}>Forgot your password?</a>
                 </form>
             </div>
 

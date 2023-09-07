@@ -161,7 +161,7 @@ export const PrivateClass = (props) => {
                 <p className="card-text" title={props.privateClass.hour}> Hour: {props.privateClass.hour}</p>
                 <p className="card-text" title={props.privateClass.comments}> Comment: {props.privateClass.comments}</p>
             </div>
-            <button className="subject-button" onClick={openModal}>Ver Clase</button>
+            <button className="subject-button" onClick={openModal}>See class</button>
 
 
             {/* INICIO MODAL MODIFICAR CLASE */}
@@ -225,7 +225,7 @@ export const PrivateClass = (props) => {
                             />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>hour</Form.Label>
+                            <Form.Label>Hour</Form.Label>
                             <Form.Control
                                 type="time"
                                 name="hour"
@@ -257,10 +257,10 @@ export const PrivateClass = (props) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button  onClick={closeModal}>
-                        Cancelar
+                        Cancel
                     </Button>
                     <Button  onClick={handleUpdateClass}>
-                        Guardar Cambios
+                        Save  Changes
                     </Button>
                     <button className="modal-delete-icon">
                         <FontAwesomeIcon icon={faTrash} onClick={handleDeleteClass} />

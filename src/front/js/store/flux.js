@@ -651,6 +651,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 
 					console.log(response.data)
+
+					if (response.status == 200) {
+						getActions().fetchClasses();
+					}
 					return true;
 
 				} catch (error) {
