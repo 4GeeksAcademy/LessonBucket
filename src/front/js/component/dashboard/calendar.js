@@ -7,7 +7,7 @@ import './calendar.css'
 export const Calendar = () => {
     const [selected, setSelected] = useState(new Date())
 
-    let footer = <p>Please pick a day.</p>;
+    let footer = <p style={{color:'white'}}>Please pick a day.</p>;
     if (selected) {
         footer = <p className='text-white'>You picked {format(selected, 'PP')}.</p>;
     }

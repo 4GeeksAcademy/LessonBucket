@@ -122,7 +122,7 @@ export const StudentCard = (props) => {
     // Estructura de la card para estudiantes
 
     return (
-        <div className="student-card" onClick={() => { setShowModal(true); }}>
+        <div className="student-card mb-4" onClick={() => { setShowModal(true); }}>
 
             {/* INICIO DEL MODAL */}
 
