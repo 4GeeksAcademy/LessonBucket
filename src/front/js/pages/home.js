@@ -47,7 +47,7 @@ export const Home = () => {
           </button>
         </div>
         <div className="row">
-          <img src={dashboardImageUrl} alt="preview dashboard" />
+          <img src={dashboardImageUrl} id="imagePreview" alt="preview dashboard" />
         </div>
       </div>
       <hr />
