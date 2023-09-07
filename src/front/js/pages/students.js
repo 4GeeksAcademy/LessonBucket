@@ -161,7 +161,7 @@ export const Students = () => {
     <div className="student-main-container">
       <div className="student-navbar">
         <div>
-        <h5 className="student-headboard d-flex gap-2  justify-content-start"> Alumnos
+        <h5 className="student-headboard d-flex gap-2  justify-content-start"> Students
           <button className="add-button-student" onClick={() => setShow(!show)}>
             +
           </button>
@@ -172,6 +172,7 @@ export const Students = () => {
         {/* INICIO DEL MODAL */}
 
         {show && (
+          
           <Modal className="student-modal-main-container" tabIndex="-1" role="dialog" show={show} id="modalCreateSubject">
             <form action="" className="student-modal-form_main">
               <p className="modal-student-brand mb-0 h1 "><i className="fa-solid fa-bucket me-2"></i>Lesson Bucket</p>
@@ -201,6 +202,7 @@ export const Students = () => {
               </div>
             </form>
           </Modal>
+          
 
           // FIN DEL MODAL
 
