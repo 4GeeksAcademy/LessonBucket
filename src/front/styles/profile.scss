@@ -36,6 +36,17 @@ p{
     cursor:pointer;
 }
 
+.passBtn{
+    background-color:#b60b7c;
+    cursor:pointer;
+}
+.passBtnDis{
+    background-color:#b64d93;
+    cursor:pointer;
+    color:#601447;
+    cursor:not-allowed;
+}
+
 .profile-input{
     border:none;
     background:none;

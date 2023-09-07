@@ -69,6 +69,9 @@ export const Profile = () => {
     const saveDataPassword = () => {
        
         actions.editPassword(passInput1)
+        setPassInput1('')
+        setPassInput2('')
+        setEditPass(false)
         swal("Good job!", "Password changed successfully.", "success", {
             buttons: {
               confirm: {
@@ -278,17 +281,32 @@ export const Profile = () => {
             return (
 
                 <>
-                    <p style={{ color: 'green' }}>✔️ Passwords match </p>
-                    <div className="btn-primary my-4 rounded py-2" onClick={saveDataPassword}>Change Password</div>
+                    <p style={{ color: '#11df11' }}>✔️ Passwords match </p>
+                    <div className="passBtn my-4 rounded py-2" onClick={saveDataPassword}>Change Password</div>
                 </>
             )
         }
+
+        if ((passInput1 === "") || (passInput2 === "")) {
+
+
+            return (
+
+                <>
+                    <p style={{ color: 'red' }}>❌ Passwords can't be empty </p>
+                    <div className="passBtnDis btn  my-4 disabled">Change Password</div>
+                </>
+            )
+        }
+
+
+
 
         else {
             return (
                 <>
                     <p style={{ color: 'red' }}>❌ Both passwords must be the same</p>
-                    <div className="btn btn-primary my-4 disabled">Change Password</div>
+                    <div className="passBtnDis btn  my-4 disabled">Change Password</div>
                 </>
             )
         }
