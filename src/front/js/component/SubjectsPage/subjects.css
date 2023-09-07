@@ -13,8 +13,8 @@
 #modalCreateSubject {
   width: 60%;
   max-width: 60%;
-  height: 400px;
-  max-height: 400px;
+  /* height: 400px;
+  max-height: 400px; */
 }
 
 #StudentsBox {
@@ -22,4 +22,90 @@
   border-style: solid;
   border-width: 3px;
   border-style: inset;
+}
+
+.modal-dialog{
+  max-width: 100% !important;
+  display: flex;
+  justify-content: center;
+}
+
+.modal-content{
+  width: 50rem;
+}
+
+.accordion-item{
+  background: #F1EEEE;
+}
+.accordion-button, .accordion-button:not(.collapsed){
+  background-color: rgba(65, 23, 60, 0.95);
+  color: white;
+}
+
+.buttonAddSubject{
+  display: block;
+  padding: 0.1rem 0;
+  border: none;
+  border-radius: 6px;
+  color: #FFFFFF;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  position: absolute;
+  width: 100px;
+  background: linear-gradient(90deg, rgba(43, 18, 40, 1) 0%, rgba(69, 15, 63, 1) 35%, rgba(113, 5, 97, 1) 100%);
+  margin-left: 125px;
+  height: 33px;
+}
+
+.student-headboard {
+  color: white;
+  padding: 15px;
+  font-size: 25px;
+}
+
+.student-navbar {
+  display: flex;
+  justify-content: space-between;
+  height: 60px;
+  background: linear-gradient(90deg,
+      rgba(101, 42, 95, 0.626) 0%,
+      rgba(130, 29, 118, 0.61) 35%,
+      rgba(189, 7, 162, 0.621) 100%);
+  border: 1px;
+  opacity: 1;
+  margin-bottom: 35px;
+  border-radius: 15px;
+
+}
+
+.accordion-button:focus {
+  outline:none;
+  border-color: none;
+  box-shadow: none;
+}
+
+.btn-outline-info{
+  background-color: rgba(189, 7, 162, 0%);
+  border-color: rgba(121, 8, 104, 0.621);
+  color: rgba(121, 8, 104, 0.621);
+}
+
+.btn-outline-info:hover{
+  background-color: rgba(121, 8, 104, 0.621);
+  box-shadow: none;
+  border-color: rgba(121, 8, 104, 0.621);
+  color: white;
+}
+
+.btn-outline-secondary{
+  background-color: rgba(189, 7, 162, 0%);
+  border-color: rgba(189, 7, 162, 0.621);
+  color: rgba(189, 7, 162, 0.621);
+}
+
+.btn-outline-secondary:hover{
+  background-color: rgba(189, 7, 162, 0.621);
+  box-shadow: none;
+  border-color: rgba(189, 7, 162, 0.621);
 }

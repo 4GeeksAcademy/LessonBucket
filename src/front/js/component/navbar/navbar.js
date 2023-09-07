@@ -33,7 +33,7 @@ export const Navbar = () => {
 		<nav className="navtop d-flex align-items-center">
 			<div className="container-fluid d-flex flex-row justify-content-between align-items-center mx-4 ">
 				<div>
-				<Link to="/" className="link-logo">
+				<Link  to={store.token !="" ? "/dashboard" : "/"} className="link-logo">
 					<span className="navbar-brand mb-0 h1 "><i className="fa-solid fa-bucket me-2"></i>Lesson Bucket</span>
 				</Link>
 				</div>
@@ -45,9 +45,9 @@ export const Navbar = () => {
 					<Link to="/profile">
 						<p className="nav-links mx-4 nav-p">Profile</p>
 					</Link>
-					<Link to="/About Us">
+					{/* <Link to="/About Us">
 						<p className="nav-links mx-4 nav-p">About us</p>
-					</Link>
+					</Link> */}
 					<Link to="/donations">
 						<p className="nav-links mx-4 nav-p">Donate</p>
 					</Link>

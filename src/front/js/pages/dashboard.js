@@ -44,7 +44,7 @@ export const Dashboard = () => {
 
 	return (
 		<div className="dashboard-wrapper">
-			<div className="separator">Próximas Clases</div>
+			<div className="separator">Next Classes</div>
 			<div className="row">
 				<div className="col">
 					<div className="d-flex flex-nowrap overflow-auto">

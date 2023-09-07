@@ -99,7 +99,7 @@ export const Profile = () => {
                 <div className="profile-data my-1 align-items-center d-flex flex-row justify-content-between p-2 border rounded">
                     <p className="tag me-2 align-items-center">Full Name</p>
                     <form onSubmit={saveDataName}>
-                        <input type="text" id="name-input" placeholder={store.user.name} onChange={handleNameText} onBlur={() => { document.getElementById("name-input").value = ""; }} className=" name-input profile-input data mb-0 align-items-center"></input>
+                        <input  type="text" id="name-input" placeholder={store.user.name} onChange={handleNameText} onBlur={() => { document.getElementById("name-input").value = ""; }} className=" name-input profile-input data mb-0 align-items-center"></input>
                         <i className="fa-solid fa-xmark me-1 text-danger" onClick={() => { setEditName(false); }}></i>
                         <i className="fa-solid fa-floppy-disk" onClick={saveDataName}></i>
                     </form>
@@ -285,7 +285,7 @@ export const Profile = () => {
              
              {!editPass ?
 
-            <section className=" profile-wrapper  d-flex flex-column p-5 bg-white rounded mx-auto ">
+            <section className=" profile-wrapper  d-flex flex-column p-5 bg-white rounded-full mx-auto ">
             
                 <>
                 <h2 className="mb-4"> Profile Information</h2>
@@ -294,7 +294,7 @@ export const Profile = () => {
                 {handleEmail()}
                 {handleAddress()}
                 {handleBirth()}
-                <div className="profile-data my-2 align-items-center d-flex flex-row justify-content-center p-2 ">
+                <div className="profile-data my-2 align-items-center d-flex flex-row justify-content-center p-2 rounded-full ">
                     <i className="me-2 fa-solid fa-lock text-warning"></i>
                     <p className="password tag m justify-content-center" onClick={() => {setEditPass(true)}}>Change Password</p>
                 </div>

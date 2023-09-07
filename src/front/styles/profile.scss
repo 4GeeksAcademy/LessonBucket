@@ -1,11 +1,11 @@
 .profile-wrapper{
     width:fit-content;
     border-radius: 20px;
-    
-   /* background:linear-gradient(90deg,
+    color:white;
+   background:linear-gradient(90deg,
     rgba(78,41,78) 0%,
       
-      rgba(131,19,119) 100%); */
+      rgba(131,19,119) 100%); 
 }
 
 .tag, .profile{
@@ -26,6 +26,8 @@ p{
     width:280px;
 }
 
+
+
 .fa-pen-to-square:hover, .password:hover, .fa-floppy-disk:hover{
         color: #A3A3FF;
         cursor:pointer;
@@ -36,14 +38,23 @@ p{
 
 .profile-input{
     border:none;
+    background:none;
+    width:80px;
     
     &:focus{
         outline:none;
         border-bottom:1px;
+        width:150px;
         
     }
 
+
+
     &::placeholder{
-        color:black;
+        color:rgb(233, 148, 191);
     }
+}
+
+.profile-data{
+    background:linear-gradient(90deg, rgba(43, 18, 40, 1) 0%, rgba(69, 15, 63, 1) 35%, rgba(113, 5, 97, 1) 100%)
 }
