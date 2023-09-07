@@ -160,12 +160,14 @@ export const Students = () => {
   return (
     <div className="student-main-container">
       <div className="student-navbar">
+        <div>
         <h5 className="student-headboard d-flex gap-2  justify-content-start"> Alumnos
           <button className="add-button-student" onClick={() => setShow(!show)}>
             +
           </button>
 
         </h5>
+        </div>
 
         {/* INICIO DEL MODAL */}
 

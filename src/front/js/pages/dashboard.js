@@ -23,22 +23,19 @@ export const Dashboard = () => {
 			return -1;
 		}
 
-		
+
 		return 0;
 	}
 
-
 	useEffect(() => {
 		actions.fetchClasses();
-		
-		console.log(classesByDate)
 		actions.getAllSubjects();
 		actions.getAllStudents();
 	}, []);
 
+
 	useEffect(() => {
 		classesByDate.sort(sortBySoonestDate);
-		console.log(classesByDate);
 		console.log(today);
 	}, [store.classes]);
 
