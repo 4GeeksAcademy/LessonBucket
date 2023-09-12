@@ -43,7 +43,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			// FUNCION PARA CREAR USUARIO
 
-			signup: async (dataName, dataEmail, dataPassword, dataBirthDate, dataAddress) => {
+			signup: async (dataName, dataEmail, dataPassword) => {
 
 				try {
 
@@ -51,8 +51,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 						name: dataName,
 						email: dataEmail,
 						password: dataPassword,
-						birth_date: dataBirthDate,
-						address: dataAddress
 					});
 
 					const data = response.data;
@@ -62,8 +60,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 							"name": dataName,
 							"email": dataEmail,
 							"password": dataPassword,
-							"birth_date": dataBirthDate,
-							"address": dataAddress,
 							"id": data.user.id
 						},
 					});

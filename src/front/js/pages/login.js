@@ -8,13 +8,13 @@ import { Loader } from "../component/loader/loader";
 
 
 export const Login = () => {
-   
+
     const { store, actions } = useContext(Context);
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const [birthDate, setBirthDate] = useState("")
-    const [address, setAddress] = useState("")
+    const [text, setText] = useState("Register");
+    const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
     const [loader, setLoader] = useState(false)
     const navigate = useNavigate();
 
@@ -49,18 +49,38 @@ export const Login = () => {
     //   FUNCION RESETEO INPUT
 
     const handleRegisterFormClick = () => {
+
+        if ( text === "Register") {
+            setText("Return")
+        } else {
+            setText("Register")
+        }
         setName("");
         setEmail("");
         setPassword("");
-        setBirthDate("");
-        setAddress("");
+
+        
     };
 
     // FUNCIÓN BOTON REGISTRO
 
     const handleRegister = async (e) => {
         e.preventDefault()
-        if (!name || !email || !password || !birthDate || !address) {
+        if (isCheckboxChecked === false) {
+            
+            swal("Please", "You must accept the terms and conditions to register.", "warning", {
+                buttons: {
+                    confirm: {
+                        text: "Try Again",
+                        className: "custom-swal-button",
+                    }
+                },
+                timer: 4000,
+            });
+            return;
+        }
+
+        else if (!name || !email || !password) {
             swal("Please", "Fields cannot be empty", "warning", {
                 buttons: {
                     confirm: {
@@ -71,7 +91,7 @@ export const Login = () => {
                 timer: 4000,
             });
             return;
-        } else if (!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(email)) {
+        } else if (!/^[a-zA-Z0-9_.+-.ñÑ-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(email)) {
             swal("Please", "enter a valid email address, mail can only contain letters numbers periods hyphens and the underscore", "error", {
                 buttons: {
                     confirm: {
@@ -95,7 +115,7 @@ export const Login = () => {
             return;
         }
 
-        let response = await actions.signup(name, email, password, birthDate, address);
+        let response = await actions.signup(name, email, password); //birthDate, address);
 
         // Condicional para ocultar menú register una vez realizado.
 
@@ -117,8 +137,8 @@ export const Login = () => {
             setName("");
             setEmail("");
             setPassword("");
-            setBirthDate("");
-            setAddress("");
+            
+
         } else {
             swal("Sorry", "An unexpected error has occurred", "error", {
                 buttons: {
@@ -190,12 +210,23 @@ export const Login = () => {
 
             <div className="register">
                 <form className="form">
-                    <label htmlFor="chk" aria-hidden="true" onClick={handleRegisterFormClick}>Register</label>
+                    <label htmlFor="chk" aria-hidden="true" onClick={handleRegisterFormClick}>{text}</label>
                     <input className="input" type="text" placeholder="Name" value={name} required="" onChange={(e) => setName(e.target.value)} />
                     <input className="input" type="email" placeholder="Email" value={email} required="" onChange={(e) => setEmail(e.target.value)} />
                     <input className="input" type="password" placeholder="Password" value={password} required="" onChange={(e) => setPassword(e.target.value)} />
-                    <input className="input" type="date" placeholder="Birth_Date" value={birthDate} required="" onChange={(e) => setBirthDate(e.target.value)} />
-                    <input className="input" type="text" placeholder="Address" value={address} required="" onChange={(e) => setAddress(e.target.value)} />
+                    <div className="register-check-bt">
+                        <input className="check-register-input" type="checkbox" value="" id="defaultCheck2" />
+                        <label className="check-register" htmlFor="defaultCheck2">
+                            I agree to receive news and updates to my email
+                        </label>
+                    </div>
+                    <div className="register-check-bt-link">
+                        <input className="check-register-input" type="checkbox" value="" id="defaultCheck1" onChange={() => setIsCheckboxChecked(!isCheckboxChecked)} />
+                        <label className="check-register" htmlFor="defaultCheck1">
+                            To register you must accept our &nbsp; <Link className="check-register-link" to="/termsAndConditions"> terms and conditions</Link>
+                            
+                        </label>
+                    </div>
                     <button className="login-button" onClick={handleRegister}>Register</button>
                 </form>
             </div>
