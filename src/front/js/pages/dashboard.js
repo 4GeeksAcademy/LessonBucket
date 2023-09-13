@@ -9,7 +9,14 @@ export const Dashboard = () => {
 	const { store, actions } = useContext(Context);
 	const classesByDate = store.classes;
 
-	let today = new Date().toLocaleDateString("es-ES");
+	let today = new Date();
+
+	// let futureClasses = classesByDate.filter(futureFilter(date));
+
+	// const futureFilter = (date) => {
+	// 	return date >= today
+	// }
+
 	
 
 	const sortBySoonestDate = (a,b) => {

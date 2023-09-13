@@ -10,7 +10,7 @@
 }
 
 .pill {
-    background: transparent linear-gradient(271deg, #851414 0%, #613546 100%);
+    background: #851414;
     border: 1px solid transparent;
     border-radius: 20px;
     opacity: 1;
