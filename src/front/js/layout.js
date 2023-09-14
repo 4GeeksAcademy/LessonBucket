@@ -6,6 +6,7 @@ import { BackendURL } from "./component/backendURL";
 
 import { Home } from "./pages/home";
 import { Login } from "./pages/login";
+import { TermsAndConditions } from "./pages/termsAndConditions";
 import { RecoverPass } from "./pages/recoverPass";
 import { Students } from "./pages/students";
 import { LearnMore } from "./pages/LearnMore";
@@ -13,7 +14,6 @@ import { Donations } from "./pages/donations";
 import { Single } from "./pages/single";
 import { SubjectsPage } from "./pages/subjectsPage";
 import injectContext from "./store/appContext";
-
 import { Navbar } from "./component/navbar/navbar";
 import { Footer } from "./component/footer/footer";
 import { Sidebar } from "./component/sidebar/sidebar";
@@ -55,6 +55,7 @@ const Layout = () => {
                             <Routes>
                                 <Route element={<Home />} path="/" />
                                 <Route element={<Login />} path="/login" />
+                                <Route element={<TermsAndConditions />} path="/termsAndConditions" />
                                 <Route element={<RecoverPass />} path="/recoverPass" />
                                 <Route element={<Students />} path="/students" />
                                 <Route element={<Donations />} path="/donations" />

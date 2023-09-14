@@ -76,18 +76,52 @@ label {
   transform: scale(.6);
 }
 
-#chk:checked ~ .register {
+#chk:checked~.register {
   transform: translateY(-60%);
 }
 
-#chk:checked ~ .register label {
+#chk:checked~.register label {
   transform: scale(1);
-  margin: 10% 0 5%;
 }
 
-#chk:checked ~ .login label {
+#chk:checked~.login label {
   transform: scale(.6);
   margin: 5% 0 5%;
+}
+
+
+
+/* ESTILOS PARA CONDICIONES DE REGISTRO */
+
+.register-check-bt {
+  display: flex;
+  margin-right: 6px;
+}
+
+.check-register {
+  font-size: 11px;
+  cursor: auto;
+  margin-top: 29px;
+  padding-left: 5px;
+
+}
+
+.check-register-input {
+  margin-top: 27px;
+}
+
+.register-check-bt-link {
+  display: flex;
+}
+
+
+
+.check-register-link {
+  display: inline;
+  color: rgb(63, 14, 227);
+  transition: color 0.3s;
+  transition: background-position 0.3s, transform 0.3s;
+
 }
 
 /* ESTILOS BOTON LOGIN */
@@ -125,8 +159,8 @@ label {
 }
 
 .link-recoverPass:hover {
-  color: rgb(63, 14, 227); 
-  transform: scale(1.1); 
+  color: rgb(63, 14, 227);
+  transform: scale(1.1);
 }
 
 /* ESTILOS ALERTAS SWAL */
