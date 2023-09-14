@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { PagosPendientes } from "../component/dashboard/pagosPendientes";
 import { SubjectClass } from "../component/dashboard/subjectClass.js";
 import { Calendar } from "../component/dashboard/calendar";
@@ -7,17 +7,18 @@ import { Context } from "../store/appContext";
 
 export const Dashboard = () => {
 	const { store, actions } = useContext(Context);
-	const classesByDate = store.classes;
-
-	let today = new Date();
-
-	// let futureClasses = classesByDate.filter(futureFilter(date));
-
-	// const futureFilter = (date) => {
-	// 	return date >= today
-	// }
-
+	// const classesByDate = store.classes;
+	const classes = store.classes;
+	const [futureClasses, setFutureClasses] = useState([]);
 	
+
+	// const classesByDate = classes.map((class) => return class.date
+	// );
+	// const classesByDate = classes.map(function (clas) {
+	// 	return clas.date, clas.hour;
+	//   });
+
+	//   console.log(classesByDate)
 
 	const sortBySoonestDate = (a,b) => {
 	
@@ -34,6 +35,25 @@ export const Dashboard = () => {
 		return 0;
 	}
 
+	let today = new Date();
+
+	
+
+	
+
+	// const futureFilter = (item) => {
+	// 	return item.date >= today
+	// }
+	const orderFutureClasses = () =>{
+	const futureFilteredClasses = classes.filter(function (item){
+		return new Date(item.date) >= today
+	}).sort(sortBySoonestDate);
+	setFutureClasses(futureFilteredClasses)
+    }
+
+
+	
+
 	useEffect(() => {
 		actions.fetchClasses();
 		actions.getAllSubjects();
@@ -42,8 +62,7 @@ export const Dashboard = () => {
 
 
 	useEffect(() => {
-		classesByDate.sort(sortBySoonestDate);
-		console.log(today);
+		orderFutureClasses();
 	}, [store.classes]);
 
 
@@ -55,7 +74,7 @@ export const Dashboard = () => {
 			<div className="row">
 				<div className="col">
 					<div className="d-flex flex-nowrap overflow-auto">
-						{classesByDate && classesByDate.slice(0, 3).map((subjectClass, index) => (
+						{futureClasses && futureClasses.slice(0, 3).map((subjectClass, index) => (
 							<div key={index}>
 								<SubjectClass subjectClass={subjectClass} />
 							</div>

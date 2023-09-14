@@ -4,9 +4,40 @@ import "./pagosPendientes.css";
 
 export const PagosPendientes = (props) => {
 	const { store, actions } = useContext(Context);
-	const paymentFiltrados = store.classes && store.classes.filter((payment, index) => payment.paid == false)
+	const [pastClasses, setPastClasses] = useState([]);
+	const classes = store.classes;
 	const [loaded, setLoaded] = useState("loadedEmpty")
 
+	const sortBySoonestDate = (a,b) => {
+	
+		const dateA = new Date(a.date);
+		const dateB = new Date(b.date);
+		if (a.date > b.date) {
+			return 1;
+		}
+		if (a.date < b.date) {
+			return -1;
+		}
+
+
+		return 0;
+	}
+
+	let today = new Date();
+
+	const orderPastClasses = () =>{
+		const pastFilteredClasses = classes.filter(function (item){
+			return new Date(item.date) < today
+		}).sort(sortBySoonestDate);
+		setPastClasses(pastFilteredClasses)
+		}
+
+		const paymentFiltrados = pastClasses && pastClasses.filter((payment, index) => payment.paid == false)
+
+		useEffect(() => {
+			orderPastClasses();
+		}, [store.classes]);
+	
 	useEffect(() => {
         setLoaded("fullLoaded")
     }, [store.token]);
