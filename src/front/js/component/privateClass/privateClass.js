@@ -155,7 +155,7 @@ export const PrivateClass = (props) => {
 
         <div className="card-subject">
             <div className="card-body subject-text">
-                <p className="card-title" title={props.privateClass.subjects.Subject}> Class: {props.privateClass.subjects.Subject}</p>
+                <p className="card-text" title={props.privateClass.subjects.Subject}> Class: {props.privateClass.subjects.Subject}</p>
                 <p className="card-text" title={props.privateClass.student.name}> Student: {props.privateClass.student.name}</p>
                 <p className="card-text" title={props.privateClass.date}> Date: {props.privateClass.date}</p>
                 <p className="card-text" title={props.privateClass.hour}> Hour: {props.privateClass.hour}</p>

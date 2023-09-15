@@ -52,7 +52,7 @@ def register():
 
     request_body = request.get_json(force=True)
 
-    required_fields = ["name", "email", "password", "birth_date", "address"]
+    required_fields = ["name", "email", "password"]
     for field in required_fields:
         if field not in request_body or not request_body[field]:
             raise APIException(f'The "{field}" field cannot be empty', 400)
@@ -61,8 +61,7 @@ def register():
     if verify_email:
         raise APIException("An account with this email already exists", 400)
 
-    user = User(name=request_body["name"], email=request_body["email"], password=request_body["password"],
-                birth_date=request_body["birth_date"], address=request_body["address"])
+    user = User(name=request_body["name"], email=request_body["email"], password=request_body["password"])
 
     db.session.add(user)
 
