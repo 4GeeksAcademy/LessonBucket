@@ -589,15 +589,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 
 			updateSubjectClassInStore: async (class_id, updatedInfo) => {
-				console.log(class_id);
-				console.log(updatedInfo);
-				console.log("Entrando...")
-
+				
 				const user_id = getStore().user.id;
 				const token = getStore().token;
 
 				try {
-					const response = await axios.put(
+					const response = await axios.patch(
 						`${process.env.BACKEND_URL}/api/user/${user_id}/class/${class_id}`,
 						updatedInfo,
 						{
@@ -607,13 +604,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}
 					);
 
-					console.log(response.data);
+					
 					const modifyClass = [...getStore().classes, response.data.user];
 
-					console.log(response);
-					console.log(modifyClass);
-
-
+					
 					setStore({
 						classes: modifyClass,
 					});
@@ -629,6 +623,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
+		
 			//   DELETE ONE CLASS
 
 			deleteOneClass: async (class_id) => {

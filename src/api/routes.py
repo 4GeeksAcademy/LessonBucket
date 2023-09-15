@@ -61,7 +61,8 @@ def register():
     if verify_email:
         raise APIException("An account with this email already exists", 400)
 
-    user = User(name=request_body["name"], email=request_body["email"], password=request_body["password"])
+    user = User(
+        name=request_body["name"], email=request_body["email"], password=request_body["password"])
 
     db.session.add(user)
 
@@ -89,7 +90,7 @@ def modify_user(user_id):
     if not user:
         raise APIException('User no found', 404)
 
-    required_fields = ["name", "email", "birth_date", "address","password"]
+    required_fields = ["name", "email", "birth_date", "address", "password"]
     for field in required_fields:
         if field not in body or not body[field]:
             raise APIException(f'The "{field}" field cannot be empty', 400)
@@ -111,7 +112,7 @@ def modify_user(user_id):
     return jsonify(response_body), 200
 
 
-### ENDPOINT PATCH  USER
+# ENDPOINT PATCH  USER
 
 
 @api.route('/user/<int:user_id>', methods=['PATCH'])
@@ -128,15 +129,12 @@ def update_user(user_id):
     if 'address' in data:
         user.address = data['address']
     if 'birth_date' in data:
-        user.birth_date = data['birth_date'] 
+        user.birth_date = data['birth_date']
     if 'password' in data:
-        user.password = data['password'] 
+        user.password = data['password']
 
     db.session.commit()
     return jsonify({'message': 'User updated successfully'}), 200
-
-
-
 
 
 # ENDPOINT GET ALL USERS
@@ -200,7 +198,8 @@ def login():
     if not user:
         return jsonify("Credenciales incorrectas"), 401
 
-    access_token = create_access_token(identity=email, expires_delta=datetime.timedelta(hours=6))
+    access_token = create_access_token(
+        identity=email, expires_delta=datetime.timedelta(hours=6))
     # print(access_token)
 
     response_body = {
@@ -216,7 +215,6 @@ def login():
 
 @api.route('/user/<int:user_id>/subjects', methods=['GET'])
 def get_all_subjects(user_id):
-
 
     subjects_query = Subjects.query.filter_by(user_id=user_id).all()
 
@@ -243,7 +241,8 @@ def get_all_subjects(user_id):
 def get_one_subject(user_id, subjects_id):
 
     try:
-        subject_information = Subjects.query.filter_by(user_id=user_id, id=subjects_id).first()
+        subject_information = Subjects.query.filter_by(
+            user_id=user_id, id=subjects_id).first()
 
         response_body = {
             "msg": "Subject obtained",
@@ -297,7 +296,8 @@ def create_one_subject(user_id):
 @api.route('/user/<int:user_id>/subjects/<int:subjects_id>', methods=['DELETE'])
 def del_subjects(user_id, subjects_id):
 
-    subjects_query = Subjects.query.filter_by(id=subjects_id, user_id=user_id).first()
+    subjects_query = Subjects.query.filter_by(
+        id=subjects_id, user_id=user_id).first()
 
     if not subjects_query:
         raise APIException('User not found', 404)
@@ -320,25 +320,25 @@ def del_subjects(user_id, subjects_id):
 
 @api.route('/user/<int:user_id>/subjects/<int:subject_id>', methods=['PATCH'])
 def add_student_to_subject(user_id, subject_id):
-    
+
     data = request.get_json()
     if 'student_id' in data:
         student_id = data['student_id']
         student = Students.query.get(student_id)
-        if not student :
+        if not student:
             return jsonify({"message": "Student not found"}), 404
         if student.user_id != user_id:
             return jsonify({"message": "El usuario no tiene permisos para realizar esta acción"}), 403
-        
+
         subject = Subjects.query.get(subject_id)
-        if not subject :
+        if not subject:
             return jsonify({"message": "Subject not found"}), 404
-        
+
         subject.Students.append(student)
         db.session.commit()
 
         return jsonify({"message": "Estudiante agregado al tema exitosamente"}), 200
-    
+
     elif 'Subject' in data:
         subject = Subjects.query.get(subject_id)
 
@@ -347,21 +347,20 @@ def add_student_to_subject(user_id, subject_id):
         db.session.commit()
 
         response_body = {
-             "msg": "Subject updated successfully",
+            "msg": "Subject updated successfully",
              "student": subject.serialize()
-         }
-        
+            }
+
         return jsonify(response_body), 200
     else:
         return jsonify("Not a valid request"), 400
-
 
 
 # ENDPOINT GET ALL STUDENTS
 
 @api.route('/user/<int:user_id>/students', methods=['GET'])
 def get_all_students(user_id):
-    
+
     students_query = Students.query.filter_by(user_id=user_id).all()
 
     if not students_query:
@@ -387,7 +386,8 @@ def get_all_students(user_id):
 def get_one_student(user_id, student_id):
 
     try:
-        student_information = Students.query.filter_by(user_id=user_id, id=student_id).first()
+        student_information = Students.query.filter_by(
+            user_id=user_id, id=student_id).first()
 
         response_body = {
             "msg": "Student obtained",
@@ -412,13 +412,14 @@ def create_one_student(user_id):
         if field not in request_body or not request_body[field]:
             raise APIException(f'The "{field}" field cannot be empty', 400)
 
-    verify_email = Students.query.filter_by(email=request_body["email"]).first()
-    
+    verify_email = Students.query.filter_by(
+        email=request_body["email"]).first()
+
     if verify_email:
         raise APIException("An account with this email already exists", 402)
 
-    student = Students(user_id=user_id,name=request_body["name"], email=request_body["email"], address=request_body["address"],
-                phone=request_body["phone"], goal=request_body["goal"])
+    student = Students(user_id=user_id, name=request_body["name"], email=request_body["email"], address=request_body["address"],
+                       phone=request_body["phone"], goal=request_body["goal"])
 
     db.session.add(student)
 
@@ -440,7 +441,8 @@ def create_one_student(user_id):
 @api.route('/user/<int:user_id>/students/<int:students_id>', methods=['DELETE'])
 def del_student(user_id, students_id):
 
-    students_query = Students.query.filter_by(user_id=user_id, id=students_id).first()
+    students_query = Students.query.filter_by(
+        user_id=user_id, id=students_id).first()
 
     if not students_query:
         raise APIException('Student not found', 404)
@@ -464,7 +466,8 @@ def del_student(user_id, students_id):
 @api.route('/user/<int:user_id>/students/<int:student_id>', methods=['PATCH'])
 def update_student(user_id, student_id):
     try:
-        student = Students.query.filter_by(user_id=user_id, id=student_id).first()
+        student = Students.query.filter_by(
+            user_id=user_id, id=student_id).first()
 
         if not student:
             return jsonify({'message': 'Student not found'}), 404
@@ -633,7 +636,7 @@ def protected():
 
     if not user:
         return jsonify(success=False, message='User not found'), 404
-    
+
     response_body = {
         "logged_in_as": current_user,
         "user": user.serialize()
@@ -642,26 +645,25 @@ def protected():
     return jsonify(success=True, response=response_body), 200
 
 
-
 # ENDPOINT RECUPERAR CONTRASEÑA OLVIDADA
 
 @api.route("/forgotpassword", methods=["POST"])
 def forgotpassword():
-    
+
     recover_email = request.json.get('email')
 
     if not recover_email:
         return jsonify({"msg": "You must provide an email"}), 400
-    
+
     # Busca si el correo existe en la base de datos
     user = User.query.filter_by(email=recover_email).first()
     if user is None:
         return jsonify({"msg": "There is no user with the provided email"}), 400
-    
+
     # Genera una nueva contraseña aleatoria
     recover_password = ''.join(random.choice(
         string.ascii_uppercase + string.digits) for _ in range(8))
-    
+
     # Almacena la nueva contraseña en la base de datos
     user.password = recover_password
     db.session.commit()
@@ -675,6 +677,7 @@ def forgotpassword():
 
 # ENDPOINT PARA OBTENER TODAS LAS CLASES
 
+
 @api.route('/user/<int:user_id>/class', methods=['GET'])
 def get_all_class(user_id):
 
@@ -684,7 +687,6 @@ def get_all_class(user_id):
         raise APIException('The list of class is empty', 404)
 
     results = list(map(lambda item: item.serialize(), class_query))
-    
 
     try:
         response_body = {
@@ -716,27 +718,27 @@ def get_one_class(user_id, class_id):
     except:
         raise APIException('Class not found', 404)
 
-
     # ENDPOINT CREATE ONE CLASS
+
 
 @api.route("/user/<int:user_id>/class", methods=["POST"])
 def create_one_class(user_id):
 
-    request_body = request.get_json(force=True)		
-    
-						
-    required_fields = ["subjects_id", "student_id","comments", "date","hour", "price",]
+    request_body = request.get_json(force=True)
+
+    required_fields = ["subjects_id", "student_id",
+        "comments", "date", "hour", "price",]
     for field in required_fields:
         if field not in request_body or not request_body[field]:
             raise APIException(f'The "{field}" field cannot be empty', 400)
 
     newClass = Class(subjects_id=request_body["subjects_id"], student_id=request_body["student_id"], hour=request_body["hour"], comments=request_body["comments"],
-                date=request_body["date"], price=request_body["price"], paid=request_body["paid"], user_id=user_id ,)
+                     date=request_body["date"], price=request_body["price"], paid=request_body["paid"], user_id=user_id,)
 
     db.session.add(newClass)
 
     db.session.commit()
-    
+
     response_body = {
         "msg": "Class created",
         "student": newClass.serialize()
@@ -747,30 +749,36 @@ def create_one_class(user_id):
 
  # ENDPOINT MODIFY A CLASS
 
-@api.route('/user/<int:user_id>/class/<int:class_id>', methods=['PUT'])
+
+@api.route('/user/<int:user_id>/class/<int:class_id>', methods=['PATCH'])
 def modify_class(user_id, class_id):
 
-    body = request.get_json(force=True)
+    
     newClass = Class.query.get(class_id)
 
     if not newClass:
         raise APIException('Class not found', 404)
-    
+
     if newClass.user_id != user_id:
-            raise APIException('Class does not belong to the specified user', 400)
+        raise APIException('Class does not belong to the specified user', 400)
 
-    required_fields = ["subjects_id", "student_id", "comments", "date", "hour", "price",]
-    for field in required_fields:
-        if field not in body or not body[field]:
-            raise APIException(f'The "{field}" field cannot be empty', 400)
+    data = request.get_json()
+    if 'subjects_id' in data:
+            newClass.subjects_id = data['subjects_id']
+    if 'student_id' in data:
+            newClass.student_id = data['student_id']
+    if 'comments' in data:
+            newClass.comments = data['comments']
+    if 'date' in data:
+            newClass.date = data['date']
+    if 'price' in data:
+            newClass.price = data['price']
+    if 'hour' in data:
+            newClass.hour = data['hour']
+    if 'paid' in data:
+            newClass.paid = data['paid']             
 
-    newClass.subjects_id = body["subjects_id"]
-    newClass.student_id = body["student_id"]
-    newClass.comments = body["comments"]
-    newClass.date = body["date"]
-    newClass.price = body["price"]
-    newClass.paid = body["paid"]
-
+ 
     try:
         db.session.commit()
 
@@ -783,6 +791,8 @@ def modify_class(user_id, class_id):
     }
     return jsonify(response_body), 200
 
+
+    
 
 # ENDPOINT DELETE CLASS
 
@@ -805,13 +815,16 @@ def del_class(user_id, class_id):
     except:
         raise APIException('Internal error', 500)
 
-    return jsonify(response_body), 200      
+    return jsonify(response_body), 200
+
 
 # ENDPOINT GET STUDENTS ASIGNED TO A SUBJECT
+
 @api.route('/user/<int:user_id>/students/<int:subject_id>', methods=['GET'])
 def get_all_students_per_subject(user_id, subject_id):
-    
-    students_query = Students.query.filter_by(user_id=user_id, id=subject_id).all()
+
+    students_query = Students.query.filter_by(
+        user_id=user_id, id=subject_id).all()
 
     if not students_query:
         raise APIException('The list of students is empty', 404)
@@ -822,9 +835,9 @@ def get_all_students_per_subject(user_id, subject_id):
         response_body = {
             "msg": "List of students obtained",
             "results": results
-         }
+            }
 
     except:
         raise APIException('Internal error', 500)
 
-    return jsonify(response_body), 200      
+    return jsonify(response_body), 200
