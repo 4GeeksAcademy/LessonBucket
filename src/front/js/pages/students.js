@@ -2,8 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
 import { useNavigate } from 'react-router-dom';
 import { StudentCard } from "../component/studentCard/studentCard"
-import { Loader } from "../component/loader/loader";
-import { Modal } from "react-bootstrap";
+import { Loader } from "../component/loader/loader"
 import swal from 'sweetalert'
 import "../../styles/students.css"
 
@@ -11,7 +10,6 @@ import "../../styles/students.css"
 export const Students = () => {
   const { store, actions } = useContext(Context);
   const [loaded, setLoaded] = useState("loadedEmpty")
-  const [show, setShow] = useState(false)
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [address, setAddress] = useState("")
@@ -114,7 +112,7 @@ export const Students = () => {
       });
 
 
-      setShow(false)
+      
       setName("");
       setEmail("");
       setAddress("");
@@ -147,7 +145,6 @@ export const Students = () => {
   }
 
   const resetReturnData = () => {
-    setShow(false)
     setName("");
     setEmail("");
     setAddress("");
@@ -161,74 +158,80 @@ export const Students = () => {
     <div className="student-main-container">
       <div className="student-navbar">
         <div>
-        <h5 className="student-headboard d-flex gap-2  justify-content-start"> Students
-          <button className="add-button-student" onClick={() => setShow(!show)}>
+          <h5 className="student-headboard d-flex gap-2  justify-content-start"> Students
+            {/* <button className="add-button-student" onClick={() => setShow(!show)}>
             +
-          </button>
+          </button> */}
 
-        </h5>
+            <button className="add-button-student" data-bs-toggle="modal" data-bs-target="#addStudentModal">
+              +
+            </button>
+
+          </h5>
         </div>
 
-        {/* INICIO DEL MODAL */}
-
-        {show && (
-          
-          <Modal className="student-modal-main-container" tabIndex="-1" role="dialog" show={show} id="modalCreateSubject">
-            <form action="" className="student-modal-form_main">
-              <p className="modal-student-brand mb-0 h1 "><i className="fa-solid fa-bucket me-2"></i>Lesson Bucket</p>
-              <p className="student-modal-heading">Add student to my list</p>
-              <div className="student-modal-inputContainer">
-                <input type="text" className="student-modal-inputField" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
-              </div>
-
-              <div className="student-modal-inputContainer">
-                <input type="email" className="student-modal-inputField" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-              </div>
-
-              <div className="student-modal-inputContainer">
-                <input type="text" className="student-modal-inputField" placeholder="Address" value={address} onChange={(e) => setAddress(e.target.value)} />
-              </div>
-
-              <div className="student-modal-inputContainer">
-                <input type="text" className="student-modal-inputField" placeholder="Phone" value={phone} onChange={(e) => setPhone(e.target.value)} />
-              </div>
-
-              <div className="student-modal-inputContainer">
-                <input type="text" className="student-modal-inputField" placeholder="Goal" value={goal} onChange={(e) => setGoal(e.target.value)} />
-              </div>
-              <div className="student-modal-button-container" >
-                <button type="button" className="student-modal-button student-modal-button-create" onClick={handleCreateStudent}>Create new student</button>
-                <button type="button" className="student-modal-button student-modal-button-return" onClick={() => { resetReturnData() }}>return</button>
-              </div>
-            </form>
-          </Modal>
-          
-
-          // FIN DEL MODAL
-
-          //  INICIO FUNCIÓN SEARCH
-
-        )}
-        <div className="searchbarStyle ">
-        <input
-          className="student-search-input"
-          placeholder="Search..."
-          required=""
-          value={searchStudent}
-          onChange={(e) => handleInputChange(e)}
-          onKeyPress={(e) => {
-            if (e.key === 'Enter') {
-              handleEnterKeyPress(e);
-            }
-          }}
-
-        />
-
-        {/* FIN FUNCIÓN SEARCH  */}
-
-        <button className="student-button-refresh px-4 py-1" onClick={() => { actions.getAllStudents(); setSearchResults([]) }}>Refresh</button>
-        </div>
+        {/* INICIO DEL MODAL  */}
         
+          <div className="modal fade student-modal-main-container" id="addStudentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content studentsContent">
+                <form action="" className="student-modal-form_main">
+                  <p className="modal-student-brand mb-0 h1 "><i className="fa-solid fa-bucket me-2"></i>Lesson Bucket</p>
+                  <p className="student-modal-heading">Add student to my list</p>
+                  <div className="student-modal-inputContainer">
+                    <input type="text" className="student-modal-inputField" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
+                  </div>
+
+                  <div className="student-modal-inputContainer">
+                    <input type="email" className="student-modal-inputField" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                  </div>
+
+                  <div className="student-modal-inputContainer">
+                    <input type="text" className="student-modal-inputField" placeholder="Address" value={address} onChange={(e) => setAddress(e.target.value)} />
+                  </div>
+
+                  <div className="student-modal-inputContainer">
+                    <input type="text" className="student-modal-inputField" placeholder="Phone" value={phone} onChange={(e) => setPhone(e.target.value)} />
+                  </div>
+
+                  <div className="student-modal-inputContainer">
+                    <input type="text" className="student-modal-inputField" placeholder="Goal" value={goal} onChange={(e) => setGoal(e.target.value)} />
+                  </div>
+                  <div className="student-modal-button-container" >
+                    <button type="button" className="student-modal-button student-modal-button-create" onClick={handleCreateStudent}>Create new student</button>
+                    <button type="button" className="student-modal-button student-modal-button-return" data-bs-dismiss="modal" onClick={() => { resetReturnData() }}>return</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+
+          {/* // FIN DEL MODAL */}
+
+          {/* //  INICIO FUNCIÓN SEARCH */}
+
+        
+        <div className="searchbarStyle ">
+          <input
+            className="student-search-input"
+            placeholder="Search..."
+            required=""
+            value={searchStudent}
+            onChange={(e) => handleInputChange(e)}
+            onKeyPress={(e) => {
+              if (e.key === 'Enter') {
+                handleEnterKeyPress(e);
+              }
+            }}
+
+          />
+
+          {/* FIN FUNCIÓN SEARCH  */}
+
+          <button className="student-button-refresh px-4 py-1" onClick={() => { actions.getAllStudents(); setSearchResults([]) }}>Refresh</button>
+        </div>
+
       </div>
       {store.allStudents && store.allStudents.length > 0 ? (
         <>
