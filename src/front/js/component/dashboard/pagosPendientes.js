@@ -8,6 +8,7 @@ export const PagosPendientes = (props) => {
 	const classes = store.classes;
 	const [loaded, setLoaded] = useState("loadedEmpty")
 
+	
 	const sortBySoonestDate = (a,b) => {
 	
 		const dateA = new Date(a.date);
@@ -25,12 +26,18 @@ export const PagosPendientes = (props) => {
 
 	let today = new Date();
 
+	const changePaidState = item.paid = true
+
 	const orderPastClasses = () =>{
 		const pastFilteredClasses = classes.filter(function (item){
 			return new Date(item.date) < today
 		}).sort(sortBySoonestDate);
 		setPastClasses(pastFilteredClasses)
 		}
+	
+	const handleStudentPaid = (item) =>{
+		actions.markClassAsPaid(item.id);
+	}
 
 		const paymentFiltrados = pastClasses && pastClasses.filter((payment, index) => payment.paid == false)
 
@@ -49,10 +56,11 @@ export const PagosPendientes = (props) => {
 					<div className="overflow-auto">
 						<h5 className="pill-title">Pending payment </h5>
 						{loaded === "fullLoaded" && paymentFiltrados ? paymentFiltrados.map((item, index) => (
-							<div className="pill row" key={index}>
-								<p className="pill-font col-9">{item.student?.name}-{item.date}</p>
-								<button type="button" class="btn btn-primary col-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  									Paid
+							<div className="pill d-flex justify-content-between" key={index}>
+								<p className="pill-font">{item.student?.name}-{item.date}</p>
+								{console.log(item)}
+								<button type="button" className="button-paid" data-bs-toggle="modal" data-bs-target="#exampleModal">
+								<i className="fa-solid fa-check" style={{color: "#ffffff"}}></i>
 								</button>
 							</div>
 						)): "No hay pagos pendientes"}
@@ -60,19 +68,16 @@ export const PagosPendientes = (props) => {
 				</div>
 			</div>
 			
-			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	  			<div class="modal-dialog">
-    				<div class="modal-content">
-      					<div class="modal-header">
-        					<h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-        					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			<div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  			<div className="modal-dialog">
+    				<div className="modal-content">
+      					<div className="modal-header">
+        					<h1 className="modal-title fs-5" id="exampleModalLabel">Confirm Payment</h1>
+        					<button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       					</div>
-      					<div class="modal-body">
-        				...
-      					</div>
-      					<div class="modal-footer">
-        					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        					<button type="button" class="btn btn-primary">Save changes</button>
+      					<div className="modal-footer">
+        					<button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        					<button type="button" className="btn btn-primary" onClick={() =>{handleStudentPaid()}}>Confirm</button>
       					</div>
     				</div>
   				</div>

@@ -31,6 +31,12 @@
     font-size: 25px !important;
 }
 
+.button-paid{
+    border-radius: 25%;
+    background: green;
+    border-color: white;
+}
+
 
 
 @media (max-width: 768px) {

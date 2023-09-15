@@ -747,30 +747,35 @@ def create_one_class(user_id):
 
  # ENDPOINT MODIFY A CLASS
 
-@api.route('/user/<int:user_id>/class/<int:class_id>', methods=['PUT'])
+@api.route('/user/<int:user_id>/class/<int:class_id>', methods=['PATCH'])
 def modify_class(user_id, class_id):
 
-    body = request.get_json(force=True)
+
     newClass = Class.query.get(class_id)
 
     if not newClass:
         raise APIException('Class not found', 404)
-    
+
     if newClass.user_id != user_id:
-            raise APIException('Class does not belong to the specified user', 400)
+        raise APIException('Class does not belong to the specified user', 400)
 
-    required_fields = ["subjects_id", "student_id", "comments", "date", "hour", "price",]
-    for field in required_fields:
-        if field not in body or not body[field]:
-            raise APIException(f'The "{field}" field cannot be empty', 400)
+    data = request.get_json()
+    if 'subjects_id' in data:
+            newClass.subjects_id = data['subjects_id']
+    if 'student_id' in data:
+            newClass.student_id = data['student_id']
+    if 'comments' in data:
+            newClass.comments = data['comments']
+    if 'date' in data:
+            newClass.date = data['date']
+    if 'price' in data:
+            newClass.price = data['price']
+    if 'hour' in data:
+            newClass.hour = data['hour']
+    if 'paid' in data:
+            newClass.paid = data['paid']
 
-    newClass.subjects_id = body["subjects_id"]
-    newClass.student_id = body["student_id"]
-    newClass.comments = body["comments"]
-    newClass.date = body["date"]
-    newClass.price = body["price"]
-    newClass.paid = body["paid"]
-
+ 
     try:
         db.session.commit()
 

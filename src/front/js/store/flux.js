@@ -589,15 +589,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 
 			updateSubjectClassInStore: async (class_id, updatedInfo) => {
-				console.log(class_id);
-				console.log(updatedInfo);
-				console.log("Entrando...")
+				
 
 				const user_id = getStore().user.id;
 				const token = getStore().token;
 
 				try {
-					const response = await axios.put(
+					const response = await axios.patch(
 						`${process.env.BACKEND_URL}/api/user/${user_id}/class/${class_id}`,
 						updatedInfo,
 						{
@@ -628,6 +626,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			},
+			markClassAsPaid : async(class_id) => {
+				const data = {
+				  paid: true,
+				};
+			  
+				return axios.patch(`/user/${user_id}/class/${class_id}`, data)
+				  .then((response) => response.data)
+				  .catch((error) => {
+					throw error;
+				  });
+			  },
 
 			//   DELETE ONE CLASS
 
