@@ -1,6 +1,6 @@
 .profile-wrapper{
     width:fit-content;
-    border-radius: 20px;
+    border-radius: 31px;
     color:white;
    background:linear-gradient(90deg,
     rgba(78,41,78) 0%,
@@ -20,6 +20,7 @@ p{
 }
 
 .passwordForm{
+    border-radius: 31px;
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -37,7 +38,7 @@ p{
 }
 
 .passBtn{
-    background-color:#b60b7c;
+    background:linear-gradient(90deg, rgba(43, 18, 40, 1) 0%, rgba(69, 15, 63, 1) 35%, rgba(113, 5, 97, 1) 100%);
     cursor:pointer;
 }
 .passBtnDis{

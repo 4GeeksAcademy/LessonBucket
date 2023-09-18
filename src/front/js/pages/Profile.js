@@ -93,7 +93,7 @@ export const Profile = () => {
 
             return (
 
-                <div className="profile-data my-1 align-items-center d-flex flex-row justify-content-between p-2 border rounded">
+                <div className="profile-data my-1 align-items-center d-flex flex-row justify-content-between p-2 border ">
                     <div className="d-flex">
                         <p className="tag me-2 align-items-center">Full Name</p>
                         <p className="data mb-0 align-items-center ms-2">{store.user.name}</p>
@@ -109,7 +109,7 @@ export const Profile = () => {
 
         else {
             return (
-                <div className="profile-data my-1 align-items-center d-flex flex-row justify-content-between p-2 border rounded">
+                <div className="profile-data my-1 align-items-center d-flex flex-row justify-content-between p-2 border ">
                     <div className="d-flex align-items-center">
                         <p className="tag me-2 align-items-center">Full Name</p>
                         <form className="d-flex align-items-center justtify-content-between" onSubmit={saveDataName}>
@@ -346,7 +346,7 @@ export const Profile = () => {
 
                     :
 
-                    <section className=" profile-wrapper  d-flex flex-column p-5 bg-white rounded mx-auto justify-content-center ">
+                    <section className=" profile-wrapper  d-flex flex-column p-5 bg-white  mx-auto justify-content-center ">
 
                         {handlePass()}
 

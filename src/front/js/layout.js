@@ -44,11 +44,11 @@ const Layout = () => {
                 <Navbar />
                     <div className="container-fluid p-0">
                         <div className="row">
-                            <div className={store.token === "" ? "col-2 p-0 d-none" : "col-1 p-0"}>
+                            <div className={store.token === "" ? "col-2 p-0 d-none" : "col-2 p-0"}>
                             <Sidebar />                               
                             </div>
                        
-                            <div className={store.token === "" ? "col-12 p-0" : "col-11 p-0"}>  
+                            <div className={store.token === "" ? "col-12 p-0" : "col-10 p-0"}>  
                             
                         <div className="min-vh-100 pt-4 mx-auto ">
                             <div className="mx-3">
