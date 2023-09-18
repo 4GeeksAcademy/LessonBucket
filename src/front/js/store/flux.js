@@ -41,6 +41,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 
 
+
+			payment: async (pastClasses) => {
+				const paymentFiltrados = (pastClasses.filter((payment) => payment.paid === false));
+				return paymentFiltrados
+			},
+
 			// FUNCION PARA CREAR USUARIO
 
 			signup: async (dataName, dataEmail, dataPassword) => {
@@ -590,7 +596,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			updateSubjectClassInStore: async (class_id, updatedInfo) => {
 				
-
 				const user_id = getStore().user.id;
 				const token = getStore().token;
 
@@ -608,10 +613,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(response.data);
 					const modifyClass = [...getStore().classes, response.data.user];
 
-					console.log(response);
-					console.log(modifyClass);
-
-
 					setStore({
 						classes: modifyClass,
 					});
@@ -626,17 +627,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			},
-			markClassAsPaid : async(class_id) => {
-				const data = {
-				  paid: true,
-				};
+			// markClassAsPaid : async(class_id) => {
+			// 	const data = {
+			// 	  paid: true,
+			// 	};
 			  
-				return axios.patch(`/user/${user_id}/class/${class_id}`, data)
-				  .then((response) => response.data)
-				  .catch((error) => {
-					throw error;
-				  });
-			  },
+			// 	return axios.patch(`/user/${user_id}/class/${class_id}`, data)
+			// 	  .then((response) => response.data)
+			// 	  .catch((error) => {
+			// 		throw error;
+			// 	  });
+			//   },
 
 			//   DELETE ONE CLASS
 
@@ -679,7 +680,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							"Authorization": `Bearer ${token}`,
 						}
 					});
-					console.log(response)
+					
 					const subjects = response.data.results
 
 					setStore({

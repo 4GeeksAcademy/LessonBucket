@@ -758,6 +758,7 @@ def modify_class(user_id, class_id):
 
     if newClass.user_id != user_id:
         raise APIException('Class does not belong to the specified user', 400)
+    
 
     data = request.get_json()
     if 'subjects_id' in data:
@@ -775,7 +776,7 @@ def modify_class(user_id, class_id):
     if 'paid' in data:
             newClass.paid = data['paid']
 
- 
+    print(data)
     try:
         db.session.commit()
 

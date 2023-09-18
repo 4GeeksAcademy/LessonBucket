@@ -104,7 +104,7 @@ export const PrivateClass = (props) => {
 
     const handleUpdateClass = async (e) => {
         e.preventDefault()
-        if ((updatedClassInfo.subjects_id === "") || (updatedClassInfo.student_id === "") || !updatedClassInfo.date || !updatedClassInfo.price || !updatedClassInfo.hour || !updatedClassInfo.paid || (updatedClassInfo.comments === "")) {
+        if ((updatedClassInfo.subjects_id === "") || (updatedClassInfo.student_id === "") || !updatedClassInfo.date || !updatedClassInfo.price || !updatedClassInfo.hour) {
             swal("Please", "Fields cannot be empty", "warning", {
                 buttons: {
                     confirm: {

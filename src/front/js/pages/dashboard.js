@@ -38,12 +38,6 @@ export const Dashboard = () => {
 	let today = new Date();
 
 	
-
-	
-
-	// const futureFilter = (item) => {
-	// 	return item.date >= today
-	// }
 	const orderFutureClasses = () =>{
 	const futureFilteredClasses = classes.filter(function (item){
 		return new Date(item.date) >= today
@@ -86,7 +80,7 @@ export const Dashboard = () => {
 			
 			<div className="d-flex justify-content gap-3">
 				<div className="main-pagos col-md-4 mb-2 overflow-auto">
-					<PagosPendientes />
+					<PagosPendientes  />
 				</div>
 				
 				<div className="main-calendar">
