@@ -38,6 +38,12 @@ export const Dashboard = () => {
 	let today = new Date();
 
 	
+
+	
+
+	// const futureFilter = (item) => {
+	// 	return item.date >= today
+	// }
 	const orderFutureClasses = () =>{
 	const futureFilteredClasses = classes.filter(function (item){
 		return new Date(item.date) >= today

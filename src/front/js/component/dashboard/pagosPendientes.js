@@ -51,7 +51,6 @@ export const PagosPendientes = () => {
 	}
 
 
-
 	const handleOpenModal = (classItem) => {
 		setClassItemForModal({
 			class_id: classItem.id,
@@ -121,6 +120,7 @@ export const PagosPendientes = () => {
 				  });
 
 				setIsModalOpen(false);
+				
 			
 				
 			} else {
@@ -141,13 +141,15 @@ export const PagosPendientes = () => {
 
 	useEffect(() => {
 		orderPastClasses();
-		setPaymentFiltrados(pastClasses.filter((payment) => payment.paid === false));
 	}, [store.classes]);
 
 
 	useEffect(() => {
 		setPaymentFiltrados(pastClasses.filter((payment) => payment.paid === false));
 	}, [pastClasses]);
+
+
+	
 
 
 

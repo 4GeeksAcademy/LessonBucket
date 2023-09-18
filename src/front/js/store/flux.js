@@ -41,12 +41,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 
 
-
-			payment: async (pastClasses) => {
-				const paymentFiltrados = (pastClasses.filter((payment) => payment.paid === false));
-				return paymentFiltrados
-			},
-
 			// FUNCION PARA CREAR USUARIO
 
 			signup: async (dataName, dataEmail, dataPassword) => {
