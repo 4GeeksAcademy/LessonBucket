@@ -36,9 +36,44 @@ const getState = ({ getStore, getActions, setStore }) => {
 			allSubjects: [],
 			studentsPendingPayment: [],
 			studentsPerSubject: [],
+			pastClasses: [],
+			paymentFilteredClass: [],
 		},
 		actions: {
 
+			// FUNCIONES PARA ORDENAR CLASES Y FILTRAR
+
+			sortBySoonestDate(a, b) {
+
+				const dateA = new Date(a.date);
+				const dateB = new Date(b.date);
+				if (a.date > b.date) {
+					return 1;
+				}
+				if (a.date < b.date) {
+					return -1;
+				}
+
+				return 0;
+			},
+
+			orderPastClasses() {
+				let today = new Date();
+				const pastFilteredClasses = getStore().classes.filter((item) => new Date(item.date) < today)
+					.sort(this.sortBySoonestDate);
+				setStore({
+					pastClasses: pastFilteredClasses,
+				})
+			},
+
+
+			paymentFiltered() {
+				const UnpaidClasses = getStore().pastClasses
+				const paymentFilteredClass = UnpaidClasses.filter((payment) => payment.paid === false)
+				setStore({
+					paymentFilteredClass
+				})
+			},
 
 
 			// FUNCION PARA CREAR USUARIO
@@ -589,7 +624,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 
 			updateSubjectClassInStore: async (class_id, updatedInfo) => {
-				
+
 				const user_id = getStore().user.id;
 				const token = getStore().token;
 
@@ -604,7 +639,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}
 					);
 
-					console.log(response.data);
 					const modifyClass = [...getStore().classes, response.data.user];
 
 					setStore({
@@ -625,7 +659,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// 	const data = {
 			// 	  paid: true,
 			// 	};
-			  
+
 			// 	return axios.patch(`/user/${user_id}/class/${class_id}`, data)
 			// 	  .then((response) => response.data)
 			// 	  .catch((error) => {
@@ -674,7 +708,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							"Authorization": `Bearer ${token}`,
 						}
 					});
-					
+
 					const subjects = response.data.results
 
 					setStore({
@@ -859,88 +893,36 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			},
-			// getAllStudentsPerSubject: async (subject_id) => {
-			// 	const user_id = getStore().user.id;
-			// 	const token = getStore().token
-
-			// 	try {
-			// 		let response = await axios.get(process.env.BACKEND_URL + `/api/user/${user_id}/students/${subject_id}`, {
-			// 			headers: {
-			// 				"Authorization": `Bearer ${token}`,
-			// 			}
-			// 		});
-
-			// 		const studentsPerSubject = response.data.results
-
-
-
-			// 		setStore({
-			// 			AllStudents: studentsPerSubject
-			// 		});
-
-			// 		return true;
-
-			// 	} catch (error) {
-			// 		console.error("An error occurred during student retrieval", error);
-			// 		return false;
-			// 	}
-			// },
-
-
-
-
-			// const axios = require('axios');
-
-			// const options = {
-			//   method: 'GET',
-			//   url: 'https://jsearch.p.rapidapi.com/search',
-			//   params: {
-			// 	query: 'English teacher, Madrid',
-			// 	page: '1',
-			// 	num_pages: '1',
-			// 	radius: '100'
-			//   },
-			//   headers: {
-			// 	'X-RapidAPI-Key': '19b84f07b9msh08a479272b6bd97p13dfbejsnc7c8cbd54776',
-			// 	'X-RapidAPI-Host': 'jsearch.p.rapidapi.com'
-			//   }
-			// };
-
-			// try {
-			// 	const response = await axios.request(options);
-			// 	console.log(response.data);
-			// } catch (error) {
-			// 	console.error(error);
-			// }
+			
 			getJobsNearby: async (subject) => {
 
 				const axios = require('axios');
-						const options = {
-						  method: 'GET',
-						  url: 'https://jsearch.p.rapidapi.com/search',
-						  params: {
-							query: `'${subject} teacher, Madrid'`,
-							page: '1',
-							num_pages: '1',
-							radius: '100'
-						  },
-						  headers: {
-							'X-RapidAPI-Key': '3dc3799804msh2912cb6e44dc3c1p13e983jsn1ab6d0e37a3a',
-							'X-RapidAPI-Host': 'jsearch.p.rapidapi.com'
-						  }
-						};
-						
-						try {
-							const response = await axios.request(options);
-							
-							const jobsNear = response.data.data
-							console.log(response)
-							setStore({
-								jobs: jobsNear,
-						});
-						} catch (error) {
-							console.error(error);
-						}
+				const options = {
+					method: 'GET',
+					url: 'https://jsearch.p.rapidapi.com/search',
+					params: {
+						query: `'${subject} teacher, Madrid'`,
+						page: '1',
+						num_pages: '1',
+						radius: '100'
+					},
+					headers: {
+						'X-RapidAPI-Key': '3dc3799804msh2912cb6e44dc3c1p13e983jsn1ab6d0e37a3a',
+						'X-RapidAPI-Host': 'jsearch.p.rapidapi.com'
+					}
+				};
+
+				try {
+					const response = await axios.request(options);
+
+					const jobsNear = response.data.data
+					console.log(response)
+					setStore({
+						jobs: jobsNear,
+					});
+				} catch (error) {
+					console.error(error);
+				}
 			}
 
 		}

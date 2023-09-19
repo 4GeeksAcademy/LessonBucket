@@ -4,14 +4,17 @@ import { SubjectClass } from "../component/dashboard/subjectClass.js";
 import { Calendar } from "../component/dashboard/calendar";
 import "../../styles/dashboard.css";
 import { Context } from "../store/appContext";
+import { faListCheck } from "@fortawesome/free-solid-svg-icons";
 
-export const Dashboard = () => {
+export const Dashboard = (props) => {
 	const { store, actions } = useContext(Context);
 	// const classesByDate = store.classes;
 	const classes = store.classes;
 	const [futureClasses, setFutureClasses] = useState([]);
+	const [reloadComponent, setReloadComponent] = useState(false)
 	
 
+	
 	// const classesByDate = classes.map((class) => return class.date
 	// );
 	// const classesByDate = classes.map(function (clas) {
@@ -66,7 +69,19 @@ export const Dashboard = () => {
 	}, [store.classes]);
 
 
+	useEffect(() => {
+		if (reloadComponent) {
+			actions.fetchClasses();
+			actions.getAllSubjects();
+			actions.getAllStudents(); 
+		}
+		setReloadComponent(false)
+	  }, [reloadComponent]);
 
+
+	  const reloadData = () => {
+		setReloadComponent(true);
+	  };
 
 	return (
 		<div className="dashboard-wrapper">
@@ -86,7 +101,7 @@ export const Dashboard = () => {
 			
 			<div className="d-flex justify-content gap-3">
 				<div className="main-pagos col-md-4 mb-2 overflow-auto">
-					<PagosPendientes  />
+					<PagosPendientes reloadComponent={reloadData}   />
 				</div>
 				
 				<div className="main-calendar">

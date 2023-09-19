@@ -159,10 +159,6 @@ export const Students = () => {
       <div className="student-navbar">
         <div>
           <h5 className="student-headboard d-flex gap-2  justify-content-start"> Students
-            {/* <button className="add-button-student" onClick={() => setShow(!show)}>
-            +
-          </button> */}
-
             <button className="add-button-student" data-bs-toggle="modal" data-bs-target="#addStudentModal">
               +
             </button>
