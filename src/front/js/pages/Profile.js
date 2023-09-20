@@ -21,7 +21,34 @@ export const Profile = () => {
     const [passInput2, setPassInput2] = useState('');
     const [editPass, setEditPass] = useState(false);
     const { store, actions } = useContext(Context);
+    const navigate = useNavigate()
+    
+    // UseEffect encargado de verificar si el usuario que navega tiene token
 
+	useEffect(() => {
+		const getProfileData = async () => {
+			let logged = await actions.getProfile();
+			console.log(logged);
+			if (logged === false) {
+				swal({
+					title: "Please",
+					text: "USER NOT LOGGED IN! You will be redirected to login.",
+					icon: "warning",
+					buttons: {
+						confirm: {
+							text: "Return to Login",
+							className: "custom-swal-button",
+						},
+					},
+					timer: 4000,
+					closeOnClickOutside: false,
+				}).then(() => {
+					navigate("/login");
+				});
+			}
+		};
+		getProfileData();
+	}, []);
 
 
     const handleNameText = (event) => {

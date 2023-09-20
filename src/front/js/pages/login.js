@@ -50,7 +50,7 @@ export const Login = () => {
 
     const handleRegisterFormClick = () => {
 
-        if ( text === "Register") {
+        if (text === "Register") {
             setText("Return")
         } else {
             setText("Register")

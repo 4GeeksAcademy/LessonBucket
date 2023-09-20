@@ -6,6 +6,7 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Dropdown from "react-bootstrap/Dropdown";
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -17,6 +18,34 @@ export const Classes = () => {
     const [selectedFilter, setSelectedFilter] = useState("");
     const Subjects = store.allSubjects || []
     const Students = store.allStudents || []
+    const navigate = useNavigate()
+
+    // UseEffect encargado de verificar si el usuario que navega tiene token
+
+	useEffect(() => {
+		const getProfileData = async () => {
+			let logged = await actions.getProfile();
+			console.log(logged);
+			if (logged === false) {
+				swal({
+					title: "Please",
+					text: "USER NOT LOGGED IN! You will be redirected to login.",
+					icon: "warning",
+					buttons: {
+						confirm: {
+							text: "Return to Login",
+							className: "custom-swal-button",
+						},
+					},
+					timer: 4000,
+					closeOnClickOutside: false,
+				}).then(() => {
+					navigate("/login");
+				});
+			}
+		};
+		getProfileData();
+	}, []);
 
     // LLAMADA INICIAL PARA OBTENER TODAS LAS LISTAS
 

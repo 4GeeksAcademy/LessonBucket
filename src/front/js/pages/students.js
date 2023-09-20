@@ -21,7 +21,32 @@ export const Students = () => {
   const navigate = useNavigate()
   const students = store.allStudents
 
+// UseEffect encargado de verificar si el usuario que navega tiene token
 
+useEffect(() => {
+  const getProfileData = async () => {
+    let logged = await actions.getProfile();
+    console.log(logged);
+    if (logged === false) {
+      swal({
+        title: "Please",
+        text: "USER NOT LOGGED IN! You will be redirected to login.",
+        icon: "warning",
+        buttons: {
+          confirm: {
+            text: "Return to Login",
+            className: "custom-swal-button",
+          },
+        },
+        timer: 4000,
+        closeOnClickOutside: false,
+      }).then(() => {
+        navigate("/login");
+      });
+    }
+  };
+  getProfileData();
+}, []);
 
   //  SE LLAMA A FUNCIÓN DESPUÉS DE TENER TOKEN
 
@@ -261,7 +286,7 @@ export const Students = () => {
                   ¡USER NOT LOGGED IN!
                 </label>
                 <h3 className="recover-instruction">
-                  Please, If you press the button to be redirected to Login and you can log in
+                  Please, If you press the button to be redirected to Login
                 </h3>
                 {loader && <Loader view="recoverPass" />}
                 <div className="container-fluid">

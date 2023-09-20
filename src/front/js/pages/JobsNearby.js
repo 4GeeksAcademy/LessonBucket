@@ -2,6 +2,7 @@ import { Context } from "../store/appContext";
 import React, { useContext, useEffect, useState } from "react";
 import { JobsCard } from "../component/jobscard/jobscard";
 import '../../styles/index.scss'
+import { useNavigate } from 'react-router-dom';
 
 export const JobsNearby = () => {
   const { store, actions } = useContext(Context);
@@ -9,7 +10,34 @@ export const JobsNearby = () => {
   const [classSubject, setClassSubject] = useState([])
   const [loaded, setLoaded] = useState("loadedEmpty")
   const [select, setSelect] = useState('')
+  const navigate = useNavigate()
  
+  // UseEffect encargado de verificar si el usuario que navega tiene token
+
+	useEffect(() => {
+		const getProfileData = async () => {
+			let logged = await actions.getProfile();
+			console.log(logged);
+			if (logged === false) {
+				swal({
+					title: "Please",
+					text: "USER NOT LOGGED IN! You will be redirected to login.",
+					icon: "warning",
+					buttons: {
+						confirm: {
+							text: "Return to Login",
+							className: "custom-swal-button",
+						},
+					},
+					timer: 4000,
+					closeOnClickOutside: false,
+				}).then(() => {
+					navigate("/login");
+				});
+			}
+		};
+		getProfileData();
+	}, []);
 
   useEffect(() => {
     actions.getAllSubjects();

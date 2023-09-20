@@ -41,7 +41,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		},
 		actions: {
 
-			// FUNCIONES PARA ORDENAR CLASES Y FILTRAR
+			// FUNCIONES PARA ORDENAR CLASES Y FILTRAR DE COMPONENTE PAGOS PENDIENTES
 
 			sortBySoonestDate(a, b) {
 
@@ -75,6 +75,32 @@ const getState = ({ getStore, getActions, setStore }) => {
 				})
 			},
 
+			// FIN DE FUNCIONES PARA ORDENAR CLASES Y FILTRAR DE COMPONENTE PAGOS PENDIENTES
+
+			//FUNCIÓN PARA VERIFICAR TOKEN JWT
+
+			getProfile: async () => {
+				const token = sessionStorage.getItem("token")
+
+				try {
+					
+					const data = await axios.get(process.env.BACKEND_URL + "/api/protected" , {
+						headers: {
+							"Authorization": `Bearer ${token}`,
+						}
+					})
+
+					console.log(data);
+					setStore({ logged: true })
+					return true;
+
+				} catch (error) {
+					
+					console.log(error);
+					setStore({ logged: false })
+					return false;
+				}
+			},
 
 			// FUNCION PARA CREAR USUARIO
 
@@ -639,6 +665,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}
 					);
 
+					
 					const modifyClass = [...getStore().classes, response.data.user];
 
 					setStore({
@@ -647,6 +674,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					sessionStorage.setItem("classes", JSON.stringify(response.data));
 
+					if (response.status == 200) {
+						getActions().getAllSubjects();
+						getActions().fetchClasses();
+						getActions().getAllStudents();
+					}
 
 					return true;
 
@@ -655,6 +687,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			},
+			
 			// markClassAsPaid : async(class_id) => {
 			// 	const data = {
 			// 	  paid: true,

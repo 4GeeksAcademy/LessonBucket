@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../../store/appContext";
 import "./pagosPendientes.css";
 
-export const PagosPendientes = ({ reloadComponent }) => {
+export const PagosPendientes = () => {
 	const { store, actions } = useContext(Context);
 	const [classItemForModal, setClassItemForModal] = useState({
 		class_id: "",
@@ -80,7 +80,6 @@ export const PagosPendientes = ({ reloadComponent }) => {
 					timer: 4000,
 				})
 
-				reloadComponent();
 				setIsModalOpen(false);
 
 
@@ -109,7 +108,7 @@ export const PagosPendientes = ({ reloadComponent }) => {
 						<h5 className="pill-title">Pending payment </h5>
 						{orderPastClasses.length > 0 && paymentFiltered.length > 0 ? paymentFiltered.map((classItem, index) => (
 							<div className="pill d-flex justify-content-between" key={index}>
-								<p className="pill-font">{classItem.student.name}-{classItem.date}</p>
+								<p className="pill-font">Name: {classItem.student.name} Date: {classItem.date} Price: {classItem.price}.</p>
 								<button type="button" className="button-paid" data-bs-toggle="modal" data-bs-target="#paymentModal" onClick={() => handleOpenModal(classItem)}>
 									<i className="fa-solid fa-check" style={{ color: "#ffffff" }}></i>
 								</button>
@@ -121,7 +120,7 @@ export const PagosPendientes = ({ reloadComponent }) => {
 
 			<div className= "modal fade payment-modal-main-container"  id="paymentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" backdrop="static"	>
 				<div className="modal-dialog">
-					<div class="modal-content payment-Content">
+					<div className="modal-content payment-Content">
 						<form action="" className="payment-modal-form_main">
 							<p className="modal-payment-brand mb-0 h1 "><i className="fa-solid fa-bucket me-2"></i>Lesson Bucket</p>
 							<h1 className="payment-modal-heading">Confirm Payment?</h1>

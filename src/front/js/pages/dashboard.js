@@ -4,27 +4,58 @@ import { SubjectClass } from "../component/dashboard/subjectClass.js";
 import { Calendar } from "../component/dashboard/calendar";
 import "../../styles/dashboard.css";
 import { Context } from "../store/appContext";
-import { faListCheck } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from 'react-router-dom';
 
-export const Dashboard = (props) => {
+
+export const Dashboard = () => {
 	const { store, actions } = useContext(Context);
-	// const classesByDate = store.classes;
 	const classes = store.classes;
 	const [futureClasses, setFutureClasses] = useState([]);
-	const [reloadComponent, setReloadComponent] = useState(false)
-	
+	const navigate = useNavigate()
 
-	
-	// const classesByDate = classes.map((class) => return class.date
-	// );
-	// const classesByDate = classes.map(function (clas) {
-	// 	return clas.date, clas.hour;
-	//   });
 
-	//   console.log(classesByDate)
+	// UseEffect encargado de verificar si el usuario que navega tiene token
 
-	const sortBySoonestDate = (a,b) => {
-	
+	useEffect(() => {
+		const getProfileData = async () => {
+			let logged = await actions.getProfile();
+			console.log(logged);
+			if (logged === false) {
+				swal({
+					title: "Please",
+					text: "USER NOT LOGGED IN! You will be redirected to login.",
+					icon: "warning",
+					buttons: {
+						confirm: {
+							text: "Return to Login",
+							className: "custom-swal-button",
+						},
+					},
+					timer: 4000,
+					closeOnClickOutside: false,
+				}).then(() => {
+					navigate("/login");
+				});
+			}
+		};
+		getProfileData();
+	}, []);
+
+
+	// UseEffect encargado de obtener classes, subjects y students una vez se recarge la página.
+
+	useEffect(() => {
+		actions.fetchClasses();
+		actions.getAllSubjects();
+		actions.getAllStudents();
+	}, []);
+
+
+
+	let today = new Date();
+
+	const sortBySoonestDate = (a, b) => {
+
 		const dateA = new Date(a.date);
 		const dateB = new Date(b.date);
 		if (a.date > b.date) {
@@ -38,50 +69,20 @@ export const Dashboard = (props) => {
 		return 0;
 	}
 
-	let today = new Date();
+	const orderFutureClasses = () => {
+		const futureFilteredClasses = classes.filter(function (item) {
+			return new Date(item.date) >= today
+		}).sort(sortBySoonestDate);
+		setFutureClasses(futureFilteredClasses)
+	}
 
-	
-
-	
-
-	// const futureFilter = (item) => {
-	// 	return item.date >= today
-	// }
-	const orderFutureClasses = () =>{
-	const futureFilteredClasses = classes.filter(function (item){
-		return new Date(item.date) >= today
-	}).sort(sortBySoonestDate);
-	setFutureClasses(futureFilteredClasses)
-    }
-
-
-	
-
-	useEffect(() => {
-		actions.fetchClasses();
-		actions.getAllSubjects();
-		actions.getAllStudents();
-	}, []);
-
+	// UseEffect encargado de obtener classes futuras una vez que store.classes tenga algo.
 
 	useEffect(() => {
 		orderFutureClasses();
 	}, [store.classes]);
 
 
-	useEffect(() => {
-		if (reloadComponent) {
-			actions.fetchClasses();
-			actions.getAllSubjects();
-			actions.getAllStudents(); 
-		}
-		setReloadComponent(false)
-	  }, [reloadComponent]);
-
-
-	  const reloadData = () => {
-		setReloadComponent(true);
-	  };
 
 	return (
 		<div className="dashboard-wrapper">
@@ -98,15 +99,15 @@ export const Dashboard = (props) => {
 				</div>
 			</div>
 
-			
+
 			<div className="d-flex justify-content gap-3">
 				<div className="main-pagos col-md-4 mb-2 overflow-auto">
-					<PagosPendientes reloadComponent={reloadData}   />
+					<PagosPendientes  />
 				</div>
-				
+
 				<div className="main-calendar">
 					<Calendar />
-					
+
 				</div>
 			</div>
 		</div>
