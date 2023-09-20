@@ -5,7 +5,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			message: null,
-
 			// ALMACEN DE USUARIOS
 			user: {},
 			// ALMACEN DE Token
@@ -37,6 +36,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			studentsPendingPayment: [],
 			studentsPerSubject: [],
 			pastClasses: [],
+			futureClasses: [],
 			paymentFilteredClass: [],
 		},
 		actions: {
@@ -55,6 +55,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 
 				return 0;
+			},
+
+			orderFutureClasses() {
+				let today = new Date();
+				const futureFilteredClasses = getStore().classes.filter((item) => new Date(item.date) > today)
+					.sort(this.sortBySoonestDate);
+				setStore({
+					futureClasses: futureFilteredClasses,
+			})	
+
 			},
 
 			orderPastClasses() {
@@ -83,8 +93,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const token = sessionStorage.getItem("token")
 
 				try {
-					
-					const data = await axios.get(process.env.BACKEND_URL + "/api/protected" , {
+
+					const data = await axios.get(process.env.BACKEND_URL + "/api/protected", {
 						headers: {
 							"Authorization": `Bearer ${token}`,
 						}
@@ -95,7 +105,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return true;
 
 				} catch (error) {
-					
+
 					console.log(error);
 					setStore({ logged: false })
 					return false;
@@ -665,7 +675,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}
 					);
 
-					
+
 					const modifyClass = [...getStore().classes, response.data.user];
 
 					setStore({
@@ -687,7 +697,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			},
-			
+
 			// markClassAsPaid : async(class_id) => {
 			// 	const data = {
 			// 	  paid: true,
@@ -926,7 +936,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			},
-			
+
 			getJobsNearby: async (subject) => {
 
 				const axios = require('axios');

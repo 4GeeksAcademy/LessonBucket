@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 export const Dashboard = () => {
 	const { store, actions } = useContext(Context);
 	const classes = store.classes;
-	const [futureClasses, setFutureClasses] = useState([]);
+	const orderFutureClasses = store.futureClasses;
 	const navigate = useNavigate()
 
 
@@ -51,35 +51,10 @@ export const Dashboard = () => {
 	}, []);
 
 
-
-	let today = new Date();
-
-	const sortBySoonestDate = (a, b) => {
-
-		const dateA = new Date(a.date);
-		const dateB = new Date(b.date);
-		if (a.date > b.date) {
-			return 1;
-		}
-		if (a.date < b.date) {
-			return -1;
-		}
-
-
-		return 0;
-	}
-
-	const orderFutureClasses = () => {
-		const futureFilteredClasses = classes.filter(function (item) {
-			return new Date(item.date) >= today
-		}).sort(sortBySoonestDate);
-		setFutureClasses(futureFilteredClasses)
-	}
-
 	// UseEffect encargado de obtener classes futuras una vez que store.classes tenga algo.
 
 	useEffect(() => {
-		orderFutureClasses();
+		actions.orderFutureClasses();
 	}, [store.classes]);
 
 
@@ -90,7 +65,7 @@ export const Dashboard = () => {
 			<div className="row">
 				<div className="col">
 					<div className="d-flex flex-nowrap overflow-auto">
-						{futureClasses && futureClasses.slice(0, 3).map((subjectClass, index) => (
+						{orderFutureClasses && orderFutureClasses.slice(0, 3).map((subjectClass, index) => (
 							<div key={index}>
 								<SubjectClass subjectClass={subjectClass} />
 							</div>
